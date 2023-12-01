@@ -7,7 +7,15 @@
 
 
 class Location {
+public:
+    Location();
+    Location(float latitude, float longitude);
 
+    float getLatitude() const;
+    float getLongitude() const;
+public:
+    float latitude;
+    float longitude;
 };
 
 
