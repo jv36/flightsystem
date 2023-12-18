@@ -15,4 +15,7 @@ add_executable(flightsystem main.cpp
         src/Airport.h
         src/Airport.cpp
         src/Airline.h
-        src/Airline.cpp)
+        src/Airline.cpp
+        src/Graph.cpp
+        src/Graph.h
+)
