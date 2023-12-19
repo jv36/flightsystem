@@ -106,7 +106,7 @@ void Airport::parseAirports(const std::string& filename, std::unordered_map<std:
         iss >> latitude >> longitude;
 
         auto airport = std::make_unique<Airport>(code, name, city, country, Location(latitude, longitude));
-        airportMap[code] = std::move(airport);
+        //airportMap[code] = std::move(airport);
 
     }
 }

@@ -92,7 +92,6 @@ void Airline::parseAirlines(const std::string& filename, std::unordered_map<std:
         getline(iss, country, ',');
 
         auto airline = std::make_unique<Airline>(code, name, callsign, country);
-        std::cout << airline->getName() << std::endl;
-        airlineMap[code] = std::move(airline);
+        //airlineMap[code] = std::move(airline);
     }
 }
