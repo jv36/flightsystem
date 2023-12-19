@@ -3,6 +3,12 @@
 //
 
 #include "Airport.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <unordered_map>
+
 
 Airport::Airport() {
     this->code = "";
@@ -74,4 +80,32 @@ void Airport::setFlights(std::vector<Flight *> flights) {
 
 void Airport::setAirlines(std::vector<Airline *> airlines) {
     this->airlines = airlines;
+}
+
+void Airport::parseAirports(const std::string& filename, std::unordered_map<std::string, std::unique_ptr<Airport>>& airportMap) {
+    //o parse funciona
+    //alterar o vosse Absolute path
+    std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airports.csv");
+
+    if (!file.is_open()) {
+        std::cerr << "Error opening file!" << std::endl;
+    }
+    std::string line;
+
+
+    getline(file, line);
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        std::string code, name, city, country;
+        double latitude, longitude;
+
+        getline(iss, code, ',');
+        getline(iss, name, ',');
+        getline(iss, city, ',');
+        getline(iss, country, ',');
+        iss >> latitude >> longitude;
+
+        auto airport = std::make_unique<Airport>(code, name, city, country, Location(latitude, longitude));
+        airportMap[code] = std::move(airport);
+    }
 }

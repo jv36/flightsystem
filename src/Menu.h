@@ -7,7 +7,8 @@
 
 
 class Menu {
-
+public:
+    int main();
 };
 
 

@@ -32,6 +32,7 @@ public:
     void setLocation(Location location);
     void setFlights(std::vector<Flight*> flights);
     void setAirlines(std::vector<Airline*> airlines);
+    void parseAirports(const std::string& filename,std::unordered_map<std::string, std::unique_ptr<Airport>>& airportMap);
 
 
 private:
