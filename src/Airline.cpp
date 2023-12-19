@@ -3,6 +3,11 @@
 //
 
 #include "Airline.h"
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <unordered_map>
 
 Airline::Airline() {
     this->code = "";
@@ -64,4 +69,30 @@ void Airline::setFlights(std::vector<Flight *> flights) {
 
 void Airline::setAirports(std::vector<std::string> airports) {
     this->airports = airports;
+}
+
+void Airline::parseAirlines(const std::string& filename, std::unordered_map<std::string, std::unique_ptr<Airline>>& airlineMap) {
+    //alterar para o vosso absolute path ou alterar método
+    std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airlines.csv");
+
+    if (!file.is_open()) {
+        std::cerr << "Error opening file!" << std::endl;
+    }
+    std::string line;
+
+
+    getline(file, line);
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        std::string code, name, callsign, country;
+
+        getline(iss, code, ',');
+        getline(iss, name, ',');
+        getline(iss, callsign, ',');
+        getline(iss, country, ',');
+
+        auto airline = std::make_unique<Airline>(code, name, callsign, country);
+        std::cout << airline->getName() << std::endl;
+        airlineMap[code] = std::move(airline);
+    }
 }

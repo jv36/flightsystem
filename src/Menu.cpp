@@ -11,7 +11,7 @@
 
 #include "Menu.h"
 int Menu::main() {
-    std::unordered_map<std::string, std::unique_ptr<Airport>> airportMap;        /*std::ifstream file(filename);
+    std::unordered_map<std::string, std::unique_ptr<Airline>> airlineMap;        /*std::ifstream file(filename);
         std::string line;
 
         std::getline(file, line); // Skip the header line
@@ -27,7 +27,7 @@ int Menu::main() {
                 airportMap[Code] = std::move(airport);
             }
         }*/
-        std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airports.csv");
+        std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airlines.csv");
 
     if (!file.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
@@ -35,24 +35,21 @@ int Menu::main() {
     }
         std::string line;
 
+    //Code,Name,Callsign,Country
 
-        getline(file, line);
-        while (getline(file, line)) {
-            std::istringstream iss(line);
-            std::string code, name, city, country;
-            double latitude, longitude;
+    getline(file, line);
+    while (getline(file, line)) {
+        std::istringstream iss(line);
+        std::string code, name, callsign, country;
 
-            getline(iss, code, ',');
-            getline(iss, name, ',');
-            getline(iss, city, ',');
-            getline(iss, country, ',');
-            iss >> latitude >> longitude;
+        getline(iss, code, ',');
+        getline(iss, name, ',');
+        getline(iss, callsign, ',');
+        getline(iss, country, ',');
 
-            auto airport = std::make_unique<Airport>(code, name, city, country, Location(latitude, longitude));
-            std::cout << " airport code:  " << airport->getCode() << std::endl;
-            airportMap[code] = std::move(airport);
-
-        }
-
+        auto airline = std::make_unique<Airline>(code, name, callsign, country);
+        std::cout << airline->getName() << std::endl;
+        airlineMap[code] = std::move(airline);
+    }
     return 0;
 }

@@ -27,9 +27,10 @@ public:
     void setCountry(std::string country);
     void setFlights(std::vector<Flight*> flights);
     void setAirports(std::vector<std::string> airports);
+    void parseAirlines(const std::string& filename, std::unordered_map<std::string, std::unique_ptr<Airline>>& airportMap);
 
 
-private:
+        private:
     std::string code;
     std::string name;
     std::string callsign;

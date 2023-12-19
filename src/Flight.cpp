@@ -47,3 +47,5 @@ void Flight::setDistance(float distance) {
 void Flight::addAirline(std::string airlineCode) {
     this->airlines.push_back(airlineCode);
 }
+
+
