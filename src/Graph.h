@@ -12,26 +12,36 @@
 
 class Graph {
     struct Edge {
-        Airport* destAirport;
-        Airline* airline;
-        float distance;
+        std::string source; //de onde vem o avião
+        std::string dest; // para onde vai o avião
+        float w; //é weight mas n sei se será necessário
     };
 
     struct Node {
-        Airport* airport;
         std::list<Edge> adj;
         bool visited;
-        float distance;
+
         //vamos provavelmente precisar de mais
     };
 
-    std::vector<Node> nodes;
+    int g_size = 0; //tamanho do gráfico
+    bool dir = true; //tem direção
 
+    std::unordered_map<std::string,Node> nodes; // lista dos nodes representados
 public:
     Graph();
-    void addNode(Airport* airport);
-    void addEdge(Airport* source, Airport* destination, Airline* airline, float distance);
-    void setUnvisited();
+    int addAirport(Airport a);
+    bool addFlight(std::string source, std::string dest, std::string airline);
+    //bool addFlight(std::string source, std::string dest, std::string company, double weight);
+
+    //void removeVisited();
+
+    std::unordered_map<std::string,Node> getNodes(){
+        return this->nodes;
+    }
+
+    //std::list<std::string> bfs(std::string in, std::string out);
+    //std::pair<std::list<std::string>,double> djikstra(std::string in, std::string out);
     void printGraph(); // Helper function -> talvez mudar para main/menu no futuro
 };
 

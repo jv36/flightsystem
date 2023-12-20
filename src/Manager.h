@@ -5,8 +5,15 @@
 #ifndef FLIGHTSYSTEM_MANAGER_H
 #define FLIGHTSYSTEM_MANAGER_H
 
-
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <vector>
+#include <unordered_map>
+#include "Graph.h"
 class Manager {
+
+    std::vector<Airline> airlines;
 
 };
 

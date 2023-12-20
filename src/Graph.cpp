@@ -5,28 +5,21 @@
 #include <iostream>
 #include "Graph.h"
 
-void Graph::addNode(Airport* airport) {
-    nodes.push_back({ airport, {}, false, 0.0 });
+Graph::Graph(){
+    this->g_size = 0;
+    this->dir = true;
 }
 
-void Graph::addEdge(Airport* source, Airport* destination, Airline* airline, float distance) {
-    for (auto& node : nodes) {
-        if (node.airport == source) {
-            node.adj.push_back({ destination, airline, distance });
-            nodes.push_back({ destination, {}, false, 0.0 });
-            nodes.back().adj.push_back({ source, airline, distance });
-            break;
-        }
-    }
+int Graph::addAirport(Airport a){
+    if(this->nodes.find(a.getCode())==this->nodes.end()) this->nodes.insert(std::pair<std::string,Node>(a.getCode(),{}));
+    return this->nodes.size();
 }
 
-void Graph::setUnvisited() {
-    for (auto& node : nodes) {
-        node.visited = false;
-    }
+bool Graph::addFlight(std::string source, std::string dest, std::string airline) {
+    return this->addFlight(source,dest,airline);
 }
 
-void Graph::printGraph() {
+/*void Graph::printGraph() {
     for (const auto& node : nodes) {
         std::cout << "Airport: " << node.airport->getName() << "\nEdges:\n";
         for (const auto& edge : node.adj) {
@@ -34,4 +27,5 @@ void Graph::printGraph() {
         }
         std::cout << "\n";
     }
-}
+}*/
+

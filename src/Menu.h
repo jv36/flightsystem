@@ -5,7 +5,8 @@
 #ifndef FLIGHTSYSTEM_MENU_H
 #define FLIGHTSYSTEM_MENU_H
 
-
+#include "Manager.h"
+#include "Airport.h"
 class Menu {
 public:
     int main();

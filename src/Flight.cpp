@@ -23,61 +23,41 @@ Flight::Flight(std::string source, std::string target, std::string airline) {
     //this->distance = distance;
 }
 
-const std::string &Flight::getSource() const {
+std::string Flight::getSource() const {
     return source;
 }
 
-const std::string &Flight::getTarget() const {
+std::string Flight::getTarget() const {
     return target;
 }
-const std::string Flight::getAirline() const {
+std::string Flight::getAirline() const {
     return airline;
 }
+//---- aux --- //
+float toRadians(float degree) {
+    return degree * (M_PI / 180.0);
+}
 
-float Flight::getDistance() const {
+float Flight::getDistance(Location source, Location dest) {
+
+    const float EARTH_RADIUS = 6371.0;
+    float sc_lat = toRadians(source.getLatitude());
+    float dest_lat = toRadians(dest.getLatitude());
+
+    float dLat = toRadians(dest.getLatitude()) - toRadians(source.getLatitude());
+    float dLon = toRadians(dest.getLongitude()) - toRadians(source.getLongitude());
+
+    float a = sin(dLat / 2) * sin(dLat / 2) +
+              cos(sc_lat) * cos(dest_lat) *
+              sin(dLon / 2) * sin(dLon / 2);
+    float c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    float distance = EARTH_RADIUS * c;
+
     return distance;
 }
 
-const std::vector<std::string> &Flight::getAirlines() const {
-    return airlines;
-}
-
-void Flight::setSource(const std::string &source) {
-    this->source = source;
-}
-
-void Flight::setTarget(const std::string &target) {
-    this->target = target;
-}
-
-void Flight::setDistance(float distance) {
-    this->distance = distance;
-}
-
-void Flight::addAirline(std::string airlineCode) {
+/*void Flight::addAirline(std::string airlineCode) {
     this->airlines.push_back(airlineCode);
-}
+}*/
 
-void Flight::parseFlights(const std::string& filename, std::unordered_map<std::string, std::unique_ptr<Flight>>& flightMap) {
-    //alterar para o vosso absolute path ou alterar método
-    std::ifstream file("/Users/claras/Desktop/flightsystem/csv/flights.csv");
-
-    if (!file.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
-    std::string line;
-
-    //Source,Target,Airline
-    getline(file, line);
-    while (getline(file, line)) {
-        std::istringstream iss(line);
-        std::string source, target, airline;
-
-        getline(iss, source, ',');
-        getline(iss, target, ',');
-        getline(iss, airline, ',');
-
-        auto flight = std::make_unique<Flight>(source, target, airline);
-        //flightMap[source] = std::move(flight);
-    }
-}

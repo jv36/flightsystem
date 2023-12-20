@@ -11,33 +11,25 @@
 
 class Airline {
 public:
-    Airline();
+    Airline(std::string code);
     Airline(std::string code, std::string name, std::string callsign, std::string country);
 
-    const std::string& getCode() const;
-    const std::string& getName() const;
-    const std::string& getCallsign() const;
-    const std::string& getCountry() const;
-    std::vector<Flight*> getFlights() const;
-    std::vector<std::string> getAirports() const;
+    std::string getCode() const;
+    std::string getName() const;
+    std::string getCallsign() const;
+    std::string getCountry() const;
 
-    void setCode(std::string code);
-    void setName(std::string name);
-    void setCallsign(std::string callsign);
-    void setCountry(std::string country);
-    void setFlights(std::vector<Flight*> flights);
-    void setAirports(std::vector<std::string> airports);
-    void parseAirlines(const std::string& filename, std::unordered_map<std::string, std::unique_ptr<Airline>>& airportMap);
+    static void parseAirlines();
 
+    bool operator==(const Airline& other);
 
-        private:
+    private:
     std::string code;
     std::string name;
     std::string callsign;
     std::string country;
-    std::vector<Flight*> flights;
-    std::vector<std::string> airports;
 
+    std::vector<Airline>* airlines;
 };
 
 
