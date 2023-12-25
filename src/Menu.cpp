@@ -65,8 +65,7 @@ int Menu::main() {
     std::cout << "\n";
     switch (n) {
         case 1:
-            std::cout << "Our menu will work based on number inputs! Example: For option 1, please insert as input '1' on console\n"
-                         "So let's start:\n"
+            std::cout << "Data here will be in full for now "
                          "1- All Airports\n"
                          "2- All Airlines\n"
                          "3- All Flights\n"
@@ -87,8 +86,18 @@ int Menu::main() {
                 case 0:
                     Menu::main();
             }
-        case 2:
+        case 2:{
+            std::cout << "Teste voo mais curto";
+            std::string source, dest;
+            std::cout << "From where: ";
+            std::cin >> source;
+            std::cout << "To where: ";
+            std::cin >> dest;
+           // Graph::findClosestAirport(Graph::createAirTravelGraph(Airport::parseAirport(),Flight::parseFlights()), source, dest);
+            Graph::findClosestAirport(Graph::createAirTravelGraph(Airport::parseAirport(), Flight::parseFlights()), source, dest);
 
+            break;
+    }
         default:
             std::cout << "nope";
             Menu::main();

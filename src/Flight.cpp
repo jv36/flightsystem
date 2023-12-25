@@ -20,7 +20,6 @@ Flight::Flight(std::string source, std::string target, std::string airline) {
     this->source = source;
     this->target = target;
     this->airline = airline;
-    //this->distance = distance;
 }
 
 std::string Flight::getSource() const {

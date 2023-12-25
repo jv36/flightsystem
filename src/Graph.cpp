@@ -10,7 +10,7 @@ Graph::Graph(){
     this->dir = true;
 }
 
-void Graph::addNode(const std::string& airportCode, Airport* airport) {
+void Graph::addNode(const std::string& airportCode, Airport& airport) {
     Node newNode;
     newNode.airport = airport;
     newNode.visited = false;
@@ -110,13 +110,13 @@ void Graph::printGraph() {
         std::cout << "\n";
     }
 }*/
-Airport* Graph::findClosestAirport(const Graph& graph, Location source, Location dest) {
+Airport* Graph::findClosestAirport(Graph graph,Location source, Location dest) {
     Airport* closestAirport;
-    double minDistance = std::numeric_limits<double>::infinity();
+    double minDistance = 0.0;
 
-    for (const auto& nodePair : graph.nodes) {
+    for (const auto& nodePair: graph.nodes) {
         const Node& node = nodePair.second;
-        double distance = Flight::getDistance(source, dest);
+        double distance = abs(Flight::getDistance(source, dest));   //assim da sempre postiivo
 
         if (distance < minDistance) {
             minDistance = distance;
@@ -125,6 +125,20 @@ Airport* Graph::findClosestAirport(const Graph& graph, Location source, Location
     }
 
     return closestAirport;
+}
+//hum
+Graph Graph::createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights) {
+    Graph airTravelGraph;
+
+    for (auto airport : airports) {
+        airTravelGraph.addNode(airport.first, airport.second);
+    }
+
+    for (const auto& flight : flights) {
+        airTravelGraph.addEdge(flight.getSource(), flight.getTarget(), "");
+    }
+
+    return airTravelGraph;
 }
 
 

@@ -58,9 +58,11 @@ public:
     void removeDistance();
     void clearGraph();
     int distance(const std::string& in, const std::string& out);
+    //static Graph createAirTravelGraph(const std::unordered_map<std::string, Graph::Node>& airports, const std::vector<Graph::Edge>& flights);
+    static Graph createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights);
 
     //Node findClosestAirport(const Graph& graph, Location source, Location dest);
-    Airport* findClosestAirport(const Graph& graph, Location source, Location dest);
+    static Airport* findClosestAirport(Graph graph, Location source, Location dest);
     std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& airlineList);
 
 
