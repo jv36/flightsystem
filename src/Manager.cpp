@@ -85,7 +85,9 @@ void Airline::parseAirlines() {
     for(auto i: *airports){
         std::cout << i.getCode() << std::endl;
     }*/
-     std::ifstream file("/csv/airports.csv");
+     //este // é para mim
+     // std::ifstream file("/csv/airports.csv");
+     std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airports.csv");
 
      if (!file.is_open()) {
          std::cerr << "Error opening file!" << std::endl;
@@ -138,3 +140,5 @@ void Flight::parseFlights(const std::string &filename,
         flightMap[source].emplace_back(std::move(flight));
     }
 }
+
+

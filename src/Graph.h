@@ -58,9 +58,9 @@ public:
     void clearGraph();
     int distance(const std::string& in, const std::string& out);
 
-
+    //Node findClosestAirport(const Graph& graph, Location source, Location dest);
+    Airport* findClosestAirport(const Graph& graph, Location source, Location dest);
     std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& airlineList);
-
 
 
 };
