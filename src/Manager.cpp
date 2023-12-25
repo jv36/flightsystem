@@ -116,8 +116,7 @@ void Airline::parseAirlines() {
      }
 }
 
-void Flight::parseFlights(const std::string &filename,
-                          std::unordered_map<std::string, std::vector<std::unique_ptr<Flight>>> &flightMap) {
+void Flight::parseFlights() {
     //alterar para o vosso absolute path ou alterar método
     std::ifstream file("/Users/claras/Desktop/flightsystem/csv/flights.csv");
 
@@ -125,6 +124,8 @@ void Flight::parseFlights(const std::string &filename,
         std::cerr << "Error opening file!" << std::endl;
     }
     std::string line;
+
+    std::unordered_map<std::string, std::vector<std::unique_ptr<Flight>>> flightMap;
 
     //Source,Target,Airline
     getline(file, line);

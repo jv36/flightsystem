@@ -22,7 +22,7 @@ public:
     static float getDistance(Location source, Location dest);
     std::string getAirline() const;
 
-    void parseFlights(const std::string& filename, std::unordered_map<std::string, std::vector<std::unique_ptr<Flight>>>& flightMap);
+    static void parseFlights();
 
 
 private:
