@@ -12,8 +12,8 @@
 #include <unordered_map>
 #include "Graph.h"
 class Manager {
-
-    std::vector<Airline> airlines;
+    Graph createAirTravelGraph(const std::unordered_map<std::string, Graph::Node>& airports,
+                         const std::vector<Graph::Edge>& flights);
 
 };
 

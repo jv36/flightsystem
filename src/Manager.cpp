@@ -141,4 +141,19 @@ void Flight::parseFlights(const std::string &filename,
     }
 }
 
+//hum
+Graph Manager::createAirTravelGraph(const std::unordered_map<std::string, Graph::Node>& airports,
+                                    const std::vector<Graph::Edge>& flights) {
+    Graph airTravelGraph;
+
+    for (const auto& airport : airports) {
+            airTravelGraph.addNode(airport.first, airport.second.airport);
+    }
+
+    for (const auto& flight : flights) {
+        airTravelGraph.addEdge(flight.source, flight.dest, "");
+    }
+
+    return airTravelGraph;
+}
 

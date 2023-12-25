@@ -11,6 +11,7 @@
 #include "Airport.h"
 
 class Graph {
+public:
     struct Edge {
         std::string source; //de onde vem o avião
         std::string dest; // para onde vai o avião
