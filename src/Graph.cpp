@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <limits>
 #include "Graph.h"
 
 Graph::Graph(){
@@ -10,7 +11,7 @@ Graph::Graph(){
     this->dir = true;
 }
 
-void Graph::addNode(const std::string& airportCode, Airport& airport) {
+void Graph::addNode(const std::string& airportCode, Airport* airport) {
     Node newNode;
     newNode.airport = airport;
     newNode.visited = false;

@@ -3,6 +3,7 @@
 //
 
 #include "Manager.h"
+#include <memory>
 #include <unordered_set>
 
 /*void Graph::printGraph() {
@@ -18,7 +19,7 @@
 
 void Airline::parseAirlines() {
     //alterar para o vosso absolute path ou alterar método
-    std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airlines.csv");
+    std::ifstream file("../csv/airlines.csv");
 
     if (!file.is_open()) {
         std::cerr << "Error opening file!" << std::endl;

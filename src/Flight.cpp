@@ -8,6 +8,7 @@
 #include <sstream>
 #include <vector>
 #include <unordered_map>
+#include <cmath>
 
 Flight::Flight() {
     this->source = "";
