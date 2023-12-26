@@ -8,9 +8,9 @@ int main() {
     system("clear");
     Menu menu;
     menu.main();
-    return 0
-
-    ;/*
+    return 0;
+}
+    /*
 
     std::cout << "Hello, World!" << std::endl;
 
@@ -58,7 +58,5 @@ int main() {
     std::cout << "╚═╝░░░░░╚══════╝╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░  ╚═════╝░░░░╚═╝░░░╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░░░░╚═╝" << std::endl;
 
     return 0;*/
-
-}
 
 

@@ -7,9 +7,6 @@
 #include <unordered_set>
 
 void Manager::printGraph() {
-    parseAirport();
-    parseAirlines();
-    parseFlights();
     for (auto& node : flightGraph->nodes) {
         std::cout << node.first;
     }
@@ -40,10 +37,12 @@ void Manager::parseAirlines() {
     }
 
     // Teste print
+    /*
     for (const auto& name : airlines) {
         std::cout << name.second->getName() << std::endl;
     }
     std::cout << "There are " << airlines.size() << " airlines in our database.";
+     */
 }
 
  void Manager::parseAirport() {
@@ -75,11 +74,13 @@ void Manager::parseAirlines() {
      }
 
      // teste print
+     /*
      for (const auto& code : airports) {
          std::cout << code.second->getName() << std::endl;
      }
 
      std::cout << "There are " << airports.size() << " airports in our database.";
+      */
 }
 
 void Manager::parseFlights() {
@@ -109,7 +110,6 @@ void Manager::parseFlights() {
         flightGraph->addEdge(source, target, airline);
     }
 }
-
 
 
 

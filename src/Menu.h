@@ -8,8 +8,21 @@
 #include "Manager.h"
 #include "Airport.h"
 class Menu {
+private:
+    Manager manager;
 public:
+
     int main();
+
+    int mainMenu();
+
+    void flightsMenu();
+
+    void airportsMenu();
+
+    void statsMenu();
+
+    void miscMenu();
 };
 
 

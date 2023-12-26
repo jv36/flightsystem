@@ -13,6 +13,7 @@
 #include <memory>
 #include <unordered_set>
 #include "Graph.h"
+
 class Manager {
 private:
     std::unordered_map<std::string, std::vector<std::unique_ptr<Flight>>> flightMap;
