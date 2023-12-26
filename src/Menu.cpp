@@ -11,6 +11,7 @@
 
 #include "Menu.h"
 int Menu::main() {
+    Manager manager;
     std::cout << "Welcome to the Flight Search System!\n" << std::endl;
 
     std::cout << "⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀" << std::endl;
@@ -75,13 +76,13 @@ int Menu::main() {
             std::cout << "\n";
             switch (o) {
                 case 1:
-                    Airport::parseAirport();
+                    manager.parseAirport();
                     break;
                 case 2:
-                    Airline::parseAirlines();
+                    manager.parseAirlines();
                     break;
                 case 3:
-                    Flight::parseFlights();
+                    manager.printGraph();
                     break;
                 case 0:
                     Menu::main();
@@ -94,7 +95,7 @@ int Menu::main() {
             std::cout << "To where: ";
             std::cin >> dest;
            // Graph::findClosestAirport(Graph::createAirTravelGraph(Airport::parseAirport(),Flight::parseFlights()), source, dest);
-            Graph::findClosestAirport(Graph::createAirTravelGraph(Airport::parseAirport(), Flight::parseFlights()), source, dest);
+            // Graph::findClosestAirport(Graph::createAirTravelGraph(Airport::parseAirport(), Flight::parseFlights()), source, dest);
 
             break;
     }

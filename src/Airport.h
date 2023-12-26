@@ -23,8 +23,6 @@ public:
     std::string getCountry() const;
     Location getLocation() const;
 
-    static void parseAirport();
-
 
 private:
     std::string code;

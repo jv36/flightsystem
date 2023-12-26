@@ -10,9 +10,23 @@
 #include <sstream>
 #include <vector>
 #include <unordered_map>
+#include <memory>
+#include <unordered_set>
 #include "Graph.h"
 class Manager {
+private:
+    std::unordered_map<std::string, std::vector<std::unique_ptr<Flight>>> flightMap;
+    std::unordered_map<std::string, Airline*> airlines;
+    std::unordered_map<std::string, Airport*> airports;
+    std::vector<std::pair<std::string, Location>> airportLocations;
+    Graph* flightGraph = new Graph(1, false);
+public:
+    void parseFlights();
+    void parseAirlines();
 
+    void parseAirport();
+
+    void printGraph();
 };
 
 

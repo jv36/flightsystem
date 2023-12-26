@@ -29,11 +29,11 @@ public:
     };
 
     int g_size = 0; //tamanho do gráfico
-    bool dir; //tem direção
+    bool dir = false; //tem direção
 
     std::unordered_map<std::string,Node> nodes; // lista dos nodes representados
 public:
-    Graph();
+    Graph(int g_size, bool dir);
     //int addAirport(Airport a);
     //bool addFlight(std::string source, std::string dest, std::string airline);
     //bool addFlight(std::string source, std::string dest, std::string company, double weight);

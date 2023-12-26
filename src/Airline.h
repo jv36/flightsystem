@@ -19,7 +19,6 @@ public:
     std::string getCallsign() const;
     std::string getCountry() const;
 
-    static void parseAirlines();
 
     bool operator==(const Airline& other);
 

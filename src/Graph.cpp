@@ -6,9 +6,9 @@
 #include <limits>
 #include "Graph.h"
 
-Graph::Graph(){
-    this->g_size = 0;
-    this->dir = true;
+Graph::Graph(int g_size, bool dir) {
+    this->g_size = g_size;
+    this->dir = dir;
 }
 
 void Graph::addNode(const std::string& airportCode, Airport* airport) {
@@ -128,6 +128,7 @@ Airport* Graph::findClosestAirport(Graph graph,Location source, Location dest) {
     return closestAirport;
 }
 //hum
+/*
 Graph Graph::createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights) {
     Graph airTravelGraph;
 
@@ -141,5 +142,6 @@ Graph Graph::createAirTravelGraph(const std::unordered_map<std::string, Airport*
 
     return airTravelGraph;
 }
+ */
 
 

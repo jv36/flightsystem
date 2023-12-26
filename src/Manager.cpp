@@ -6,26 +6,24 @@
 #include <memory>
 #include <unordered_set>
 
-/*void Graph::printGraph() {
-    for (const auto &node: nodes) {
-        std::cout << "Airport: " << node.airport->getName() << "\nEdges:\n";
-        for (const auto &edge: node.adj) {
-            std::cout << "  To: " << edge.destAirport->getName() << ", Airline: " << edge.airline->getName()
-                      << ", Distance: " << edge.distance << "\n";
-        }
-        std::cout << "\n";
+void Manager::printGraph() {
+    parseAirport();
+    parseAirlines();
+    parseFlights();
+    for (auto& node : flightGraph->nodes) {
+        std::cout << node.first;
     }
-}*/
+}
 
-void Airline::parseAirlines() {
-    //alterar para o vosso absolute path ou alterar método
+void Manager::parseAirlines() {
+
     std::ifstream file("../csv/airlines.csv");
 
     if (!file.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
+        return;
     }
     std::string line;
-    std::unordered_set<std::string> airlineNames;
 
     getline(file, line);
     while (getline(file, line)) {
@@ -37,58 +35,19 @@ void Airline::parseAirlines() {
         getline(iss, callsign, ',');
         getline(iss, country, ',');
 
-        auto airline = std::make_unique<Airline>(code, name, callsign, country);
-        airlineNames.insert(airline->getName());
+        auto airline = new Airline(code, name, callsign, country);
+        airlines.insert({code, airline});
     }
-    for (const auto& name : airlineNames) {
-        std::cout << name << std::endl;
+
+    // Teste print
+    for (const auto& name : airlines) {
+        std::cout << name.second->getName() << std::endl;
     }
+    std::cout << "There are " << airlines.size() << " airlines in our database.";
 }
 
- void Airport::parseAirport() {
-    /*const std::string &filename,
-    std::unordered_map<std::string, std::vector<std::unique_ptr<Airport>>> &airportMap
-    //alterar para o vosso absolute path ou alterar método*/
-
-    /*std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airports.csv");
-
-    if (!file.is_open()) {
-        std::cerr << "Error opening file!" << std::endl;
-    }
-    std::string line;
-
-
-    getline(file, line);
-    while (getline(file, line)) {
-        std::istringstream iss(line);
-        std::string code, name, city, country;
-        double latitude, longitude;
-
-        getline(iss, code, ',');
-        getline(iss, name, ',');
-        getline(iss, city, ',');
-        getline(iss, country, ',');
-        iss >> latitude >> longitude;
-
-        auto airport = std::make_unique<Airport>(code, name, city, country, Location(latitude, longitude));
-        if(airports->empty()){
-            airports->emplace_back(airport->code);
-        }else{
-            for(auto it = airports->begin(); it != airports->end(); ++it){
-                if(it->getCode() == airport->code){
-                    continue;
-                }else{
-                    airports->emplace_back(airport->code);
-                }
-            }
-        }
-    }
-    for(auto i: *airports){
-        std::cout << i.getCode() << std::endl;
-    }*/
-     //este // é para mim
-     // std::ifstream file("/csv/airports.csv");
-     std::ifstream file("/Users/claras/Desktop/flightsystem/csv/airports.csv");
+ void Manager::parseAirport() {
+     std::ifstream file("../csv/airports.csv");
 
      if (!file.is_open()) {
          std::cerr << "Error opening file!" << std::endl;
@@ -96,37 +55,47 @@ void Airline::parseAirlines() {
      }
 
      std::string line;
-     std::unordered_set<std::string> airportCodes;
-
      getline(file, line);
 
      while (getline(file, line)) {
          std::istringstream iss(line);
-         std::string code, name, city, country;
-         double latitude, longitude;
+         std::string code, name, city, country, latitude, longitude;
 
          getline(iss, code, ',');
+         getline(iss, name, ',');
+         getline(iss, city, ',');
+         getline(iss, country, ',');
+         getline(iss, latitude, ',');
+         getline(iss, longitude,',');
+         Location location = Location(std::stof(latitude), std::stof(longitude));
+         auto airport = new Airport(code, name, city, country, location);
 
-         auto airport = std::make_unique<Airport>(code, name, city, country, Location(latitude, longitude));
-
-         airportCodes.insert(airport->getCode());
+         airports.insert({code, airport});
+         airportLocations.emplace_back(code, location);
      }
 
-     for (const auto& code : airportCodes) {
-         std::cout << code << std::endl;
+     // teste print
+     for (const auto& code : airports) {
+         std::cout << code.second->getName() << std::endl;
      }
+
+     std::cout << "There are " << airports.size() << " airports in our database.";
 }
 
-void Flight::parseFlights() {
-    //alterar para o vosso absolute path ou alterar método
-    std::ifstream file("/Users/claras/Desktop/flightsystem/csv/flights.csv");
+void Manager::parseFlights() {
+    std::ifstream file("../csv/flights.csv");
 
     if (!file.is_open()) {
         std::cerr << "Error opening file!" << std::endl;
     }
     std::string line;
 
-    std::unordered_map<std::string, std::vector<std::unique_ptr<Flight>>> flightMap;
+    flightGraph = new Graph(airports.size(), false);
+
+    for (auto & airport : airports) {
+        flightGraph->addNode(airport.first, airport.second);
+    }
+
 
     //Source,Target,Airline
     getline(file, line);
@@ -137,10 +106,10 @@ void Flight::parseFlights() {
         getline(iss, source, ',');
         getline(iss, target, ',');
         getline(iss, airline, ',');
-
-        auto flight = std::make_unique<Flight>(source, target, airline);
-        flightMap[source].emplace_back(std::move(flight));
+        flightGraph->addEdge(source, target, airline);
     }
 }
+
+
 
 
