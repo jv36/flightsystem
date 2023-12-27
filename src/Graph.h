@@ -13,9 +13,9 @@
 class Graph {
 public:
     struct Edge {
-        std::string source; //de onde vem o avião
-        std::string dest; // para onde vai o avião
-        float w; //é weight mas n sei se será necessário
+        std::string destination;
+        std::string airline;
+        float w;
     };
 
     struct Node {
@@ -35,8 +35,8 @@ public:
 public:
     Graph(int g_size, bool dir);
     //int addAirport(Airport a);
-    //bool addFlight(std::string source, std::string dest, std::string airline);
-    //bool addFlight(std::string source, std::string dest, std::string company, double weight);
+    //bool addFlight(std::string destination, std::string airline, std::string airline);
+    //bool addFlight(std::string destination, std::string airline, std::string company, double weight);
     //void removeVisited();
     /*
     std::unordered_map<std::string,Node> getNodes(){
@@ -61,7 +61,7 @@ public:
     //static Graph createAirTravelGraph(const std::unordered_map<std::string, Graph::Node>& airports, const std::vector<Graph::Edge>& flights);
     static Graph createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights);
 
-    //Node findClosestAirport(const Graph& graph, Location source, Location dest);
+    //Node findClosestAirport(const Graph& graph, Location destination, Location airline);
     static Airport* findClosestAirport(Graph graph, Location source, Location dest);
     std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& airlineList);
 

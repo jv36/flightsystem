@@ -5,6 +5,7 @@
 #include "Manager.h"
 #include <memory>
 #include <unordered_set>
+#include <set>
 
 void Manager::printGraph() {
     for (auto& node : flightGraph->nodes) {
@@ -71,6 +72,7 @@ void Manager::parseAirlines() {
 
          airports.insert({code, airport});
          airportLocations.emplace_back(code, location);
+         cities.insert({code, {city, country}});
      }
 
      // teste print
@@ -112,8 +114,131 @@ void Manager::parseFlights() {
     }
 }
 
+std::unordered_map<std::string, Airline *> Manager::getAirlines() {
+    return airlines;
+}
+
+std::unordered_map<std::string, Airport *> Manager::getAirports() {
+    return airports;
+}
 
 
+// AIRPORT MENU
+
+unsigned long Manager::flightsFromAirport(const std::string& code) {
+    return flightGraph->nodeAtKey(code).adj.size();
+}
+
+unsigned long Manager::airlinesFromAirport(const std::string& code) {
+    std::set<std::string> airList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        airList.insert(edge.airline);
+    }
+    return airList.size();
+}
+
+void Manager::printAirlinesFromAirport(const std::string& code) {
+    std::set<std::string> airList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        airList.insert(edge.airline);
+    }
+
+    for (const auto& airline : airList) {
+        std::cout << airline << std::endl;
+    }
+}
+
+unsigned long Manager::cityDestinations(const std::string& code) {
+    std::set<std::pair<std::string, std::string>> cityList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        Airport* airport = airports.at(edge.destination);
+        cityList.insert({airport->getCity(), airport->getCountry()});
+    }
+    return cityList.size();
+}
+
+void Manager::printCityDestinations(const std::string& code, const char& type) {
+    std::set<std::pair<std::string, std::string>> cityList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        Airport* airport = airports.at(edge.destination);
+        cityList.insert({airport->getCity(), airport->getCountry()});
+    }
+
+    if (type == 'y') {
+        for (const auto &city: cityList) {
+            std::cout << city.first << " - " << city.second << std::endl;
+        }
+    }
+    else if (type == 'n') {
+        for (const auto& city : cityList) {
+            std::cout << city.first << std::endl;
+        }
+    }
+    else {
+        return;
+    }
+
+}
+
+unsigned long Manager::countryDestinations(const std::string& code) {
+    std::set<std::string> countryList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        Airport* airport = airports.at(edge.destination);
+        countryList.insert(airport->getCountry());
+    }
+    return countryList.size();
+}
+
+void Manager::printCountryDestinations(const std::string& code) {
+    std::set<std::string> countryList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        Airport* airport = airports.at(edge.destination);
+        countryList.insert(airport->getCountry());
+    }
+
+    for (const auto& country : countryList) {
+        std::cout << country << std::endl;
+    }
+}
+
+unsigned long Manager::airportDestinations(const std::string& code) {
+    std::set<Airport*> airportList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        Airport* airport = airports.at(edge.destination);
+        airportList.insert(airport);
+    }
+
+    return airportList.size();
+
+}
+
+void Manager::printAirportDestinations(const std::string& code, const char& type) {
+    std::set<Airport*> airportList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        Airport* airport = airports.at(edge.destination);
+        airportList.insert(airport);
+    }
+
+    if (type == 'a') {
+        for (const auto& air : airportList) {
+            std::cout << air->getCode() << " - " << air->getName() << " - " << air->getCity() << ", " << air->getCountry() << " - " << "(" << air->getLocation().getLatitude() << "," << air->getLocation().getLongitude() << ")" << std::endl;
+        }
+    }
+    else if (type == 'b') {
+        for (const auto& air : airportList) {
+            std::cout << air->getCode() << " - " << air->getName() << " - " << air->getCity() << ", " << air->getCountry() << std::endl;
+        }
+    }
+    else if (type == 'c') {
+        for (const auto& air : airportList) {
+            std::cout << air->getCode() << " - " << air->getName() << std::endl;
+        }
+    }
+    else {
+        return;
+    }
+}
+//  STATISTICS MENU
 //                      GLOBAL STATS
 
 unsigned long Manager::globalAirports() {
@@ -150,6 +275,10 @@ void Manager::printGlobalAirlines() {
         std::cout << airline.second->getCode() << " - " << airline.second->getName() << " - " << airline.second->getCallsign() << " - " << airline.second->getCountry() << std::endl;
     }
 }
+
+
+
+
 
 
 

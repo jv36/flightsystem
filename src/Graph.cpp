@@ -46,11 +46,11 @@ void Graph::bfs(const std::string &airportCode) {
         q.pop();
 
         for (const Edge& e : nodes.at(top).adj) {
-            if (!nodes[e.dest].visited) {
-                q.push(e.dest);
-                nodes[e.dest].visited = true;
-                nodes[e.dest].parent = top;
-                nodes[e.dest].distance = nodes[top].distance + 1;
+            if (!nodes[e.airline].visited) {
+                q.push(e.airline);
+                nodes[e.airline].visited = true;
+                nodes[e.airline].parent = top;
+                nodes[e.airline].distance = nodes[top].distance + 1;
             }
         }
     }
@@ -98,8 +98,8 @@ int Graph::addAirport(Airport a){
     return this->nodes.size();
 }
 
-bool Graph::addFlight(std::string source, std::string dest, std::string airline) {
-    return this->addFlight(source,dest,airline);
+bool Graph::addFlight(std::string destination, std::string airline, std::string airline) {
+    return this->addFlight(destination,airline,airline);
 }
 
 void Graph::printGraph() {
