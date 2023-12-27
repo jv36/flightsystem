@@ -90,13 +90,121 @@ void Menu::airportsMenu() {
 }
 
 void Menu::statsMenu() {
-    std::cout << "Welcome to stats menu.";
+    std::cout << "+-------------------------------+\n";
+    std::cout << "| ========== Stats Menu ========|\n";
+    std::cout << "| 1 - Global stats              |\n";
+    std::cout << "| 2 - Placeholder               |\n";
+    std::cout << "| 3 - Placeholder               |\n";
+    std::cout << "| 4 - Placeholder               |\n";
+    std::cout << "| 5 - Return to main menu       |\n";
+    std::cout << "| ============================= |\n";
+    std::cout << "| Please enter your choice:     |\n";
+    std::cout << "+-------------------------------+\n";
+
+    int n;
+    std::cin >> n;
+    std::cout << std::endl;
+
+    if (std::cin.fail()) {
+        throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
+    }
+
+    while (n < 1 || n > 5) {
+        std::cout << "Choose a valid option." << std::endl;
+        std::cin >> n;
+        std::cout << std::endl;
+    }
+
+    switch(n) {
+        case 1:
+            globalStatsMenu();
+            break;
+        case 5:
+            mainMenu();
+            break;
+        default:
+            std::cout << "Invalid option. Please try again.";
+    }
+}
+
+void Menu::globalStatsMenu() {
+    std::cout << "+-------------------------------+\n";
+    std::cout << "| ========= Global Stats =======|\n";
+    std::cout << "| 1 - Global number of airports |\n";
+    std::cout << "| 2 - Global number of flights  |\n";
+    std::cout << "| 3 - Global number of airlines |\n";
+    std::cout << "| 4 - Return to main menu       |\n";
+    std::cout << "| ============================= |\n";
+    std::cout << "| Please enter your choice:     |\n";
+    std::cout << "+-------------------------------+\n";
+
+    int n;
+    std::cin >> n;
+    std::cout << std::endl;
+
+    if (std::cin.fail()) {
+        throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
+    }
+
+    while (n < 1 || n > 4) {
+        std::cout << "Choose a valid option." << std::endl;
+        std::cin >> n;
+        std::cout << std::endl;
+    }
+
+    switch(n) {
+        case 1:
+            std::cout << "There is a total of " << manager.globalAirports() << " airports in our database." << std::endl;
+            std::cout << "Want to see the full list of airports?" << std::endl;
+            std::cout << "If so, input 'c' for code, 'n' for name or 'a' for code and name to see the full lists." << std::endl;
+            std::cout << "If no, just input anything else and press enter." << std::endl;
+
+            char op;
+            std::cin >> op;
+            std::cout << std::endl;
+
+            if (std::cin.fail() || (op != 'c' && op != 'n' && op != 'a')) {
+                globalStatsMenu();
+                break;
+            }
+            else {
+                manager.printGlobalAirports(op);
+                break;
+            }
+        case 2:
+            std::cout << "There is a total of " << manager.globalFlights << " flights in our database." << std::endl;
+            break;
+        case 3:
+            std::cout << "There is a total of " << manager.globalAirlines() << " airlines in our database." << std::endl;
+            std::cout << "Want to see the full list of airlines?" << std::endl;
+            std::cout << "If so, input 'y' to see the full list." << std::endl;
+
+            char op2;
+            std::cin >> op2;
+            std::cout << std::endl;
+
+            if (std::cin.fail() || (op2 != 'y')) {
+                globalStatsMenu();
+                break;
+            }
+            else {
+                manager.printGlobalAirlines();
+                break;
+            }
+        case 4:
+            mainMenu();
+            break;
+        default:
+            std::cout << "Invalid option. Please try again.";
+    }
 }
 
 void Menu::miscMenu() {
     std::cout << "Welcome to misc menu.";
     std::cout << "Teste";
 }
+
+
 
 
 

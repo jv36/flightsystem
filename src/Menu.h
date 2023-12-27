@@ -23,6 +23,8 @@ public:
     void statsMenu();
 
     void miscMenu();
+
+    void globalStatsMenu();
 };
 
 

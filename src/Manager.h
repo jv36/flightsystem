@@ -28,6 +28,19 @@ public:
     void parseAirport();
 
     void printGraph();
+
+
+
+    // Statistics
+
+    // Global Statistics
+    unsigned long globalAirports();
+    void printGlobalAirports(const char& type);
+    int globalFlights = 0;
+
+    unsigned long globalAirlines();
+
+    void printGlobalAirlines();
 };
 
 

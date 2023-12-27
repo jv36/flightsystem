@@ -101,6 +101,7 @@ void Manager::parseFlights() {
     //Source,Target,Airline
     getline(file, line);
     while (getline(file, line)) {
+        globalFlights++;
         std::istringstream iss(line);
         std::string source, target, airline;
 
@@ -108,6 +109,45 @@ void Manager::parseFlights() {
         getline(iss, target, ',');
         getline(iss, airline, ',');
         flightGraph->addEdge(source, target, airline);
+    }
+}
+
+
+
+//                      GLOBAL STATS
+
+unsigned long Manager::globalAirports() {
+    return airports.size();
+}
+
+void Manager::printGlobalAirports(const char& type) {
+    if (type == 'n') {
+        for (const auto& airport: airports) {
+            std::cout << airport.second->getName() << std::endl;
+        }
+    }
+    else if (type == 'c') {
+        for (const auto& airport : airports) {
+            std::cout << airport.second->getCode() << std::endl;
+        }
+    }
+    else if (type == 'a') {
+        for (const auto& airport : airports) {
+            std::cout << airport.second->getCode() << " - " << airport.second->getName() << std::endl;
+        }
+    }
+    else {
+        return;
+    }
+}
+
+unsigned long Manager::globalAirlines() {
+    return airlines.size();
+}
+
+void Manager::printGlobalAirlines() {
+    for (const auto& airline : airlines) {
+        std::cout << airline.second->getCode() << " - " << airline.second->getName() << " - " << airline.second->getCallsign() << " - " << airline.second->getCountry() << std::endl;
     }
 }
 
