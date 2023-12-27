@@ -101,11 +101,9 @@ void Manager::parseFlights() {
     std::string line;
 
     flightGraph = new Graph(airports.size(), false);
-
     for (auto & airport : airports) {
         flightGraph->addNode(airport.first, airport.second);
     }
-
 
     //Source,Target,Airline
     getline(file, line);

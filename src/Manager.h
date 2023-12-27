@@ -54,11 +54,9 @@ public:
 
     void printGlobalAirlines();
 
-
     unsigned long airportDestinations(const std::string &code);
 
     void printAirportDestinations(const std::string &code, const char &type);
 };
-
 
 #endif //FLIGHTSYSTEM_MANAGER_H
