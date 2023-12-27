@@ -1,14 +1,9 @@
-//
-// Created by joaomendes on 01-12-2023.
-//
-
 #include "Airport.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
 #include <unordered_map>
-
 
 Airport::Airport(std::string code) : code(code){
 }

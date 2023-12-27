@@ -1,7 +1,3 @@
-//
-// Created by joaomendes on 01-12-2023.
-//
-
 #include <cstdlib>
 #include <iostream>
 #include "Manager.h"

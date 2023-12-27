@@ -1,7 +1,3 @@
-//
-// Created by joaomendes on 01-12-2023.
-//
-
 #ifndef FLIGHTSYSTEM_LOCATION_H
 #define FLIGHTSYSTEM_LOCATION_H
 
@@ -17,6 +13,5 @@ public:
     float latitude;
     float longitude;
 };
-
 
 #endif //FLIGHTSYSTEM_LOCATION_H

@@ -1,7 +1,3 @@
-//
-// Created by joaomendes on 01-12-2023.
-//
-
 #ifndef FLIGHTSYSTEM_AIRPORT_H
 #define FLIGHTSYSTEM_AIRPORT_H
 
@@ -33,6 +29,5 @@ private:
     float latitude;
     float longitude;
 };
-
 
 #endif //FLIGHTSYSTEM_AIRPORT_H

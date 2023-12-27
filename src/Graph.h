@@ -1,10 +1,5 @@
-//
-// Created by joaovicente on 18-12-2023.
-//
-
 #ifndef FLIGHTSYSTEM_GRAPH_H
 #define FLIGHTSYSTEM_GRAPH_H
-
 
 #include <string>
 #include <list>

@@ -1,10 +1,5 @@
-//
-// Created by joaomendes on 01-12-2023.
-//
-
 #ifndef FLIGHTSYSTEM_FLIGHT_H
 #define FLIGHTSYSTEM_FLIGHT_H
-
 
 #include <string>
 #include <vector>
@@ -30,6 +25,5 @@ private:
     std::string airline;
     float distance;
 };
-
 
 #endif //FLIGHTSYSTEM_FLIGHT_H

@@ -1,10 +1,5 @@
-//
-// Created by joaomendes on 01-12-2023.
-//
-
 #ifndef FLIGHTSYSTEM_AIRLINE_H
 #define FLIGHTSYSTEM_AIRLINE_H
-
 
 #include <string>
 #include "Flight.h"
@@ -28,6 +23,5 @@ public:
     std::string callsign;
     std::string country;
 };
-
 
 #endif //FLIGHTSYSTEM_AIRLINE_H

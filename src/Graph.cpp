@@ -1,7 +1,3 @@
-//
-// Created by joaovicente on 18-12-2023.
-//
-
 #include <iostream>
 #include <limits>
 #include "Graph.h"
