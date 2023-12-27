@@ -82,7 +82,7 @@ int Menu::mainMenu() {
 
 void Menu::flightsMenu() {
     std::cout << "Welcome to flights menu.";
-    manager.printGraph();
+    manager.printflightGraph();
 }
 
 void Menu::airportsMenu() {

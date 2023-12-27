@@ -7,14 +7,13 @@
 #include <unordered_set>
 #include <set>
 
-void Manager::printGraph() {
+void Manager::printflightGraph() {
     for (auto& node : flightGraph->nodes) {
         std::cout << node.first;
     }
 }
 
 void Manager::parseAirlines() {
-
     std::ifstream file("../csv/airlines.csv");
 
     if (!file.is_open()) {
@@ -22,8 +21,8 @@ void Manager::parseAirlines() {
         return;
     }
     std::string line;
-
     getline(file, line);
+
     while (getline(file, line)) {
         std::istringstream iss(line);
         std::string code, name, callsign, country;
@@ -39,7 +38,7 @@ void Manager::parseAirlines() {
 
     // Teste print
     /*
-    for (const auto& name : airlines) {
+      for (const auto& name : airlines) {
         std::cout << name.second->getName() << std::endl;
     }
     std::cout << "There are " << airlines.size() << " airlines in our database.";
@@ -67,22 +66,30 @@ void Manager::parseAirlines() {
          getline(iss, country, ',');
          getline(iss, latitude, ',');
          getline(iss, longitude,',');
+
          Location location = Location(std::stof(latitude), std::stof(longitude));
          auto airport = new Airport(code, name, city, country, location);
-
          airports.insert({code, airport});
-         airportLocations.emplace_back(code, location);
+
+         bool exists = false;
+         for(auto it: airportLocations){
+             if(it.first == code){
+                 exists = true;
+                 break;
+             }
+         }
+         if(!exists){ airportLocations.emplace_back(code, location);}
          cities.insert({code, {city, country}});
      }
 
      // teste print
-     /*
+    /*
      for (const auto& code : airports) {
          std::cout << code.second->getName() << std::endl;
      }
 
      std::cout << "There are " << airports.size() << " airports in our database.";
-      */
+    */
 }
 
 void Manager::parseFlights() {
