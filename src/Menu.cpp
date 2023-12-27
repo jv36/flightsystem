@@ -95,6 +95,7 @@ void Menu::statsMenu() {
 
 void Menu::miscMenu() {
     std::cout << "Welcome to misc menu.";
+    std::cout << "Teste";
 }
 
 
