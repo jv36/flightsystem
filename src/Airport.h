@@ -32,7 +32,6 @@ private:
     Location location;
     float latitude;
     float longitude;
-    std::vector<Airport>* airports;
 };
 
 

@@ -26,7 +26,7 @@ void Graph::addEdge(const std::string &originAirport, const std::string &destAir
 
     if (it == nodes.end() || it2 == nodes.end()) return;
 
-    it->second.adj.push_back({originAirport, airline});
+    it->second.adj.push_back({destAirport, airline});
     if (!this->dir) it2->second.adj.push_back({originAirport, airline});
 
 }
@@ -86,12 +86,12 @@ int Graph::distance(const std::string& in, const std::string& out) {
     return dist;
 }
 
-std::vector<std::string> Graph::createPath(std::string from, std::string to, std::vector<std::string> &airlineList) {
+/*std::vector<std::string> Graph::createPath(std::string from, std::string to, std::vector<std::string> &airlineList) {
     // tem de se filtrar depois faço
 
     return std::vector<std::string>();
 }
-
+*/
 /*
 int Graph::addAirport(Airport a){
     if(this->nodes.find(a.getCode())==this->nodes.end()) this->nodes.insert(std::pair<std::string,Node>(a.getCode(),{}));

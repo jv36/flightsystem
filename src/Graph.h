@@ -15,7 +15,6 @@ public:
     struct Edge {
         std::string destination;
         std::string airline;
-        float w;
     };
 
     struct Node {
@@ -28,7 +27,7 @@ public:
         //vamos provavelmente precisar de mais
     };
 
-    int g_size = 0; //tamanho do gráfico
+    int g_size = 0; //tamanho do graph
     bool dir = false; //tem direção
 
     std::unordered_map<std::string,Node> nodes; // lista dos nodes representados

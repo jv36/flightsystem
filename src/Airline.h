@@ -27,8 +27,6 @@ public:
     std::string name;
     std::string callsign;
     std::string country;
-
-    std::vector<Airline>* airlines;
 };
 
 

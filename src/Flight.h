@@ -19,9 +19,8 @@ public:
 
     std::string getSource() const;
     std::string getTarget() const;
-    static float getDistance(Location source, Location dest);
     std::string getAirline() const;
-
+    static float getDistance(Location source, Location dest);
     static void parseFlights();
 
 
