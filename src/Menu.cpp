@@ -36,7 +36,7 @@ int Menu::mainMenu() {
     std::cout << "| 4 - Misc                      |\n";
     std::cout << "| 5 - Exit                      |\n";
     std::cout << "| ============================= |\n";
-    std::cout << "| Please enter your choice:    |\n";
+    std::cout << "| Please enter your choice:     |\n";
     std::cout << "+-------------------------------+\n";
 
 
@@ -90,7 +90,7 @@ void Menu::airportsMenu() {
         airportsMenu();
     }
     std::cout << "+-------------------------------+\n";
-    std::cout << "| =========" << code << " stats======= |\n";
+    std::cout << "| ===========" << code << " stats========= |\n";
     std::cout << "| 1 - Number of flights         |\n";
     std::cout << "| 2 - Number of airlines        |\n";
     std::cout << "| 3 - Number of destinations    |\n";
@@ -138,8 +138,11 @@ void Menu::airportsMenu() {
             std::cout << "There is a total of " << manager.cityDestinations(code) << " cities, " << manager.countryDestinations(code) << " countries and " << manager.airportDestinations(code) << " airports you can fly to from " << code << std::endl;
 
             std::cout << "Want to see the full list of cities or countries you can fly to from " << code << "?" << std::endl;
+            std::cout << std::endl;
             std::cout << "To see the full list of cities, input 'y' (displayed with respective country) or input 'n' for just the city names." << std::endl;
+            std::cout << std::endl;
             std::cout << "If you wish to see the country list, please input 'c'." << std::endl;
+            std::cout << std::endl;
             std::cout << "Want to see the airport list? Input 'a'." << std::endl;
 
             char op2;
@@ -157,6 +160,7 @@ void Menu::airportsMenu() {
             else if (op2 == 'a') {
                 std::cout << std::endl;
                 std::cout << "There are 3 ways of showing the airport list." << std::endl;
+                std::cout << std::endl;
                 std::cout << "Input 'a' to show: code, name, city, country and coordinates." << std::endl;
                 std::cout << "Input 'b' to show: code, name, city and country." << std::endl;
                 std::cout << "Input 'c' to show: code and name." << std::endl;
@@ -249,7 +253,9 @@ void Menu::globalStatsMenu() {
         case 1:
             std::cout << "There is a total of " << manager.globalAirports() << " airports in our database." << std::endl;
             std::cout << "Want to see the full list of airports?" << std::endl;
+            std::cout << std::endl;
             std::cout << "If so, input 'c' for code, 'n' for name or 'a' for code and name to see the full lists." << std::endl;
+            std::cout << std::endl;
             std::cout << "If no, just input anything else and press enter." << std::endl;
 
             char op;
@@ -270,6 +276,7 @@ void Menu::globalStatsMenu() {
         case 3:
             std::cout << "There is a total of " << manager.globalAirlines() << " airlines in our database." << std::endl;
             std::cout << "Want to see the full list of airlines?" << std::endl;
+            std::cout << std::endl;
             std::cout << "If so, input 'y' to see the full list." << std::endl;
 
             char op2;

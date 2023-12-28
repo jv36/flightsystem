@@ -5,7 +5,7 @@
 
 void Manager::printflightGraph() {
     for (auto& node : flightGraph->nodes) {
-        std::cout << node.first;
+        std::cout << node.first <<std::endl;
     }
 }
 
@@ -17,6 +17,7 @@ void Manager::parseAirlines() {
         return;
     }
     std::string line;
+    //Code,Name,Callsign,Country
     getline(file, line);
 
     while (getline(file, line)) {
@@ -50,6 +51,8 @@ void Manager::parseAirlines() {
      }
 
      std::string line;
+
+     //Code,Name,City,Country,Latitude,Longitude
      getline(file, line);
 
      while (getline(file, line)) {
@@ -103,6 +106,7 @@ void Manager::parseFlights() {
 
     //Source,Target,Airline
     getline(file, line);
+
     while (getline(file, line)) {
         globalFlights++;
         std::istringstream iss(line);
@@ -277,7 +281,21 @@ void Manager::printGlobalAirlines() {
     }
 }
 
+void Manager::flightsFromCities(){
+    for(const auto& city : cities){
+        flightsPerCity[city.first]= 0;
+    }
+    for (const auto& airport : airports) {
+        const std::string& airportCode = airport.first;
+        for (const auto& edge : flightGraph->nodeAtKey(airportCode).adj){
+            flightsPerCity[edge.destination]++;
+        }
+    }
 
+    for(const auto& it : flightsPerCity){
+        std::cout << "City: " << it.first << ", FLights: " << it.second << std::endl;
+    }
+}
 
 
 
