@@ -245,39 +245,53 @@ void Manager::printAirportDestinations(const std::string& code, const char& type
 }
 //  STATISTICS MENU
 
-void Manager::flightsPerCity(){
-    for(const auto& city : cities){
-        flightsCity[city.first]= 0;
+void Manager::flightsPerCity(const std:: string& nameCity) {
+    std::string CityCode;
+
+    for (const auto &city: cities) {
+        flightsCity[city.first] = 0;
+        if (city.second.first == nameCity) {
+            CityCode = city.first;
+        }
     }
 
-    for (const auto& airport : airports) {
-        const std::string& airportCode = airport.first;
-        for (const auto& edge : flightGraph->nodeAtKey(airportCode).adj){
+    if (CityCode.empty()) {
+        std::cout << "City not found " << std::endl;
+        return;
+    }
+
+    for (const auto &airport: airports) {
+        const std::string &airportCode = airport.first;
+        for (const auto &edge: flightGraph->nodeAtKey(airportCode).adj) {
             flightsCity[edge.destination]++;
         }
     }
-
-    for(const auto& it : flightsCity){
-        std::cout << "City: " << it.first << ", Flights: " << it.second << std::endl;
-    }
 }
 
-void Manager::flightsPerAirlines(){
-    for(const auto& airline: airlines){
-        flightsAirline[airline.first]=0;
+void Manager::flightsPerAirline(const std:: string& nameAirline) {
+    std::string AirlineCode;
+
+    for (const auto &airline: airlines) {
+        flightsAirline[airline.first] = 0;
+        if (airline.second->getName() == nameAirline) {
+            AirlineCode = airline.first;
+        }
     }
 
-    for (const auto& airport : airports) {
-        const std::string& airportCode = airport.first;
-        for (const auto& edge : flightGraph->nodeAtKey(airportCode).adj){
+    if (AirlineCode.empty()) {
+        std::cout << "Airline not found " << std::endl;
+        return;
+    }
+
+    for (const auto &airport: airports) {
+        const std::string &airportCode = airport.first;
+        for (const auto &edge: flightGraph->nodeAtKey(airportCode).adj) {
             flightsAirline[edge.airline]++;
         }
     }
-    for(const auto& it : flightsAirline){
-        std::cout << "Airline: " << it.first << ", FLights: " << it.second << std::endl;
-    }
-}
 
+    std::cout << "There are " << flightsAirline[AirlineCode] << " flights operated by " << nameAirline << std::endl;
+}
 // void Manager::
 
 //                      GLOBAL STATS
