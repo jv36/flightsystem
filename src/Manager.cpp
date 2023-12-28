@@ -332,6 +332,39 @@ void Manager::printGlobalAirlines() {
     }
 }
 
+void Manager::destinationsWithinStops(const std::string& startAirport, int maxStops){
+    std::queue<std::pair<std::string ,int>> q;
+    q.push({startAirport,0});
+
+    std::unordered_set<std::string > visitedAirports;
+    std::unordered_set<std::string > visitedCities;
+    std::unordered_set<std::string > visitedCountries;
+
+    while (!q.empty()){
+        auto top=q.front();
+        q.pop();
+
+        std::string topAirportCode = top.first;
+        int stops = top.second;
+
+        if(stops > maxStops) { continue;}
+
+        visitedAirports.insert(topAirportCode);
+
+        for(const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj){
+            std::string destinationAirportCode = edge.destination;
+            Airport* destinationAirport = airports.at(destinationAirportCode);
+
+            visitedAirports.insert(destinationAirportCode);
+            visitedCities.insert(destinationAirport->getCity());
+            visitedCountries.insert(destinationAirport->getCountry());
+
+            q.push({destinationAirportCode,stops + 1});
+        }
+    }
+
+}
+
 
 
 

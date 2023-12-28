@@ -220,7 +220,6 @@ void Menu::statsMenu() {
             break;
         case 2:
             std::cout << "Write an City's name";
-
             std::cin >> nameCity;
             manager.flightsPerCity(nameCity);
             break;
