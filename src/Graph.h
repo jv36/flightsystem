@@ -47,6 +47,7 @@ public:
     void addNode(const std::string& airportCode, Airport* airport);
     void addEdge(const std::string& originAirport, const std::string& destAirport, const std::string& airline);
     void bfs(const std::string& airportCode);
+    void dfs(const std::string& airportCode);
     Node& nodeAtKey(const std::string& key);
     void removeVisited();
     void removeDistance();

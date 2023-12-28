@@ -26,7 +26,32 @@ void Graph::addEdge(const std::string &originAirport, const std::string &destAir
     if (!this->dir) it2->second.adj.push_back({originAirport, airline});
 
 }
+//usem isto quando quiserem procurar o máximo possível numa direção
+void Graph::dfs(const std::string &airportCode) {
+    this->removeDistance();
+    this->removeVisited();
 
+    std::stack<std::string> stack;
+    stack.push(airportCode);
+    nodes[airportCode].visited = true;
+    nodes[airportCode].distance = 0;
+
+    while (!stack.empty()) {
+        std::string top = stack.top();
+        stack.pop();
+
+        for (const Edge& e : nodes.at(top).adj) {
+            if (!nodes[e.airline].visited) {
+                stack.push(e.airline);
+                nodes[e.airline].visited = true;
+                nodes[e.airline].parent = top;
+                nodes[e.airline].distance = nodes[top].distance + 1;
+            }
+        }
+    }
+}
+
+//usem isto quando quiserem procurar o caminho mais curto entre 2 nodes aka aeroportos etc
 void Graph::bfs(const std::string &airportCode) {
     this->removeDistance();
     this->removeVisited();

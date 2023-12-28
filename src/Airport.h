@@ -5,6 +5,7 @@
 #include <string>
 #include <vector>
 #include <queue>
+#include <stack>
 #include "Location.h"
 #include "Flight.h"
 #include "Airline.h"

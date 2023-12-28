@@ -278,6 +278,8 @@ void Manager::flightsPerAirlines(){
     }
 }
 
+void Manager::
+
 //                      GLOBAL STATS
 
 unsigned long Manager::globalAirports() {
