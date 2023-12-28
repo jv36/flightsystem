@@ -5,13 +5,13 @@
 class Location {
 public:
     Location();
-    Location(float latitude, float longitude);
+    Location(double latitude, double longitude);
 
-    float getLatitude() const;
-    float getLongitude() const;
+    double getLatitude() const;
+    double getLongitude() const;
 public:
-    float latitude;
-    float longitude;
+    double latitude;
+    double longitude;
 };
 
 #endif //FLIGHTSYSTEM_LOCATION_H

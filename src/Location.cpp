@@ -5,15 +5,15 @@ Location::Location() {
     this->longitude = 0.0;
 }
 
-Location::Location(float latitude, float longitude) {
+Location::Location(double latitude, double longitude) {
     this->latitude = latitude;
     this->longitude = longitude;
 }
 
-float Location::getLatitude() const {
+double Location::getLatitude() const {
     return latitude;
 }
 
-float Location::getLongitude() const {
+double Location::getLongitude() const {
     return longitude;
 }

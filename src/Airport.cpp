@@ -8,8 +8,12 @@
 Airport::Airport(std::string code) : code(code){
 }
 
-Airport::Airport(std::string code, std::string name, std::string city, std::string country, Location location)
-    : code(code), name(name), city(city), country(country), location(location.latitude,location.longitude){
+Airport::Airport(std::string code, std::string name, std::string city, std::string country, Location location) {
+    this->code = code;
+    this->name = name;
+    this->city = city;
+    this->country = country;
+    this->location = location;
 }
 
 
@@ -30,6 +34,5 @@ std::string Airport::getCountry() const {
 }
 
 Location Airport::getLocation() const {
-    Location location(latitude,longitude);
     return location;
 }

@@ -27,8 +27,6 @@ private:
     std::string city;
     std::string country;
     Location location;
-    float latitude;
-    float longitude;
 };
 
 #endif //FLIGHTSYSTEM_AIRPORT_H

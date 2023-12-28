@@ -65,8 +65,10 @@ void Manager::parseAirlines() {
          getline(iss, country, ',');
          getline(iss, latitude, ',');
          getline(iss, longitude,',');
+         double lat = std::stod(latitude);
+         double lon = std::stod(longitude);
 
-         Location location = Location(std::stof(latitude), std::stof(longitude));
+         Location location = Location(lat, lon);
          auto airport = new Airport(code, name, city, country, location);
          airports.insert({code, airport});
 
@@ -80,11 +82,10 @@ void Manager::parseAirlines() {
          if(!exists){ airportLocations.emplace_back(code, location);}
          cities.insert({code, {city, country}});
      }
-
-     // teste print
     /*
-     for (const auto& code : airports) {
-         std::cout << code.second->getName() << std::endl;
+     * * print testing
+      for (const auto& code : airports) {
+         std::cout << code.second->getLocation().getLatitude() << "-" << code.second->getLocation().getLongitude() << std::endl;
      }
 
      std::cout << "There are " << airports.size() << " airports in our database.";
