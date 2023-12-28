@@ -211,6 +211,8 @@ void Menu::statsMenu() {
         std::cin >> n;
         std::cout << std::endl;
     }
+    std::string nameCity;
+    std::string nameAirline;
 
     switch(n) {
         case 1:
@@ -218,13 +220,13 @@ void Menu::statsMenu() {
             break;
         case 2:
             std::cout << "Write an City's name";
-            std::string nameCity;
+
             std::cin >> nameCity;
             manager.flightsPerCity(nameCity);
             break;
         case 3:
             std::cout << "Write an Airline's name";
-            std::string nameAirline;
+
             std::cin >> nameAirline;
             manager.flightsPerAirline(nameAirline);
             break;
