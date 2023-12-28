@@ -217,10 +217,16 @@ void Menu::statsMenu() {
             globalStatsMenu();
             break;
         case 2:
-            manager.flightsPerCity();
+            std::cout << "Write an City's name";
+            std::string nameCity;
+            std::cin >> nameCity;
+            manager.flightsPerCity(nameCity);
             break;
         case 3:
-            manager.flightsPerAirlines();
+            std::cout << "Write an Airline's name";
+            std::string nameAirline;
+            std::cin >> nameAirline;
+            manager.flightsPerAirline(nameAirline);
             break;
         case 5:
             mainMenu();

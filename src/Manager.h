@@ -42,9 +42,9 @@ public:
     void printCountryDestinations(const std::string &code);
 
     // Statistics
-    void flightsPerCity();
+    void flightsPerCity(const std:: string& nameCity);
 
-    void flightsPerAirlines();
+    void flightsPerAirline(const std:: string& nameAirline);
 
     // Global Statistics
     unsigned long globalAirports();
