@@ -29,8 +29,8 @@ void Manager::parseAirlines() {
         getline(iss, callsign, ',');
         getline(iss, country, ',');
 
-
-
+        auto airline = new Airline(code, name, callsign, country);
+        airlines.insert({code, airline});
     }
 
     // Teste print
@@ -245,19 +245,9 @@ void Manager::printAirportDestinations(const std::string& code, const char& type
 }
 //  STATISTICS MENU
 
-void Manager::flightsPerCity(const std:: string& nameCity){
-    std::string CityCode;
-
+void Manager::flightsPerCity(){
     for(const auto& city : cities){
         flightsCity[city.first]= 0;
-        if(city.second.first == nameCity){
-            CityCode = city.first;
-        }
-    }
-
-    if(CityCode.empty()){
-        std:: cout << "City not found " <<std::endl;
-        return;
     }
 
     for (const auto& airport : airports) {
@@ -266,22 +256,15 @@ void Manager::flightsPerCity(const std:: string& nameCity){
             flightsCity[edge.destination]++;
         }
     }
-    std::cout <<"There are " << flightsCity[CityCode] << " flights carried out to " << nameCity <<std::endl;
+
+    for(const auto& it : flightsCity){
+        std::cout << "City: " << it.first << ", Flights: " << it.second << std::endl;
+    }
 }
 
-void Manager::flightsPerAirline(const std:: string& nameAirline){
-    std::string AirlineCode;
-
+void Manager::flightsPerAirlines(){
     for(const auto& airline: airlines){
         flightsAirline[airline.first]=0;
-        if(airline.second->getName() == nameAirline){
-            AirlineCode = airline.first;
-        }
-    }
-
-    if(AirlineCode.empty()){
-        std::cout << "Airline not found " <<std::endl;
-        return;
     }
 
     for (const auto& airport : airports) {
@@ -290,8 +273,12 @@ void Manager::flightsPerAirline(const std:: string& nameAirline){
             flightsAirline[edge.airline]++;
         }
     }
-    std::cout <<"There are " << flightsAirline[AirlineCode] << " flights operated by " << nameAirline <<std::endl;
+    for(const auto& it : flightsAirline){
+        std::cout << "Airline: " << it.first << ", FLights: " << it.second << std::endl;
+    }
 }
+
+// void Manager::
 
 //                      GLOBAL STATS
 
