@@ -187,16 +187,16 @@ void Menu::airportsMenu() {
 }
 
 void Menu::statsMenu() {
-    std::cout << "+-------------------------------+\n";
-    std::cout << "| ========== Stats Menu ========|\n";
-    std::cout << "| 1 - Global stats              |\n";
-    std::cout << "| 2 - Flights per city          |\n";
-    std::cout << "| 3 - Flights per airline       |\n";
-    std::cout << "| 4 - Placeholder               |\n";
-    std::cout << "| 5 - Return to main menu       |\n";
-    std::cout << "| ============================= |\n";
-    std::cout << "| Please enter your choice:     |\n";
-    std::cout << "+-------------------------------+\n";
+    std::cout << "+-----------------------------------------+\n";
+    std::cout << "| ============  Stats Menu   =============|\n";
+    std::cout << "| 1 - Global stats                        |\n";
+    std::cout << "| 2 - Flights per city                    |\n";
+    std::cout << "| 3 - Flights per airline                 |\n";
+    std::cout << "| 4 - Airports with topK number of flights|\n";
+    std::cout << "| 5 - Return to main menu                 |\n";
+    std::cout << "| ========================================|\n";
+    std::cout << "| Please enter your choice:               |\n";
+    std::cout << "+-----------------------------------------+\n";
 
     int n;
     std::cin >> n;
@@ -228,6 +228,14 @@ void Menu::statsMenu() {
 
             std::cin >> nameAirline;
             manager.flightsPerAirline(nameAirline);
+            break;
+        case 4:
+            std::cout << "Select the number of airports: " << std::endl;
+            int op;
+            std::cin >> op;
+            std::cout << std::endl;
+
+            manager.topKAirports(op);
             break;
         case 5:
             mainMenu();

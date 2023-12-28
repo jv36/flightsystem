@@ -2,6 +2,7 @@
 #include <memory>
 #include <unordered_set>
 #include <set>
+#include <algorithm>
 
 void Manager::printflightGraph() {
     for (auto& node : flightGraph->nodes) {
@@ -329,6 +330,21 @@ unsigned long Manager::globalAirlines() {
 void Manager::printGlobalAirlines() {
     for (const auto& airline : airlines) {
         std::cout << airline.second->getCode() << " - " << airline.second->getName() << " - " << airline.second->getCallsign() << " - " << airline.second->getCountry() << std::endl;
+    }
+}
+
+void Manager::topKAirports(int k) {
+    std::vector<std::pair<Airport*, int>> allAirports;
+    for (const auto& airport : airports) {
+        allAirports.push_back({airport.second, flightGraph->nodeAtKey(airport.first).adj.size()});
+    }
+
+    std::sort(allAirports.begin(), allAirports.end(), [](const auto& p1, const auto& p2) {
+        return p1.second > p2.second;
+    });
+
+    for (int i = 0; i < k; i++) {
+        std::cout << allAirports[i].first->getCode() << " - " << allAirports[i].first->getName() << " with " << allAirports[i].second << " flights;" << std::endl;
     }
 }
 
