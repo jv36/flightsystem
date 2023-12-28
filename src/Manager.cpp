@@ -244,6 +244,40 @@ void Manager::printAirportDestinations(const std::string& code, const char& type
     }
 }
 //  STATISTICS MENU
+
+void Manager::flightsPerCity(){
+    for(const auto& city : cities){
+        flightsCity[city.first]= 0;
+    }
+
+    for (const auto& airport : airports) {
+        const std::string& airportCode = airport.first;
+        for (const auto& edge : flightGraph->nodeAtKey(airportCode).adj){
+            flightsCity[edge.destination]++;
+        }
+    }
+
+    for(const auto& it : flightsCity){
+        std::cout << "City: " << it.first << ", Flights: " << it.second << std::endl;
+    }
+}
+
+void Manager::flightsPerAirlines(){
+    for(const auto& airline: airlines){
+        flightsAirline[airline.first]=0;
+    }
+
+    for (const auto& airport : airports) {
+        const std::string& airportCode = airport.first;
+        for (const auto& edge : flightGraph->nodeAtKey(airportCode).adj){
+            flightsAirline[edge.airline]++;
+        }
+    }
+    for(const auto& it : flightsAirline){
+        std::cout << "Airline: " << it.first << ", FLights: " << it.second << std::endl;
+    }
+}
+
 //                      GLOBAL STATS
 
 unsigned long Manager::globalAirports() {
@@ -281,21 +315,6 @@ void Manager::printGlobalAirlines() {
     }
 }
 
-void Manager::flightsFromCities(){
-    for(const auto& city : cities){
-        flightsPerCity[city.first]= 0;
-    }
-    for (const auto& airport : airports) {
-        const std::string& airportCode = airport.first;
-        for (const auto& edge : flightGraph->nodeAtKey(airportCode).adj){
-            flightsPerCity[edge.destination]++;
-        }
-    }
-
-    for(const auto& it : flightsPerCity){
-        std::cout << "City: " << it.first << ", FLights: " << it.second << std::endl;
-    }
-}
 
 
 

@@ -17,7 +17,8 @@ private:
     std::unordered_map<std::string, Airport*> airports;
     std::unordered_map<std::string, std::pair<std::string, std::string>> cities;
     std::vector<std::pair<std::string, Location>> airportLocations;
-    std::unordered_map<std::string, unsigned long> flightsPerCity;
+    std::unordered_map<std::string, unsigned long> flightsCity;
+    std::unordered_map<std::string, unsigned long> flightsAirline;
     Graph* flightGraph = new Graph(1, false);
 public:
     void parseFlights();
@@ -41,6 +42,9 @@ public:
     void printCountryDestinations(const std::string &code);
 
     // Statistics
+    void flightsPerCity();
+
+    void flightsPerAirlines();
 
     // Global Statistics
     unsigned long globalAirports();
@@ -55,7 +59,6 @@ public:
 
     void printAirportDestinations(const std::string &code, const char &type);
 
-    void flightsFromCities();
 };
 
 #endif //FLIGHTSYSTEM_MANAGER_H

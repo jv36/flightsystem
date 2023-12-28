@@ -190,8 +190,8 @@ void Menu::statsMenu() {
     std::cout << "+-------------------------------+\n";
     std::cout << "| ========== Stats Menu ========|\n";
     std::cout << "| 1 - Global stats              |\n";
-    std::cout << "| 2 - Placeholder               |\n";
-    std::cout << "| 3 - Placeholder               |\n";
+    std::cout << "| 2 - Flights per city          |\n";
+    std::cout << "| 3 - Flights per airline       |\n";
     std::cout << "| 4 - Placeholder               |\n";
     std::cout << "| 5 - Return to main menu       |\n";
     std::cout << "| ============================= |\n";
@@ -215,6 +215,12 @@ void Menu::statsMenu() {
     switch(n) {
         case 1:
             globalStatsMenu();
+            break;
+        case 2:
+            manager.flightsPerCity();
+            break;
+        case 3:
+            manager.flightsPerAirlines();
             break;
         case 5:
             mainMenu();
