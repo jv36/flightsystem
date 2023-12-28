@@ -47,10 +47,11 @@ public:
     void flightsPerAirline(const std:: string& nameAirline);
 
     void topKAirports(int k);
-
     // Global Statistics
     unsigned long globalAirports();
+
     void printGlobalAirports(const char& type);
+
     int globalFlights = 0;
 
     unsigned long globalAirlines();
@@ -61,7 +62,9 @@ public:
 
     void printAirportDestinations(const std::string &code, const char &type);
 
-    void destinationsWithinStops(const std::string &startAirport, int maxStops);
+    //funções temporárias que não têm lugar no Menu
+
+void destinationsWithinStops(const std::string& startAirport, int maxStops);
 };
 
 #endif //FLIGHTSYSTEM_MANAGER_H

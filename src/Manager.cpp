@@ -101,7 +101,7 @@ void Manager::parseFlights() {
     }
     std::string line;
 
-    flightGraph = new Graph(airports.size(), false);
+    flightGraph = new Graph(airports.size(), true);
     for (auto & airport : airports) {
         flightGraph->addNode(airport.first, airport.second);
     }
@@ -294,7 +294,6 @@ void Manager::flightsPerAirline(const std:: string& nameAirline) {
 
     std::cout << "There are " << flightsAirline[AirlineCode] << " flights operated by " << nameAirline << std::endl;
 }
-// void Manager::
 
 //                      GLOBAL STATS
 
@@ -378,7 +377,65 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
             q.push({destinationAirportCode,stops + 1});
         }
     }
+    std::cout << "Choose an option and write down the alinea:" << std::endl;
+    std::cout << std::endl;
+    std::cout << "a. Aeroport" << std::endl;
+    std::cout << "b. City" << std::endl;
+    std::cout << "c. Country" << std::endl;
 
+    char op1, op2;
+    std::cin >> op1;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || op1 !='a' || op1 !='b'|| op1 !='c' || op1 !='A' || op1 !='B'|| op1 !='C' ) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if( op1 =='a' || op1 =='A'){
+        std::cout << " There are " << visitedAirports.size() << " reachables airports" << std::endl;
+    }
+
+    else if( op1 =='b' || op1 =='B'){
+        std::cout << " There are " << visitedCities.size() << " reachables cities" << std::endl;
+    }
+
+    else if( op1 =='c' || op1 =='C'){
+        std::cout << " There are " << visitedAirports.size() << " reachables airports" << std::endl;
+    }
+
+    std::cout << "Do you want to print the results?" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Write y or n." << std::endl;
+    std::cin >> op2;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || op2 !='y' || op2 !='Y'|| op2 !='n' || op2 !='N') {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if(( op1 =='a' || op1 =='A') && ( op2 =='y' || op2 =='Y') ){
+        for(const auto& destinationAirportCode : visitedAirports){
+            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if(( op1 =='b' || op1 =='B') && ( op2 =='y' || op2 =='Y') ){
+        for(const auto& city : visitedCities){
+            std::cout << city <<  " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if(( op1 =='c' || op1 =='C') && ( op2 =='y' || op2 =='Y') ){
+        for(const auto& country : visitedCountries){
+            std::cout << country <<  " was visited." << std::endl;
+        }
+        return;
+    }
+    else if( op2 =='n' || op2 =='N'){ return;}
 }
 
 
