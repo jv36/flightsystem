@@ -1,7 +1,5 @@
 #include <cstdlib>
 #include <iostream>
-#include "Manager.h"
-
 #include "Menu.h"
 
 int Menu::main() {
@@ -48,12 +46,11 @@ int Menu::mainMenu() {
         throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
     }
 
-    while (n < 1 || n > 5) {
+    while ((n < 1 || n > 5 ) && !(std::cin.fail())) {
         std::cout << "Choose a valid option." << std::endl;
         std::cin >> n;
         std::cout << std::endl;
     }
-
     switch (n) {
         case 1:
             flightsMenu();
@@ -70,128 +67,29 @@ int Menu::mainMenu() {
         case 5:
             std::cout << "Terminating program. Goodbye!";
             exit(0);
-        default:
-            std::cout << "Invalid option. Please try again.";
     }
     return 0;
 }
 
+//---- FLIGHTS ---- //
 void Menu::flightsMenu() {
-    std::cout << "Welcome to flights menu!" << std::endl;
-    std::cout << "Here you'll be able to search for the best flight option from A to B!" << std::endl;
-    std::cout << "To begin the search, you will have to input the origin and the destination places." << std::endl;
-
-    std::cout << "+-------------------------------+\n";
-    std::cout << "| Select type of origin:        |\n";
-    std::cout << "| 1 - Airport (by code)         |\n";
-    std::cout << "| 2 - Airport (by name)         |\n";
-    std::cout << "| 3 - City                      |\n";
-    std::cout << "| 4 - Country                   |\n";
-    std::cout << "| 5 - Geographical coordinates  |\n";
-    std::cout << "| 6 - Return to main menu       |\n";
-    std::cout << "+-------------------------------+\n";
-
-    int oType;
-    std::string oCode, oName, oCity, oCountry;
-    double oLat, oLon;
-    std::cin >> oType;
-    switch (oType) {
-        case 1:
-            std::cout << "Input the airport IATA code: " << std::endl;
-            std::cin >> oCode;
-            break;
-        case 2:
-            std::cout << "Input the airport name: " << std::endl;
-            std::cin >> oName;
-            break;
-        case 3:
-            std::cout << "Input the city name: " << std::endl;
-            std::cin >> oCity;
-            std::cout << std::endl;
-            std::cout << "You also have to input the country name: " << std::endl;
-            std::cin >> oCountry;
-            break;
-        case 4:
-            std::cout << "Input the country name: " << std::endl;
-            std::cin >> oCountry;
-            break;
-        case 5:
-            std::cout << "Input the latitude (double precision): " << std::endl;
-            std::cin >> oLat;
-            std::cout << std::endl;
-            std::cout << "Input the longitude (double precision): " << std::endl;
-            std::cin >> oLon;
-            break;
-        case 6:
-            mainMenu();
-            break;
-        default:
-            std::cout << "Invalid option. Please try again.";
-    }
-
-    std::cout << "+-------------------------------+\n";
-    std::cout << "| Select type of destination:   |\n";
-    std::cout << "| 1 - Airport (by code)         |\n";
-    std::cout << "| 2 - Airport (by name)         |\n";
-    std::cout << "| 3 - City                      |\n";
-    std::cout << "| 4 - Country                   |\n";
-    std::cout << "| 5 - Geographical coordinates  |\n";
-    std::cout << "| 6 - Return to main menu       |\n";
-    std::cout << "+-------------------------------+\n";
-
-    int dType;
-    std::string dCode, dName, dCity, dCountry;
-    double dLat, dLon;
-    std::cin >> dType;
-    switch (dType) {
-        case 1:
-            std::cout << "Input the airport IATA code: " << std::endl;
-            std::cin >> dCode;
-            break;
-        case 2:
-            std::cout << "Input the airport name: " << std::endl;
-            std::cin >> dName;
-            break;
-        case 3:
-            std::cout << "Input the city name: " << std::endl;
-            std::cin >> dCity;
-            std::cout << std::endl;
-            std::cout << "You also have to input the country name: " << std::endl;
-            std::cin >> dCountry;
-            break;
-        case 4:
-            std::cout << "Input the country name: " << std::endl;
-            std::cin >> dCountry;
-            break;
-        case 5:
-            std::cout << "Input the latitude (double precision): " << std::endl;
-            std::cin >> dLat;
-            std::cout << std::endl;
-            std::cout << "Input the longitude (double precision): " << std::endl;
-            std::cin >> dLon;
-            break;
-        case 6:
-            mainMenu();
-            break;
-        default:
-            std::cout << "Invalid option. Please try again.";
-    }
-
-
-
-
+    std::cout << "Welcome to flights menu.";
+    manager.printflightGraph();
 }
+
+
+//---- AIRPORTS ---- //
 
 void Menu::airportsMenu() {
     std::string code;
-    std::cout << "Please insert an airport IATA code to proceed." << std::endl;
+    std::cout << "Insert an airport IATA code to proceed." << std::endl;
     std::cin >> code;
     if (manager.getAirports().find(code) == manager.getAirports().end()) {
         std::cout << "Airport not found. Are you sure you have the right IATA code?" << std::endl;
         airportsMenu();
     }
     std::cout << "+-------------------------------+\n";
-    std::cout << "| ===========" << code << " stats========= |\n";
+    std::cout << "|==========="<<code<< " stats===========|\n";
     std::cout << "| 1 - Number of flights         |\n";
     std::cout << "| 2 - Number of airlines        |\n";
     std::cout << "| 3 - Number of destinations    |\n";
@@ -208,7 +106,7 @@ void Menu::airportsMenu() {
         throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
     }
 
-    while (n < 1 || n > 4) {
+    while ((n < 1 || n > 4 ) && !(std::cin.fail())) {
         std::cout << "Choose a valid option." << std::endl;
         std::cin >> n;
         std::cout << std::endl;
@@ -250,7 +148,10 @@ void Menu::airportsMenu() {
             std::cin >> op2;
             std::cout << std::endl;
 
-            if (std::cin.fail() || (op2 != 'y' && op2 != 'n' && op2 != 'c' && op2 != 'a')) {
+            if (std::cin.fail()) {
+                throw std::invalid_argument(
+                        "Error 001: Your input was not an integer. Please restart the program and try again.");
+            } else if (!(std::cin.fail()) || (op2 != 'y' && op2 != 'n' && op2 != 'c' && op2 != 'a')) {
                 airportsMenu();
                 break;
             }
@@ -271,11 +172,12 @@ void Menu::airportsMenu() {
                 std::cin >> op3;
                 std::cout << std::endl;
 
-                if (std::cin.fail() || (op3 != 'a' && op3 != 'b' && op3 != 'c')) {
+                if (std::cin.fail()) {
+                    throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
+                } else if (!(std::cin.fail()) || (op3 != 'a' && op3 != 'b' && op3 != 'c')) {
                     airportsMenu();
                     break;
-                }
-                else {
+                } else {
                     manager.printAirportDestinations(code, op3);
                     break;
                 }
@@ -286,6 +188,8 @@ void Menu::airportsMenu() {
             }
     }
 }
+
+// ---- DATA/STATISTICS ----
 
 void Menu::statsMenu() {
     std::cout << "+-----------------------------------------+\n";
@@ -308,7 +212,7 @@ void Menu::statsMenu() {
         throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
     }
 
-    while (n < 1 || n > 6) {
+    while ((n < 1 || n > 6 ) && !(std::cin.fail())) {
         std::cout << "Choose a valid option." << std::endl;
         std::cin >> n;
         std::cout << std::endl;
@@ -325,12 +229,16 @@ void Menu::statsMenu() {
         case 2:
             std::cout << "Write an City's name";
             std::cin >> nameCity;
+            std::cout << "\n";
+
             manager.flightsPerCity(nameCity);
             break;
         case 3:
             std::cout << "Write an Airline's name" <<std::endl;
 
             std::cin >> nameAirline;
+            std::cout << "\n";
+
             manager.flightsPerAirline(nameAirline);
             break;
         case 4:
@@ -375,7 +283,7 @@ void Menu::globalStatsMenu() {
         throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
     }
 
-    while (n < 1 || n > 4) {
+    while ((n < 1 || n > 4) && !(std::cin.fail())) {
         std::cout << "Choose a valid option." << std::endl;
         std::cin >> n;
         std::cout << std::endl;
@@ -428,8 +336,11 @@ void Menu::globalStatsMenu() {
             break;
         default:
             std::cout << "Invalid option. Please try again.";
+            globalStatsMenu();
     }
 }
+
+//--- MISCS ----
 
 void Menu::miscMenu() {
     std::cout << "Want to show the list of articulation points along with the total number?" << std::endl;

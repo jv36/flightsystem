@@ -76,8 +76,8 @@ public:
 void destinationsWithinStops(const std::string& startAirport, int maxStops);
 void maximumTripWithStops();
 
-    void allDestinations(const std::string &startAirport);
-    void directDestinations(const std::string &startAirport);
+    //void allDestinations(const std::string &startAirport);
+    //void directDestinations(const std::string &startAirport);
 };
 
 #endif //FLIGHTSYSTEM_MANAGER_H
