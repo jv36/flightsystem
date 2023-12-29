@@ -252,6 +252,7 @@ void Manager::flightsPerCity(const std:: string& nameCity) {
             flightsCity[edge.destination]++;
         }
     }
+    std::cout << "There are " << flightsCity[CityCode] << " flights operated by " << nameCity << std::endl;
 }
 
 void Manager::flightsPerAirline(const std:: string& nameAirline) {
