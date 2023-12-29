@@ -107,31 +107,6 @@ int Graph::distance(const std::string& in, const std::string& out) {
     return dist;
 }
 
-/*std::vector<std::string> Graph::createPath(std::string from, std::string to, std::vector<std::string> &airlineList) {
-    // tem de se filtrar depois faço
-
-    return std::vector<std::string>();
-}
-*/
-/*
-int Graph::addAirport(Airport a){
-    if(this->nodes.find(a.getCode())==this->nodes.end()) this->nodes.insert(std::pair<std::string,Node>(a.getCode(),{}));
-    return this->nodes.size();
-}
-
-bool Graph::addFlight(std::string destination, std::string airline, std::string airline) {
-    return this->addFlight(destination,airline,airline);
-}
-
-void Graph::printGraph() {
-    for (const auto& node : nodes) {
-        std::cout << "Airport: " << node.airport->getName() << "\nEdges:\n";
-        for (const auto& edge : node.adj) {
-            std::cout << "  To: " << edge.destAirport->getName() << ", Airline: " << edge.airline->getName() << ", Distance: " << edge.distance << "\n";
-        }
-        std::cout << "\n";
-    }
-}*/
 Airport* Graph::findClosestAirport(Graph graph,Location source, Location dest) {
     Airport* closestAirport;
     double minDistance = 0.0;
@@ -187,23 +162,4 @@ void Graph::articulationDFS(Graph::Node &node, std::vector<Airport*> &points, st
         }
     }
 }
-
-
-//hum
-/*
-Graph Graph::createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights) {
-    Graph airTravelGraph;
-
-    for (auto airport : airports) {
-        airTravelGraph.addNode(airport.first, airport.second);
-    }
-
-    for (const auto& flight : flights) {
-        airTravelGraph.addEdge(flight.getSource(), flight.getTarget(), "");
-    }
-
-    return airTravelGraph;
-}
- */
-
 

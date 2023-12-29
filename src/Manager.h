@@ -48,7 +48,14 @@ public:
     void flightsPerAirline(const std:: string& nameAirline);
 
     void topKAirports(int k);
+
+
     // Global Statistics
+
+    void directDestinations(const std::string& startAirport);
+
+    void allDestinations(const std::string& startAirport);
+
     unsigned long globalAirports();
 
     void printGlobalAirports(const char& type);
@@ -62,8 +69,6 @@ public:
     unsigned long airportDestinations(const std::string &code);
 
     void printAirportDestinations(const std::string &code, const char &type);
-
-    //funções temporárias que não têm lugar no Menu
 
 void destinationsWithinStops(const std::string& startAirport, int maxStops);
 void maximumTripWithStops();
