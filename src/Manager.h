@@ -31,6 +31,9 @@ public:
 
     void printArticulation(char type);
 
+    // FLIGHTS
+    void getFlight(std::string origin, std::string destination, int oType, int dType);
+
     // Airport menu
     unsigned long flightsFromAirport(const std::string& code);
     unsigned long airlinesFromAirport(const std::string &code);
@@ -67,6 +70,9 @@ public:
 
 void destinationsWithinStops(const std::string& startAirport, int maxStops);
 void maximumTripWithStops();
+
+    void allDestinations(const std::string &startAirport);
+    void directDestinations(const std::string &startAirport);
 };
 
 #endif //FLIGHTSYSTEM_MANAGER_H

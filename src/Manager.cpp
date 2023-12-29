@@ -709,6 +709,83 @@ void Manager::printArticulation(char type) {
     }
 }
 
+void Manager::getFlight(std::string origin, std::string destination, int oType, int dType) {
+    std::vector<Airport*> airportO;
+    std::vector<Airport*> airportD;
+    std::vector<std::vector<std::string>> paths = {};
+
+    // Origin
+    switch (oType) {
+        case 1:
+            for (auto a : airports) {
+                if (a.second->getCode() == origin) {
+                    airportO.push_back(a.second);
+                }
+                break;
+            }
+            break;
+        case 2:
+            for (auto a : airports) {
+                if (a.second->getName() == origin) {
+                    airportO.push_back(a.second);
+                }
+            }
+        // Falta os outros 3 tipos. City, Country, Geo. Coord.
+    }
+
+    // Destination
+    switch (dType) {
+        case 1:
+            for (auto a : airports) {
+                if (a.second->getCode() == origin) {
+                    airportD.push_back(a.second);
+                }
+                break;
+            }
+            break;
+        case 2:
+            for (auto a : airports) {
+                if (a.second->getName() == origin) {
+                    airportD.push_back(a.second);
+                }
+            }
+            // Falta os outros 3 tipos. City, Country, Geo. Coord.
+    }
+
+    for (auto ap : airportO) {
+        for (auto ap2 : airportD) {
+            // std::vector<std::string> p = flightGraph->createPath(ap, ap2, filters);
+            std::vector<std::string> p = {};
+            if (!p.empty()) {
+                paths.push_back(p);
+            }
+        }
+    }
+
+    if (paths.empty()) {
+        std::cout << "There are no flights from " << origin << " to " << destination << std::endl;
+    }
+    else {
+        std::sort(paths.begin(), paths.end(),[](std::vector<std::string> &a, std::vector<std::string> &b) {
+            return a.size() < b.size();
+        });
+
+
+        unsigned long minStops = paths[0].size();
+        auto aux = find_if(paths.begin(), paths.end(), [minStops](std::vector<std::string> &a) {
+            return a.size() > minStops;
+        });
+
+        paths.erase(aux, paths.end());
+
+        std::cout << "The best options to travel from " << origin << " to " << destination << ": " << std::endl;
+
+        for (auto p : paths) {
+            // print path
+        }
+    }
+}
+
 
 
 
