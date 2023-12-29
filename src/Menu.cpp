@@ -193,7 +193,8 @@ void Menu::statsMenu() {
     std::cout << "| 2 - Flights per city                    |\n";
     std::cout << "| 3 - Flights per airline                 |\n";
     std::cout << "| 4 - Airports with topK number of flights|\n";
-    std::cout << "| 5 - Return to main menu                 |\n";
+    std::cout << "| 5 - Destinations Within Stops           |\n";
+    std::cout << "| 6 - Return to main menu                 |\n";
     std::cout << "| ========================================|\n";
     std::cout << "| Please enter your choice:               |\n";
     std::cout << "+-----------------------------------------+\n";
@@ -206,13 +207,15 @@ void Menu::statsMenu() {
         throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
     }
 
-    while (n < 1 || n > 5) {
+    while (n < 1 || n > 6) {
         std::cout << "Choose a valid option." << std::endl;
         std::cin >> n;
         std::cout << std::endl;
     }
     std::string nameCity;
     std::string nameAirline;
+    std::string startAirport;
+    int maxStops;
 
     switch(n) {
         case 1:
@@ -224,7 +227,7 @@ void Menu::statsMenu() {
             manager.flightsPerCity(nameCity);
             break;
         case 3:
-            std::cout << "Write an Airline's name";
+            std::cout << "Write an Airline's name" <<std::endl;
 
             std::cin >> nameAirline;
             manager.flightsPerAirline(nameAirline);
@@ -238,6 +241,13 @@ void Menu::statsMenu() {
             manager.topKAirports(op);
             break;
         case 5:
+            std::cout << "Write an Airport's name" <<std::endl;
+            std::cin >> startAirport;
+            std::cout <<"Write the maximum stops" <<std::endl;
+            std::cin >> maxStops;
+            manager.destinationsWithinStops(startAirport,maxStops);
+            break;
+        case 6:
             mainMenu();
             break;
         default:

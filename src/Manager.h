@@ -66,6 +66,7 @@ public:
     //funções temporárias que não têm lugar no Menu
 
 void destinationsWithinStops(const std::string& startAirport, int maxStops);
+void maximumTripWithStops();
 };
 
 #endif //FLIGHTSYSTEM_MANAGER_H

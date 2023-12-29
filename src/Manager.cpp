@@ -349,8 +349,20 @@ void Manager::topKAirports(int k) {
 }
 
 void Manager::destinationsWithinStops(const std::string& startAirport, int maxStops){
+    std::string startAirportCode;
+
+    for (const auto &airport: airports) {
+        if (airport.second->getName() == startAirport) {
+            startAirportCode = airport.first;
+        }
+    }
+
+    if (startAirportCode.empty()) {
+        std::cout << "Airport not found " << std::endl;
+        return;
+    }
     std::queue<std::pair<std::string ,int>> q;
-    q.push({startAirport,0});
+    q.push({startAirportCode,0});
 
     std::unordered_set<std::string > visitedAirports;
     std::unordered_set<std::string > visitedCities;
@@ -369,13 +381,15 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
 
         for(const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj){
             std::string destinationAirportCode = edge.destination;
-            Airport* destinationAirport = airports.at(destinationAirportCode);
+            if(destinationAirportCode != startAirport){
+                Airport* destinationAirport = airports.at(destinationAirportCode);
 
-            visitedAirports.insert(destinationAirportCode);
-            visitedCities.insert(destinationAirport->getCity());
-            visitedCountries.insert(destinationAirport->getCountry());
+                visitedAirports.insert(destinationAirportCode);
+                visitedCities.insert(destinationAirport->getCity());
+                visitedCountries.insert(destinationAirport->getCountry());
 
-            q.push({destinationAirportCode,stops + 1});
+                q.push({destinationAirportCode,stops + 1});
+            }
         }
     }
     std::cout << "Choose an option and write down the alinea:" << std::endl;
@@ -388,7 +402,7 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
     std::cin >> op1;
     std::cout << std::endl;
 
-    if (std::cin.fail() || op1 !='a' || op1 !='b'|| op1 !='c' || op1 !='A' || op1 !='B'|| op1 !='C' ) {
+    if (std::cin.fail() || (op1 !='a' &&  op1 !='b' &&  op1 !='c' &&  op1 !='A' &&  op1 !='B' && op1 !='C' )) {
         throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
         return;
     }
@@ -411,7 +425,7 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
     std::cin >> op2;
     std::cout << std::endl;
 
-    if (std::cin.fail() || op2 !='y' || op2 !='Y'|| op2 !='n' || op2 !='N') {
+    if (std::cin.fail() || (op2 !='y' && op2 !='Y' && op2 !='n' && op2 !='N')) {
         throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
         return;
     }
@@ -438,6 +452,40 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
     }
     else if( op2 =='n' || op2 =='N'){ return;}
 }
+
+void Manager::maximumTripWithStops() {
+    std::vector<std::string> maxPath;
+    flightGraph->removeDistance();
+    flightGraph->removeVisited();
+
+    for (const auto &airport: airports) {
+        const std::string &currentAirportCode = airport.first;
+
+        if (!flightGraph->nodeAtKey(currentAirportCode).visited) {
+            std::vector<std::string> currentPath;
+            flightGraph->dfs(currentAirportCode);
+
+            std::string currentNode = currentAirportCode;
+            while (!flightGraph->nodeAtKey(currentNode).parent.empty()) {
+                currentPath.push_back(currentNode);
+                currentNode = flightGraph->nodeAtKey(currentNode).parent;
+            }
+            currentPath.push_back(currentNode);
+
+            if (currentPath.size() > maxPath.size()) {
+                maxPath = currentPath;
+            }
+        }
+    }
+
+    // Print the maximum trip with the greatest number of stops
+    std::cout << "Maximum trip with the greatest number of stops: ";
+    for (auto it = maxPath.rbegin(); it != maxPath.rend(); ++it) {
+        std::cout << *it << " -> ";
+    }
+    std::cout << " (Total stops: " << maxPath.size() - 1 << ")" << std::endl;
+}
+
 
 void Manager::printArticulation(char type) {
     std::vector<Airport*> points;
