@@ -24,11 +24,12 @@ public:
     void parseFlights();
     void parseAirlines();
     void parseAirport();
-
     void printflightGraph();
 
     std::unordered_map<std::string, Airline*> getAirlines();
     std::unordered_map<std::string, Airport*> getAirports();
+
+    void printArticulation(char type);
 
     // Airport menu
     unsigned long flightsFromAirport(const std::string& code);

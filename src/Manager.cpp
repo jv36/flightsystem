@@ -10,6 +10,7 @@ void Manager::printflightGraph() {
     }
 }
 
+
 void Manager::parseAirlines() {
     std::ifstream file("../csv/airlines.csv");
 
@@ -437,6 +438,34 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
     }
     else if( op2 =='n' || op2 =='N'){ return;}
 }
+
+void Manager::printArticulation(char type) {
+    std::vector<Airport*> points;
+    std::stack<Graph::Node> st;
+    int index = 1;
+
+    for (auto& node : flightGraph->nodes) {
+        node.second.low = 0;
+        node.second.num = 0;
+        node.second.inStack = false;
+        node.second.visited = false;
+    }
+
+    for (auto n : flightGraph->nodes) {
+        if (!n.second.visited) {
+            flightGraph->articulationDFS(n.second, points, st, index);
+        }
+    }
+
+    std::cout << "In the graph, there are " << points.size() << " articulation points." << std::endl;
+    if (type == 'y') {
+        for (auto point: points) {
+            std::cout << point->getCode() << " - " << point->getName() << std::endl;
+        }
+    }
+}
+
+
 
 
 

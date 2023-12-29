@@ -148,6 +148,47 @@ Airport* Graph::findClosestAirport(Graph graph,Location source, Location dest) {
 
     return closestAirport;
 }
+
+void Graph::articulationDFS(Graph::Node &node, std::vector<Airport*> &points, std::stack<Node> &st, int index) {
+    node.visited = true;
+    node.num = index;
+    node.low = index;
+    st.push(node);
+    node.inStack = true;
+    index++;
+    bool flag = false;
+    int child = 0;
+
+    for (Edge& edge : node.adj) {
+        auto& destNode = nodes[edge.destination];
+        if(!destNode.visited) {
+            child++;
+            articulationDFS(destNode, points, st, index);
+            node.low = std::min(node.low, destNode.low);
+            if (destNode.low >= node.num) flag = true; // it is an art. point
+        }
+        else if (destNode.inStack) {
+            node.low = std::min(node.low, destNode.num);
+        }
+    }
+
+    // articulation point if and only if it has more than one child on the dfs tree
+
+    if ((node.num == node.low && child > 1) || (node.num != node.low && flag)) {
+        while (!st.empty()) {
+            Node top = st.top();
+            st.pop();
+            node.inStack = false;
+
+            if (top.airport->getName() == node.airport->getName()) {
+                points.push_back(top.airport);
+                break;
+            }
+        }
+    }
+}
+
+
 //hum
 /*
 Graph Graph::createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights) {

@@ -18,6 +18,9 @@ public:
         bool visited;
         int distance;
         std::string parent;
+        bool inStack;
+        int num;
+        int low;
         //vamos provavelmente precisar de mais
     };
 
@@ -43,6 +46,9 @@ public:
     static Airport* findClosestAirport(Graph graph, Location source, Location dest);
     std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& airlineList);
 
+
+
+    void articulationDFS(Node& node, std::vector<Airport*> &points, std::stack<Node>& st, int index);
 };
 
 

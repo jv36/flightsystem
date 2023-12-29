@@ -321,8 +321,18 @@ void Menu::globalStatsMenu() {
 }
 
 void Menu::miscMenu() {
-    std::cout << "Welcome to misc menu.";
-    std::cout << "Teste";
+    std::cout << "Want to show the list of articulation points along with the total number?" << std::endl;
+    std::cout << "If yes, input 'y', if no, input anything else." << std::endl;
+    std::cout << std::endl;
+
+    char typ;
+    std::cin >> typ;
+    if (std::cin.fail()) {
+        miscMenu();
+    }
+    else {
+        manager.printArticulation(typ);
+    }
 }
 
 
