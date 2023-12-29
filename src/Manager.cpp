@@ -348,6 +348,113 @@ void Manager::topKAirports(int k) {
     }
 }
 
+void Manager::allDestinations(const std::string& startAirport) {
+    std::string startAirportCode;
+
+    for (const auto& airport : airports) {
+        if (airport.second->getName() == startAirport) {
+            startAirportCode = airport.first;
+        }
+    }
+
+    if (startAirportCode.empty()) {
+        std::cout << "Airport not found " << std::endl;
+        return;
+    }
+
+    std::queue<std::pair<std::string, int>> q;
+    q.push({startAirportCode, 0});
+
+    std::unordered_set<std::string> visitedAirports;
+    std::unordered_set<std::string> visitedCities;
+    std::unordered_set<std::string> visitedCountries;
+
+    while (!q.empty()) {
+        auto top = q.front();
+        q.pop();
+
+        std::string topAirportCode = top.first;
+        int stops = top.second;
+
+        visitedAirports.insert(topAirportCode);
+
+        for (const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj) {
+            std::string destinationAirportCode = edge.destination;
+            if (destinationAirportCode != startAirport) {
+                Airport* destinationAirport = airports.at(destinationAirportCode);
+
+                visitedAirports.insert(destinationAirportCode);
+                visitedCities.insert(destinationAirport->getCity());
+                visitedCountries.insert(destinationAirport->getCountry());
+
+                q.push({destinationAirportCode, stops + 1});
+            }
+        }
+    }
+
+    std::cout << "Choose an option and write down the alinea:" << std::endl;
+    std::cout << std::endl;
+    std::cout << "a. Aeroport" << std::endl;
+    std::cout << "b. City" << std::endl;
+    std::cout << "c. Country" << std::endl;
+
+    char op1, op2;
+    std::cin >> op1;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op1 != 'a' && op1 != 'b' && op1 != 'c' && op1 != 'A' && op1 != 'B' && op1 != 'C')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if (op1 == 'a' || op1 == 'A') {
+        std::cout << " There are " << visitedAirports.size() << " reachable airports" << std::endl;
+    }
+
+    else if (op1 == 'b' || op1 == 'B') {
+        std::cout << " There are " << visitedCities.size() << " reachable cities" << std::endl;
+    }
+
+    else if (op1 == 'c' || op1 == 'C') {
+        std::cout << " There are " << visitedCountries.size() << " reachable countries" << std::endl;
+    }
+
+    std::cout << "Do you want to print the results?" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Write y or n." << std::endl;
+    std::cin >> op2;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op2 != 'y' && op2 != 'Y' && op2 != 'n' && op2 != 'N')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if ((op1 == 'a' || op1 == 'A') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& destinationAirportCode : visitedAirports) {
+            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'b' || op1 == 'B') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& city : visitedCities) {
+            std::cout << city << " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'c' || op1 == 'C') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& country : visitedCountries) {
+            std::cout << country << " was visited." << std::endl;
+        }
+        return;
+    }
+    else if (op2 == 'n' || op2 == 'N') {
+        return;
+    }
+}
+
 void Manager::destinationsWithinStops(const std::string& startAirport, int maxStops){
     std::string startAirportCode;
 
@@ -478,7 +585,6 @@ void Manager::maximumTripWithStops() {
         }
     }
 
-    // Print the maximum trip with the greatest number of stops
     std::cout << "Maximum trip with the greatest number of stops: ";
     for (auto it = maxPath.rbegin(); it != maxPath.rend(); ++it) {
         std::cout << *it << " -> ";
