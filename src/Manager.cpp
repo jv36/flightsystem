@@ -34,14 +34,6 @@ void Manager::parseAirlines() {
         auto airline = new Airline(code, name, callsign, country);
         airlines.insert({code, airline});
     }
-
-    // Teste print
-    /*
-      for (const auto& name : airlines) {
-        std::cout << name.second->getName() << std::endl;
-    }
-    std::cout << "There are " << airlines.size() << " airlines in our database.";
-     */
 }
 
  void Manager::parseAirport() {
@@ -54,7 +46,6 @@ void Manager::parseAirlines() {
 
      std::string line;
 
-     //Code,Name,City,Country,Latitude,Longitude
      getline(file, line);
 
      while (getline(file, line)) {
@@ -84,14 +75,6 @@ void Manager::parseAirlines() {
          if(!exists){ airportLocations.emplace_back(code, location);}
          cities.insert({code, {city, country}});
      }
-    /*
-     * * print testing
-      for (const auto& code : airports) {
-         std::cout << code.second->getLocation().getLatitude() << "-" << code.second->getLocation().getLongitude() << std::endl;
-     }
-
-     std::cout << "There are " << airports.size() << " airports in our database.";
-    */
 }
 
 void Manager::parseFlights() {
@@ -296,7 +279,7 @@ void Manager::flightsPerAirline(const std:: string& nameAirline) {
     std::cout << "There are " << flightsAirline[AirlineCode] << " flights operated by " << nameAirline << std::endl;
 }
 
-//                      GLOBAL STATS
+//GLOBAL STATS
 
 unsigned long Manager::globalAirports() {
     return airports.size();

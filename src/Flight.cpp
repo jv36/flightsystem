@@ -10,7 +10,6 @@ Flight::Flight() {
     this->source = "";
     this->target = "";
     this->airline = "";
-    //this->distance = 0.0;
 }
 
 Flight::Flight(std::string source, std::string target, std::string airline) {
@@ -52,8 +51,4 @@ float Flight::getDistance(Location source, Location dest) {
 
     return distance;
 }
-
-/*void Flight::addAirline(std::string airlineCode) {
-    this->airlines.push_back(airlineCode);
-}*/
 
