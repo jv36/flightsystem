@@ -348,6 +348,96 @@ void Manager::topKAirports(int k) {
     }
 }
 
+void Manager::directDestinations(const std::string& startAirport) {
+    std::string startAirportCode;
+
+    for (const auto& airport : airports) {
+        if (airport.second->getName() == startAirport) {
+            startAirportCode = airport.first;
+        }
+    }
+
+    if (startAirportCode.empty()) {
+        std::cout << "Airport not found " << std::endl;
+        return;
+    }
+
+    std::unordered_set<std::string> directAirports;
+    std::unordered_set<std::string> directCities;
+    std::unordered_set<std::string> directCountries;
+
+    for (const auto& edge : flightGraph->nodeAtKey(startAirportCode).adj) {
+        std::string destinationAirportCode = edge.destination;
+        Airport* destinationAirport = airports.at(destinationAirportCode);
+
+        directAirports.insert(destinationAirportCode);
+        directCities.insert(destinationAirport->getCity());
+        directCountries.insert(destinationAirport->getCountry());
+    }
+
+    std::cout << "Choose an option and write down the alinea:" << std::endl;
+    std::cout << std::endl;
+    std::cout << "a. Aeroport" << std::endl;
+    std::cout << "b. City" << std::endl;
+    std::cout << "c. Country" << std::endl;
+
+    char op1, op2;
+    std::cin >> op1;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op1 != 'a' && op1 != 'b' && op1 != 'c' && op1 != 'A' && op1 != 'B' && op1 != 'C')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if (op1 == 'a' || op1 == 'A') {
+        std::cout << " There are " << directAirports.size() << " direct airports" << std::endl;
+    }
+
+    else if (op1 == 'b' || op1 == 'B') {
+        std::cout << " There are " << directCities.size() << " direct cities" << std::endl;
+    }
+
+    else if (op1 == 'c' || op1 == 'C') {
+        std::cout << " There are " << directCountries.size() << " direct countries" << std::endl;
+    }
+
+    std::cout << "Do you want to print the results?" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Write y or n." << std::endl;
+    std::cin >> op2;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op2 != 'y' && op2 != 'Y' && op2 != 'n' && op2 != 'N')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if ((op1 == 'a' || op1 == 'A') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& destinationAirportCode : directAirports) {
+            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " is a direct destination." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'b' || op1 == 'B') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& city : directCities) {
+            std::cout << city << " is a direct destination." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'c' || op1 == 'C') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& country : directCountries) {
+            std::cout << country << " is a direct destination." << std::endl;
+        }
+        return;
+    }
+    else if (op2 == 'n' || op2 == 'N') {
+        return;
+    }
+}
+
 void Manager::allDestinations(const std::string& startAirport) {
     std::string startAirportCode;
 
