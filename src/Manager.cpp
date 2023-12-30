@@ -844,13 +844,13 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
         std::cout << "There are no flights from " << origin << " to " << destination << std::endl;
     }
     else {
-        std::sort(paths.begin(), paths.end(),[](std::vector<std::string> &a, std::vector<std::string> &b) {
+        std::sort(paths.begin(), paths.end(),[](const std::vector<std::string> &a, const std::vector<std::string> &b) {
             return a.size() < b.size();
         });
 
 
         unsigned long minStops = paths[0].size();
-        auto aux = find_if(paths.begin(), paths.end(), [minStops](std::vector<std::string> &a) {
+        auto aux = remove_if(paths.begin(), paths.end(), [minStops](const std::vector<std::string> &a) {
             return a.size() > minStops;
         });
 
