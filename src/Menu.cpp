@@ -198,7 +198,7 @@ void Menu::flightsMenu() {
     }
 
     char fType;
-    std::cout << "Do you wish to avoid certain airlines?" << std::endl;
+    std::cout << "Do you wish to filter airlines?" << std::endl;
     std::cout << "If yes, input 'y'." << std::endl;
     std::cout << "If no, input 'n'." << std::endl;
     std::cin >> fType;
@@ -207,7 +207,7 @@ void Menu::flightsMenu() {
 
     switch(fType) {
         case 'n':
-            manager.getFlightPath(origin, dest, oType, dType, filter);
+            manager.getFlightPath(origin, dest, oType, dType, filter, 0);
             break;
         case 'y':
             while (flag) {
@@ -229,7 +229,7 @@ void Menu::flightsMenu() {
                         case '1':
                             std::cout << "Insert airline code: " << std::endl;
                             std::cin >> airline;
-                            if (manager.getAirlines().find(airline) != manager.getAirlines().end()) {
+                            if (manager.validAirlineCode(airline)) {
                                 filter.push_back(airline);
                             }
                             else {
@@ -278,13 +278,26 @@ void Menu::flightsMenu() {
                 }
             }
 
+            int sType;
+            std::cout << "+-------------------------------+\n";
+            std::cout << "| Do you wish to...?            |\n";
+            std::cout << "| 1 - Restrict search           |\n";
+            std::cout << "| 2 - Exclude from search       |\n";
+            std::cout << "+-------------------------------+\n";
+            std::cin >> sType;
 
-            for (auto i : filter) {
-                std::cout << i;
+            switch(sType) {
+                case 1:
+                    manager.getFlightPath(origin, dest, oType, dType, filter, 1);
+                    break;
+                case 2:
+                    manager.getFlightPath(origin, dest, oType, dType, filter, 2);
+                    break;
+                default:
+                    std::cout << "Invalid option. Please try again." << std::endl;
+                    break;
             }
 
-
-            manager.getFlightPath(origin, dest, oType, dType, filter);
             break;
         default:
             std::cout << "Invalid option. Please try again." << std::endl;

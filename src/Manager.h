@@ -32,7 +32,7 @@ public:
     void printArticulation(char type);
 
     // FLIGHTS
-    void getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter);
+    void getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter, int type);
 
 
 

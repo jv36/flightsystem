@@ -693,7 +693,7 @@ void Manager::printArticulation(char type) {
     }
 }
 
-void Manager::getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter) {
+void Manager::getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter, int type) {
     std::vector<std::string> airportO;
     std::vector<std::string> airportD;
     std::vector<std::vector<std::string>> paths = {};
@@ -819,9 +819,23 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
 
     for (const auto& ap : airportO) {
         for (const auto& ap2 : airportD) {
-            std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter);
-            if (!p.empty()) {
-                paths.push_back(p);
+            if (type == 1) {
+                std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter, 1);
+                if (!p.empty()) {
+                    paths.push_back(p);
+                }
+            }
+            else if (type == 2) {
+                std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter, 2);
+                if (!p.empty()) {
+                    paths.push_back(p);
+                }
+            }
+            else {
+                std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter, 0);
+                if (!p.empty()) {
+                    paths.push_back(p);
+                }
             }
         }
     }

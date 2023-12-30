@@ -79,7 +79,7 @@ void Graph::bfs(const std::string &airportCode) {
 
 }
 
-void Graph::bfsFiltered(const std::string &airportCode, std::vector<std::string>& filter) {
+void Graph::bfsFilteredRestrict(const std::string &airportCode, std::vector<std::string>& filter) {
     this->removeDistance();
     this->removeVisited();
 
@@ -95,6 +95,34 @@ void Graph::bfsFiltered(const std::string &airportCode, std::vector<std::string>
 
         for (const Edge& e : nodes.at(top).adj) {
             if (find(filter.begin(), filter.end(), e.airline) != filter.end()) {
+                if (!nodes[e.destination].visited) {
+                    q.push(e.destination);
+                    nodes[e.destination].visited = true;
+                    nodes[e.destination].parent = top;
+                    nodes[e.destination].distance = nodes[top].distance + 1;
+                }
+            }
+        }
+    }
+
+}
+
+void Graph::bfsFilteredExclude(const std::string &airportCode, std::vector<std::string> &filter) {
+    this->removeDistance();
+    this->removeVisited();
+
+    std::queue<std::string> q;
+    q.push(airportCode);
+    nodes[airportCode].visited = true;
+    nodes[airportCode].distance = 0;
+
+    // while unvisited
+    while (!q.empty()) {
+        std::string top = q.front();
+        q.pop();
+
+        for (const Edge& e : nodes.at(top).adj) {
+            if (find(filter.begin(), filter.end(), e.airline) == filter.end()) {
                 if (!nodes[e.destination].visited) {
                     q.push(e.destination);
                     nodes[e.destination].visited = true;
@@ -192,13 +220,16 @@ void Graph::articulationDFS(Graph::Node &node, std::vector<Airport*> &points, st
     }
 }
 
-std::vector<std::string> Graph::createPath(std::string from, std::string to, std::vector<std::string>& filter) {
+std::vector<std::string> Graph::createPath(std::string from, std::string to, std::vector<std::string>& filter, int type) {
     std::vector<std::string> path;
-    if (filter.empty()) {
+    if (filter.empty() || type == 0) {
         bfs(from);
     }
-    else {
-        bfsFiltered(from, filter);
+    else if (type == 1) {
+        bfsFilteredRestrict(from, filter);
+    }
+    else if (type == 2) {
+        bfsFilteredExclude(from, filter);
     }
 
     path.push_back(to);
@@ -213,9 +244,16 @@ std::vector<std::string> Graph::createPath(std::string from, std::string to, std
 }
 
 void Graph::printPath(const std::vector<std::string>& path) {
-    for (auto i : path){
-        std::cout << i << " -> ";
+    if (!path.empty()) {
+        auto last = path.end() - 1;
+
+        for (auto i = path.begin(); i != last; ++i) {
+            std::cout << *i << " -> ";
+        }
+
+        std::cout << *last << std::endl;
     }
-    std::cout << std::endl;
 }
+
+
 

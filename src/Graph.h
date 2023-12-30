@@ -32,7 +32,8 @@ public:
     void addNode(const std::string& airportCode, Airport* airport);
     void addEdge(const std::string& originAirport, const std::string& destAirport, const std::string& airline);
     void bfs(const std::string& airportCode);
-    void bfsFiltered(const std::string &airportCode, std::vector<std::string> &airlineFilters);
+    void bfsFilteredRestrict(const std::string &airportCode, std::vector<std::string> &filter);
+    void bfsFilteredExclude(const std::string &airportCode, std::vector<std::string> &filter);
     void dfs(const std::string& airportCode);
     Node& nodeAtKey(const std::string& key);
     void removeVisited();
@@ -52,7 +53,7 @@ public:
 
 
     // FLIGHT PATHS
-    std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& filter);
+    std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& filter, int type);
     void printPath(const std::vector<std::string>& path);
 
 };
