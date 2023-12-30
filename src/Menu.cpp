@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <iostream>
+#include <limits>
 #include "Menu.h"
 
 int Menu::main() {
@@ -87,6 +88,10 @@ void Menu::flightsMenu() {
     std::cout << "| 6 - Return to main menu       |\n";
     std::cout << "+-------------------------------+\n";
 
+
+    std::string origin, dest;
+
+
     int oType;
     std::string oCode, oName, oCity, oCountry;
     double oLat, oLon;
@@ -95,21 +100,31 @@ void Menu::flightsMenu() {
         case 1:
             std::cout << "Input the airport IATA code: " << std::endl;
             std::cin >> oCode;
+            origin = oCode;
             break;
         case 2:
             std::cout << "Input the airport name: " << std::endl;
-            std::cin >> oName;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+            std::getline(std::cin, oName);
+            origin = oName;
             break;
+
         case 3:
             std::cout << "Input the city name: " << std::endl;
-            std::cin >> oCity;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+            std::getline(std::cin, oCity);
             std::cout << std::endl;
             std::cout << "You also have to input the country name: " << std::endl;
-            std::cin >> oCountry;
+            std::getline(std::cin >> std::ws, oCountry);
+
+            origin = oCity + "," + oCountry;
             break;
+
         case 4:
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
             std::cout << "Input the country name: " << std::endl;
-            std::cin >> oCountry;
+            std::getline(std::cin >> std::ws, oCountry); // Read the entire line, including spaces
+            origin = oCountry;
             break;
         case 5:
             std::cout << "Input the latitude (double precision): " << std::endl;
@@ -137,27 +152,35 @@ void Menu::flightsMenu() {
 
     int dType;
     std::string dCode, dName, dCity, dCountry;
+
     double dLat, dLon;
     std::cin >> dType;
     switch (dType) {
         case 1:
             std::cout << "Input the airport IATA code: " << std::endl;
             std::cin >> dCode;
+            dest = dCode;
             break;
         case 2:
             std::cout << "Input the airport name: " << std::endl;
-            std::cin >> dName;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+            std::getline(std::cin, dName);
+            dest = dName;
             break;
         case 3:
             std::cout << "Input the city name: " << std::endl;
-            std::cin >> dCity;
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
+            std::getline(std::cin, dCity);
             std::cout << std::endl;
             std::cout << "You also have to input the country name: " << std::endl;
-            std::cin >> dCountry;
+            std::getline(std::cin >> std::ws, dCountry);
+            dest = dCity + "," + dCountry;
             break;
         case 4:
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clear the input buffer
             std::cout << "Input the country name: " << std::endl;
-            std::cin >> dCountry;
+            std::getline(std::cin >> std::ws, dCountry); // Read the entire line, including spaces
+            dest = dCountry;
             break;
         case 5:
             std::cout << "Input the latitude (double precision): " << std::endl;
@@ -173,7 +196,7 @@ void Menu::flightsMenu() {
             std::cout << "Invalid option. Please try again.";
     }
 
-    manager.getFlightPath(oCode, dCode, 1, 1);
+    manager.getFlightPath(origin, dest, oType, dType);
 }
 
 
@@ -250,7 +273,7 @@ void Menu::airportsMenu() {
             if (std::cin.fail()) {
                 throw std::invalid_argument(
                         "Error 001: Your input was not an integer. Please restart the program and try again.");
-            } else if (!(std::cin.fail()) || (op2 != 'y' && op2 != 'n' && op2 != 'c' && op2 != 'a')) {
+            } else if (std::cin.fail() || (op2 != 'y' && op2 != 'n' && op2 != 'c' && op2 != 'a')) {
                 airportsMenu();
                 break;
             }

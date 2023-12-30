@@ -182,5 +182,6 @@ void Graph::printPath(std::vector<std::string> path) {
     for (auto i : path){
         std::cout << i << " -> ";
     }
+    std::cout << std::endl;
 }
 

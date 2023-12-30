@@ -698,12 +698,41 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
     std::vector<std::string> airportD;
     std::vector<std::vector<std::string>> paths = {};
 
-    // Origin
+    // Origin++
     switch (oType) {
         case 1:
             airportO.push_back(origin);
             break;
-        // Falta outros casos
+        case 2:
+            for (const auto& ap : airports) {
+                if (ap.second->getName() == origin) {
+                    airportO.push_back(ap.second->getCode());
+                    break;
+                }
+            }
+            break;
+        case 3:
+            for (const auto& ap : airports) {
+                std::vector<std::string> tokens;
+                std::string token;
+                std::istringstream iss(origin);
+
+                while (std::getline(iss, token, ',')) {
+                    tokens.push_back(token);
+                }
+
+                if (ap.second->getCity() == tokens[0] && ap.second->getCountry() == tokens[1]) {
+                    airportO.push_back(ap.second->getCode());
+                }
+            }
+            break;
+        case 4:
+            for (auto ap : airports) {
+                if (ap.second->getCountry() == origin) {
+                    airportO.push_back(ap.second->getCode());
+                }
+            }
+            break;
     }
 
     // Destination
@@ -711,8 +740,38 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
         case 1:
             airportD.push_back(destination);
             break;
-        // falta outros casos
+        case 2:
+            for (const auto& ap : airports) {
+                if (ap.second->getName() == destination) {
+                    airportD.push_back(ap.second->getCode());
+                    break;
+                }
+            }
+            break;
+        case 3:
+            for (const auto& ap : airports) {
+                std::vector<std::string> tokens;
+                std::string token;
+                std::istringstream iss(destination);
+
+                while (std::getline(iss, token, ',')) {
+                    tokens.push_back(token);
+                }
+
+                if (ap.second->getCity() == tokens[0] && ap.second->getCountry() == tokens[1]) {
+                    airportD.push_back(ap.second->getCode());
+                }
+            }
+            break;
+        case 4:
+            for (auto ap : airports) {
+                if (ap.second->getCountry() == destination) {
+                    airportD.push_back(ap.second->getCode());
+                }
+            }
+            break;
     }
+
 
     for (const auto& ap : airportO) {
         for (const auto& ap2 : airportD) {
