@@ -79,6 +79,34 @@ void Graph::bfs(const std::string &airportCode) {
 
 }
 
+void Graph::bfsFiltered(const std::string &airportCode, std::vector<std::string>& filter) {
+    this->removeDistance();
+    this->removeVisited();
+
+    std::queue<std::string> q;
+    q.push(airportCode);
+    nodes[airportCode].visited = true;
+    nodes[airportCode].distance = 0;
+
+    // while unvisited
+    while (!q.empty()) {
+        std::string top = q.front();
+        q.pop();
+
+        for (const Edge& e : nodes.at(top).adj) {
+            if (find(filter.begin(), filter.end(), e.airline) != filter.end()) {
+                if (!nodes[e.destination].visited) {
+                    q.push(e.destination);
+                    nodes[e.destination].visited = true;
+                    nodes[e.destination].parent = top;
+                    nodes[e.destination].distance = nodes[top].distance + 1;
+                }
+            }
+        }
+    }
+
+}
+
 Graph::Node &Graph::nodeAtKey(const std::string &key) {
     Node& node = this->nodes[key];
     return node;
@@ -164,9 +192,15 @@ void Graph::articulationDFS(Graph::Node &node, std::vector<Airport*> &points, st
     }
 }
 
-std::vector<std::string> Graph::createPath(std::string from, std::string to) {
+std::vector<std::string> Graph::createPath(std::string from, std::string to, std::vector<std::string>& filter) {
     std::vector<std::string> path;
-    bfs(from);
+    if (filter.empty()) {
+        bfs(from);
+    }
+    else {
+        bfsFiltered(from, filter);
+    }
+
     path.push_back(to);
     while (to != from) {
         to = nodes[to].parent;
@@ -178,7 +212,7 @@ std::vector<std::string> Graph::createPath(std::string from, std::string to) {
     return path;
 }
 
-void Graph::printPath(std::vector<std::string> path) {
+void Graph::printPath(const std::vector<std::string>& path) {
     for (auto i : path){
         std::cout << i << " -> ";
     }

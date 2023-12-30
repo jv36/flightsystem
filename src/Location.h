@@ -12,6 +12,10 @@ public:
 public:
     double latitude;
     double longitude;
+
+    double toRadians(double degrees) const;
+
+    double calculateDistance(const Location &other) const;
 };
 
 #endif //FLIGHTSYSTEM_LOCATION_H

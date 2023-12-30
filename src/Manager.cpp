@@ -693,7 +693,7 @@ void Manager::printArticulation(char type) {
     }
 }
 
-void Manager::getFlightPath(std::string origin, std::string destination, int oType, int dType) {
+void Manager::getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter) {
     std::vector<std::string> airportO;
     std::vector<std::string> airportD;
     std::vector<std::vector<std::string>> paths = {};
@@ -733,6 +733,27 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
                 }
             }
             break;
+        case 5:
+            std::vector<std::string> tokens;
+            std::string token;
+            std::istringstream iss(origin);
+
+            while (std::getline(iss, token, ',')) {
+                tokens.push_back(token);
+            }
+
+            auto cOrigin = Location(std::stod(tokens[0]), std::stod(tokens[1]));
+
+            std::pair<std::string, double> closestAirport = {airportLocations[0].first, cOrigin.calculateDistance(airportLocations[0].second)};
+
+            for (const auto& airport : airportLocations) {
+                if (airport.second.calculateDistance(cOrigin) <= closestAirport.second) {
+                    closestAirport = {airport.first, cOrigin.calculateDistance(airport.second)};
+                }
+            }
+
+            airportO.push_back(closestAirport.first);
+            break;
     }
 
     // Destination
@@ -770,12 +791,35 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
                 }
             }
             break;
+        case 5:
+            std::vector<std::string> tokens;
+            std::string token;
+            std::istringstream iss(destination);
+
+            while (std::getline(iss, token, ',')) {
+                tokens.push_back(token);
+            }
+
+            auto cOrigin = Location(std::stod(tokens[0]), std::stod(tokens[1]));
+
+            std::pair<std::string, double> closestAirport = {airportLocations[0].first, cOrigin.calculateDistance(airportLocations[0].second)};
+
+            for (const auto& airport : airportLocations) {
+                if (airport.second.calculateDistance(cOrigin) <= closestAirport.second) {
+                    closestAirport = {airport.first, cOrigin.calculateDistance(airport.second)};
+                }
+            }
+
+            airportD.push_back(closestAirport.first);
+            break;
+
+
     }
 
 
     for (const auto& ap : airportO) {
         for (const auto& ap2 : airportD) {
-            std::vector<std::string> p = flightGraph->createPath(ap, ap2);
+            std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter);
             if (!p.empty()) {
                 paths.push_back(p);
             }
@@ -800,10 +844,43 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
 
         std::cout << "The best options to travel from " << origin << " to " << destination << ": " << std::endl;
 
-        for (auto p : paths) {
+        for (const auto& p : paths) {
             flightGraph->printPath(p);
         }
     }
+}
+
+bool Manager::validAirlineCode(const std::string &code) {
+    return airlines.find(code) != airlines.end() ;
+}
+
+std::string Manager::getCodeFromName(const std::string &name) {
+    for (const auto& a: airlines) {
+        if (a.second->getName() == name) {
+            return a.second->getCode();
+        }
+    }
+    return "";
+}
+
+std::string Manager::getCodeFromCallsign(const std::string &callsign) {
+    for (const auto& a: airlines) {
+        if (a.second->getCallsign() == callsign) {
+            return a.second->getCode();
+        }
+    }
+    return "";
+}
+
+std::vector<std::string> Manager::filterCountry(const std::string &country) {
+    std::vector<std::string> res;
+
+    for (const auto& a : airlines) {
+        if (a.second->getCountry() == country) {
+            res.push_back(a.second->getCode());
+        }
+    }
+    return res;
 }
 
 

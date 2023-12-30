@@ -32,7 +32,17 @@ public:
     void printArticulation(char type);
 
     // FLIGHTS
-    void getFlightPath(std::string origin, std::string destination, int oType, int dType);
+    void getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter);
+
+
+
+    // Filters
+
+    bool validAirlineCode(const std::string& code);
+    std::string getCodeFromName(const std::string& name);
+    std::string getCodeFromCallsign(const std::string& callsign);
+    std::vector<std::string> filterCountry(const std::string& country);
+
 
     // Airport menu
     unsigned long flightsFromAirport(const std::string& code);

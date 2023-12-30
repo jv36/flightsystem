@@ -90,11 +90,11 @@ void Menu::flightsMenu() {
 
 
     std::string origin, dest;
-
+    std::vector<std::string> filter = {};
 
     int oType;
     std::string oCode, oName, oCity, oCountry;
-    double oLat, oLon;
+    std::string oLat, oLon;
     std::cin >> oType;
     switch (oType) {
         case 1:
@@ -132,6 +132,7 @@ void Menu::flightsMenu() {
             std::cout << std::endl;
             std::cout << "Input the longitude (double precision): " << std::endl;
             std::cin >> oLon;
+            origin = oLat + "," + oLon;
             break;
         case 6:
             mainMenu();
@@ -152,8 +153,7 @@ void Menu::flightsMenu() {
 
     int dType;
     std::string dCode, dName, dCity, dCountry;
-
-    double dLat, dLon;
+    std::string dLat, dLon;
     std::cin >> dType;
     switch (dType) {
         case 1:
@@ -188,6 +188,7 @@ void Menu::flightsMenu() {
             std::cout << std::endl;
             std::cout << "Input the longitude (double precision): " << std::endl;
             std::cin >> dLon;
+            dest = dLat + "," + dLon;
             break;
         case 6:
             mainMenu();
@@ -196,7 +197,101 @@ void Menu::flightsMenu() {
             std::cout << "Invalid option. Please try again.";
     }
 
-    manager.getFlightPath(origin, dest, oType, dType);
+    char fType;
+    std::cout << "Do you wish to avoid certain airlines?" << std::endl;
+    std::cout << "If yes, input 'y'." << std::endl;
+    std::cout << "If no, input 'n'." << std::endl;
+    std::cin >> fType;
+    std::string airline, aType, code;
+    bool flag = true;
+
+    switch(fType) {
+        case 'n':
+            manager.getFlightPath(origin, dest, oType, dType, filter);
+            break;
+        case 'y':
+            while (flag) {
+                std::cout << "+-------------------------------+\n";
+                std::cout << "| Select type of airline:       |\n";
+                std::cout << "| 1 - Code                      |\n";
+                std::cout << "| 2 - Name                      |\n";
+                std::cout << "| 3 - Callsign                  |\n";
+                std::cout << "| 4 - All from country          |\n";
+                std::cout << "| DONE - when finished          |\n";
+                std::cout << "+-------------------------------+\n";
+
+                std::cin >> aType;
+                if (aType == "DONE") {
+                    flag = false;
+                }
+                else {
+                    switch(aType[0]) {
+                        case '1':
+                            std::cout << "Insert airline code: " << std::endl;
+                            std::cin >> airline;
+                            if (manager.getAirlines().find(airline) != manager.getAirlines().end()) {
+                                filter.push_back(airline);
+                            }
+                            else {
+                                std::cout << "Invalid airline code." << std::endl;
+                            }
+                            break;
+                        case '2':
+                            std::cout << "Insert airline name: " << std::endl;
+                            std::cin.ignore();
+                            std::getline(std::cin, airline);
+
+                            code = manager.getCodeFromName(airline);
+                            if (!code.empty()) {
+                                filter.push_back(code);
+                            }
+                            else {
+                                std::cout << "Invalid airline code." << std::endl;
+                            }
+                            break;
+                        case '3':
+                            std::cout << "Insert airline callsign: " << std::endl;
+                            std::cin.ignore();
+                            std::getline(std::cin, airline);
+
+                            code = manager.getCodeFromCallsign(airline);
+                            if (!code.empty()) {
+                                filter.push_back(code);
+                            }
+                            else {
+                                std::cout << "Invalid airline callsign." << std::endl;
+                            }
+                            break;
+                        case '4':
+                            std::cout << "Insert country: " << std::endl;
+                            std::cin.ignore();
+                            std::getline(std::cin, airline);
+                            filter = manager.filterCountry(airline);
+                            if (filter.empty()) {
+                                std::cout << "Invalid country." << std::endl;
+                            }
+                            break;
+                        default:
+                            std::cout << "Invalid option. Please try again." << std::endl;
+                            break;
+                    }
+                }
+            }
+
+
+            for (auto i : filter) {
+                std::cout << i;
+            }
+
+
+            manager.getFlightPath(origin, dest, oType, dType, filter);
+            break;
+        default:
+            std::cout << "Invalid option. Please try again." << std::endl;
+    }
+
+
+
 }
 
 
