@@ -41,11 +41,18 @@ public:
     static Graph createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights);
 
     static Airport* findClosestAirport(Graph graph, Location source, Location dest);
-    std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& airlineList);
+
 
 
 
     void articulationDFS(Node& node, std::vector<Airport*> &points, std::stack<Node>& st, int index);
+
+
+
+
+    // FLIGHT PATHS
+    std::vector<std::string> createPath(std::string from, std::string to);
+    void printPath(std::vector<std::string> path);
 };
 
 

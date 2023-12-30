@@ -32,7 +32,7 @@ public:
     void printArticulation(char type);
 
     // FLIGHTS
-    void getFlight(std::string origin, std::string destination, int oType, int dType);
+    void getFlightPath(std::string origin, std::string destination, int oType, int dType);
 
     // Airport menu
     unsigned long flightsFromAirport(const std::string& code);

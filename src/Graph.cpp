@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits>
+#include <algorithm>
 #include "Graph.h"
 
 Graph::Graph(int g_size, bool dir) {
@@ -67,11 +68,11 @@ void Graph::bfs(const std::string &airportCode) {
         q.pop();
 
         for (const Edge& e : nodes.at(top).adj) {
-            if (!nodes[e.airline].visited) {
-                q.push(e.airline);
-                nodes[e.airline].visited = true;
-                nodes[e.airline].parent = top;
-                nodes[e.airline].distance = nodes[top].distance + 1;
+            if (!nodes[e.destination].visited) {
+                q.push(e.destination);
+                nodes[e.destination].visited = true;
+                nodes[e.destination].parent = top;
+                nodes[e.destination].distance = nodes[top].distance + 1;
             }
         }
     }
@@ -160,6 +161,26 @@ void Graph::articulationDFS(Graph::Node &node, std::vector<Airport*> &points, st
                 break;
             }
         }
+    }
+}
+
+std::vector<std::string> Graph::createPath(std::string from, std::string to) {
+    std::vector<std::string> path;
+    bfs(from);
+    path.push_back(to);
+    while (to != from) {
+        to = nodes[to].parent;
+        if (to.empty()) {
+            return {};
+        }
+        path.insert(path.begin(), to);
+    }
+    return path;
+}
+
+void Graph::printPath(std::vector<std::string> path) {
+    for (auto i : path){
+        std::cout << i << " -> ";
     }
 }
 

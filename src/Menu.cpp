@@ -73,8 +73,107 @@ int Menu::mainMenu() {
 
 //---- FLIGHTS ---- //
 void Menu::flightsMenu() {
-    std::cout << "Welcome to flights menu.";
-    manager.printflightGraph();
+    std::cout << "Welcome to flights menu!" << std::endl;
+    std::cout << "Here you'll be able to search for the best flight option from A to B!" << std::endl;
+    std::cout << "To begin the search, you will have to input the origin and the destination places." << std::endl;
+
+    std::cout << "+-------------------------------+\n";
+    std::cout << "| Select type of origin:        |\n";
+    std::cout << "| 1 - Airport (by code)         |\n";
+    std::cout << "| 2 - Airport (by name)         |\n";
+    std::cout << "| 3 - City                      |\n";
+    std::cout << "| 4 - Country                   |\n";
+    std::cout << "| 5 - Geographical coordinates  |\n";
+    std::cout << "| 6 - Return to main menu       |\n";
+    std::cout << "+-------------------------------+\n";
+
+    int oType;
+    std::string oCode, oName, oCity, oCountry;
+    double oLat, oLon;
+    std::cin >> oType;
+    switch (oType) {
+        case 1:
+            std::cout << "Input the airport IATA code: " << std::endl;
+            std::cin >> oCode;
+            break;
+        case 2:
+            std::cout << "Input the airport name: " << std::endl;
+            std::cin >> oName;
+            break;
+        case 3:
+            std::cout << "Input the city name: " << std::endl;
+            std::cin >> oCity;
+            std::cout << std::endl;
+            std::cout << "You also have to input the country name: " << std::endl;
+            std::cin >> oCountry;
+            break;
+        case 4:
+            std::cout << "Input the country name: " << std::endl;
+            std::cin >> oCountry;
+            break;
+        case 5:
+            std::cout << "Input the latitude (double precision): " << std::endl;
+            std::cin >> oLat;
+            std::cout << std::endl;
+            std::cout << "Input the longitude (double precision): " << std::endl;
+            std::cin >> oLon;
+            break;
+        case 6:
+            mainMenu();
+            break;
+        default:
+            std::cout << "Invalid option. Please try again.";
+    }
+
+    std::cout << "+-------------------------------+\n";
+    std::cout << "| Select type of destination:   |\n";
+    std::cout << "| 1 - Airport (by code)         |\n";
+    std::cout << "| 2 - Airport (by name)         |\n";
+    std::cout << "| 3 - City                      |\n";
+    std::cout << "| 4 - Country                   |\n";
+    std::cout << "| 5 - Geographical coordinates  |\n";
+    std::cout << "| 6 - Return to main menu       |\n";
+    std::cout << "+-------------------------------+\n";
+
+    int dType;
+    std::string dCode, dName, dCity, dCountry;
+    double dLat, dLon;
+    std::cin >> dType;
+    switch (dType) {
+        case 1:
+            std::cout << "Input the airport IATA code: " << std::endl;
+            std::cin >> dCode;
+            break;
+        case 2:
+            std::cout << "Input the airport name: " << std::endl;
+            std::cin >> dName;
+            break;
+        case 3:
+            std::cout << "Input the city name: " << std::endl;
+            std::cin >> dCity;
+            std::cout << std::endl;
+            std::cout << "You also have to input the country name: " << std::endl;
+            std::cin >> dCountry;
+            break;
+        case 4:
+            std::cout << "Input the country name: " << std::endl;
+            std::cin >> dCountry;
+            break;
+        case 5:
+            std::cout << "Input the latitude (double precision): " << std::endl;
+            std::cin >> dLat;
+            std::cout << std::endl;
+            std::cout << "Input the longitude (double precision): " << std::endl;
+            std::cin >> dLon;
+            break;
+        case 6:
+            mainMenu();
+            break;
+        default:
+            std::cout << "Invalid option. Please try again.";
+    }
+
+    manager.getFlightPath(oCode, dCode, 1, 1);
 }
 
 

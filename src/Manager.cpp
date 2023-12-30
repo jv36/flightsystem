@@ -693,53 +693,30 @@ void Manager::printArticulation(char type) {
     }
 }
 
-void Manager::getFlight(std::string origin, std::string destination, int oType, int dType) {
-    std::vector<Airport*> airportO;
-    std::vector<Airport*> airportD;
+void Manager::getFlightPath(std::string origin, std::string destination, int oType, int dType) {
+    std::vector<std::string> airportO;
+    std::vector<std::string> airportD;
     std::vector<std::vector<std::string>> paths = {};
 
     // Origin
     switch (oType) {
         case 1:
-            for (auto a : airports) {
-                if (a.second->getCode() == origin) {
-                    airportO.push_back(a.second);
-                }
-                break;
-            }
+            airportO.push_back(origin);
             break;
-        case 2:
-            for (auto a : airports) {
-                if (a.second->getName() == origin) {
-                    airportO.push_back(a.second);
-                }
-            }
-        // Falta os outros 3 tipos. City, Country, Geo. Coord.
+        // Falta outros casos
     }
 
     // Destination
     switch (dType) {
         case 1:
-            for (auto a : airports) {
-                if (a.second->getCode() == origin) {
-                    airportD.push_back(a.second);
-                }
-                break;
-            }
+            airportD.push_back(destination);
             break;
-        case 2:
-            for (auto a : airports) {
-                if (a.second->getName() == origin) {
-                    airportD.push_back(a.second);
-                }
-            }
-            // Falta os outros 3 tipos. City, Country, Geo. Coord.
+        // falta outros casos
     }
 
-    for (auto ap : airportO) {
-        for (auto ap2 : airportD) {
-            // std::vector<std::string> p = flightGraph->createPath(ap, ap2, filters);
-            std::vector<std::string> p = {};
+    for (const auto& ap : airportO) {
+        for (const auto& ap2 : airportD) {
+            std::vector<std::string> p = flightGraph->createPath(ap, ap2);
             if (!p.empty()) {
                 paths.push_back(p);
             }
@@ -765,7 +742,7 @@ void Manager::getFlight(std::string origin, std::string destination, int oType, 
         std::cout << "The best options to travel from " << origin << " to " << destination << ": " << std::endl;
 
         for (auto p : paths) {
-            // print path
+            flightGraph->printPath(p);
         }
     }
 }
