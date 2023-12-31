@@ -9,13 +9,11 @@ public:
 
     double getLatitude() const;
     double getLongitude() const;
-public:
-    double latitude;
-    double longitude;
-
     double toRadians(double degrees) const;
-
     double calculateDistance(const Location &other) const;
+private:
+    double latitude; /*brief valor da latitude, double precision*/
+    double longitude; /*brief valor da longitude, double precision*/
 };
 
 #endif //FLIGHTSYSTEM_LOCATION_H

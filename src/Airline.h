@@ -15,9 +15,7 @@ public:
     std::string getCountry() const;
 
 
-    bool operator==(const Airline& other);
-
-    private:
+private:
     std::string code;
     std::string name;
     std::string callsign;

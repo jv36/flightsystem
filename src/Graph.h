@@ -44,9 +44,6 @@ public:
 
     static Airport* findClosestAirport(Graph graph, Location source, Location dest);
 
-
-
-
     void articulationDFS(Node& node, std::vector<Airport*> &points, std::stack<Node>& st, int index);
 
 
@@ -55,7 +52,6 @@ public:
     // FLIGHT PATHS
     std::vector<std::string> createPath(std::string from, std::string to, std::vector<std::string>& filter, int type);
     void printPath(const std::vector<std::string>& path);
-
 };
 
 

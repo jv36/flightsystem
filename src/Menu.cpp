@@ -32,7 +32,7 @@ int Menu::mainMenu() {
     std::cout << "| 1 - Flights                   |\n";
     std::cout << "| 2 - Airports                  |\n";
     std::cout << "| 3 - Data/Statistics           |\n";
-    std::cout << "| 4 - Misc                      |\n";
+    std::cout << "| 4 - Articulation points       |\n";
     std::cout << "| 5 - Exit                      |\n";
     std::cout << "| ============================= |\n";
     std::cout << "| Please enter your choice:     |\n";

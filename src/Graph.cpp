@@ -1,6 +1,8 @@
 #include <iostream>
 #include <limits>
 #include <algorithm>
+#include <cmath>
+#include <climits>
 #include "Graph.h"
 
 Graph::Graph(int g_size, bool dir) {
@@ -243,6 +245,7 @@ std::vector<std::string> Graph::createPath(std::string from, std::string to, std
     return path;
 }
 
+
 void Graph::printPath(const std::vector<std::string>& path) {
     if (!path.empty()) {
         auto last = path.end() - 1;
@@ -254,6 +257,3 @@ void Graph::printPath(const std::vector<std::string>& path) {
         std::cout << *last << std::endl;
     }
 }
-
-
-

@@ -819,26 +819,13 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
 
     for (const auto& ap : airportO) {
         for (const auto& ap2 : airportD) {
-            if (type == 1) {
-                std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter, 1);
-                if (!p.empty()) {
-                    paths.push_back(p);
-                }
-            }
-            else if (type == 2) {
-                std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter, 2);
-                if (!p.empty()) {
-                    paths.push_back(p);
-                }
-            }
-            else {
-                std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter, 0);
-                if (!p.empty()) {
-                    paths.push_back(p);
-                }
+            std::vector<std::string> p = flightGraph->createPath(ap, ap2, filter, type);
+            if (!p.empty()) {
+                paths.push_back(p);
             }
         }
     }
+
 
     if (paths.empty()) {
         std::cout << "There are no flights from " << origin << " to " << destination << std::endl;
