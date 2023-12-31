@@ -5,11 +5,23 @@
 #include <climits>
 #include "Graph.h"
 
+/*
+ * @brief Construtor da classe Graph que recebe o tamanho do grafo e se ele é dirigido ou não.
+ * @details Complexity: O(1)
+ * @param g_size: tamanho do grafo
+ * @param dir: dirigido ou não dirigido
+ */
 Graph::Graph(int g_size, bool dir) {
     this->g_size = g_size;
     this->dir = dir;
 }
 
+/*
+ * @brief Adiciona um node ao grafo.
+ * @details Complexity: O(1)
+ * @param airportCode: código IATA do aeroporto
+ * @param airport: apontador para objeto da classe Airport, representa um aeroporto
+ */
 void Graph::addNode(const std::string& airportCode, Airport* airport) {
     Node newNode;
     newNode.airport = airport;
@@ -19,6 +31,13 @@ void Graph::addNode(const std::string& airportCode, Airport* airport) {
     nodes.insert({airportCode, newNode});
 }
 
+/*
+ * @brief Adiciona um edge ao grafo.
+ * @details Complexity: O(1)
+ * @param originAirport: código IATA do aeroporto de origem
+ * @param destAirport: código IATA do aeroporto de destino
+ * @param airline: companhia aérea do voo
+ */
 void Graph::addEdge(const std::string &originAirport, const std::string &destAirport, const std::string &airline) {
     auto it = nodes.find(originAirport);
     auto it2 = nodes.find(destAirport);
@@ -29,7 +48,15 @@ void Graph::addEdge(const std::string &originAirport, const std::string &destAir
     if (!this->dir) it2->second.adj.push_back({originAirport, airline});
 
 }
-//usem isto quando quiserem procurar o máximo possível numa direção
+
+
+/*
+ * @brief Faz uma pesquisa DFS no grafo.
+ * @details Complexity: O(V + E)
+ * @details V - número de aeroportos
+ * @details E - número de edges
+ * @param airportCode: código IATA do aeroporto
+ */
 void Graph::dfs(const std::string &airportCode) {
     this->removeDistance();
     this->removeVisited();
@@ -54,7 +81,13 @@ void Graph::dfs(const std::string &airportCode) {
     }
 }
 
-//usem isto quando quiserem procurar o caminho mais curto entre 2 nodes aka aeroportos etc
+/*
+ * @brief Faz uma pesquisa BFS no grafo.
+ * @details Complexity: O(V + E)
+ * @details V - número de aeroportos
+ * @details E - número de edges
+ * @param airportCode: código IATA do aeroporto
+ */
 void Graph::bfs(const std::string &airportCode) {
     this->removeDistance();
     this->removeVisited();
@@ -81,6 +114,15 @@ void Graph::bfs(const std::string &airportCode) {
 
 }
 
+/*
+ * @brief Faz uma pesquisa BFS no grafo, utilizando um filtro de companhias aéreas a restringir.
+ * @details Complexity: O(V + E + F)
+ * @details V - número de aeroportos
+ * @details E - número de edges
+ * @details F - número de companhias aéreas no filtro
+ * @param airportCode: código IATA do aeroporto
+ * @param filter: vetor de companhias aéreas a quem queremos restringir a pesquisa
+ */
 void Graph::bfsFilteredRestrict(const std::string &airportCode, std::vector<std::string>& filter) {
     this->removeDistance();
     this->removeVisited();
@@ -109,6 +151,15 @@ void Graph::bfsFilteredRestrict(const std::string &airportCode, std::vector<std:
 
 }
 
+/*
+ * @brief Faz uma pesquisa BFS no grafo, utilizando um filtro de companhias aéreas a excluir da pesquisa.
+ * @details Complexity: O(V + E + F)
+ * @details V - número de aeroportos
+ * @details E - número de edges
+ * @details F - número de companhias aéreas no filtro
+ * @param airportCode: código IATA do aeroporto
+ * @param filter: vetor de companhias aéreas que queremos excluir da pesquisa
+ */
 void Graph::bfsFilteredExclude(const std::string &airportCode, std::vector<std::string> &filter) {
     this->removeDistance();
     this->removeVisited();
@@ -137,26 +188,51 @@ void Graph::bfsFilteredExclude(const std::string &airportCode, std::vector<std::
 
 }
 
+/*
+ * @brief Retoma o node pertencente à chave introduzida como parâmetro.
+ * @details Complexity: O(1) mas poderá ser O(n) no pior caso
+ * @param key: chave do node que queremos
+ * @return O node pertencente à chave key.
+ */
 Graph::Node &Graph::nodeAtKey(const std::string &key) {
     Node& node = this->nodes[key];
     return node;
 }
 
+/*
+ * @brief Coloca todos os nodes como não visitados.
+ * @details Complexity: O(V)
+ * @details V - número de vértices no grafo
+ */
 void Graph::removeVisited() {
     for (auto& node: nodes) {
         node.second.visited = false;
     }
 }
 
+/*
+ * @brief Coloca todos os nodes com a distância a -1.
+ * @details Complexity: O(V)
+ * @details V - número de vértices no grafo
+ */
 void Graph::removeDistance() {
     for (auto& node: nodes) {
         node.second.distance = -1;
     }
 }
+
+/*
+ * @brief Limpa os nodes do grafo.
+ * @details Complexity: O(1)
+ */
 void Graph::clearGraph() {
     this->nodes.clear();
 }
 
+
+
+
+// Não sei o que é isto?
 int Graph::distance(const std::string& in, const std::string& out) {
     if (in == out) {
         return 0;
@@ -183,6 +259,20 @@ Airport* Graph::findClosestAirport(Graph graph,Location source, Location dest) {
     return closestAirport;
 }
 
+
+
+
+/*
+ * @brief Faz uma pesquisa DFS para obter os pontos de articulação do grafo.
+ * @brief Adaptação do Tarjan's Algorithm, baseado num dos recursos teóricos da cadeira.
+ * @details Complexity: O(V + E)
+ * @details V - número de vértices no grafo
+ * @details E - número de edges no grafo
+ * @param node: node
+ * @param points: aeroportos que são pontos de articulação
+ * @param st: stack de nodes para usar na pesquisa
+ * @param index: índice
+ */
 void Graph::articulationDFS(Graph::Node &node, std::vector<Airport*> &points, std::stack<Node> &st, int index) {
     node.visited = true;
     node.num = index;
@@ -222,6 +312,18 @@ void Graph::articulationDFS(Graph::Node &node, std::vector<Airport*> &points, st
     }
 }
 
+
+/*
+ * @brief Cria um caminho entre aeroportos, utilizando as funções de pesquisa BFS.
+ * @details Complexity: O(V + E)
+ * @details V - número de vértices no grafo
+ * @details E - número de edges no grafo
+ * @param from: código IATA do aeroporto de origem
+ * @param to: código IATA do aeroporto de destino
+ * @param filter: vetor com companhias aéreas, se for necessário restringir ou excluir da pesquisa. Vazio caso não se aplique.
+ * @param type: tipo de BFS a efetuar, determinado pelo utilizador
+ * @return Vetor com os códigos dos aeroportos do caminho.
+ */
 std::vector<std::string> Graph::createPath(std::string from, std::string to, std::vector<std::string>& filter, int type) {
     std::vector<std::string> path;
     if (filter.empty() || type == 0) {
@@ -245,7 +347,12 @@ std::vector<std::string> Graph::createPath(std::string from, std::string to, std
     return path;
 }
 
-
+/*
+ * @brief Imprime um caminho entre aeroportos.
+ * @details Complexity: O(N)
+ * @details N - número de aeroportos do caminho
+ * @param path: vetor com os códigos dos aeroportos do caminho
+ */
 void Graph::printPath(const std::vector<std::string>& path) {
     if (!path.empty()) {
         auto last = path.end() - 1;

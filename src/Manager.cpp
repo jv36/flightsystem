@@ -10,7 +10,12 @@ void Manager::printflightGraph() {
     }
 }
 
-
+/*
+ * @brief Faz parse ao ficheiro airlines.csv e coloca os seus dados nas estruturas adequadas.
+ * @details Complexity: O(N*M)
+ * @details N - número de linhas no ficheiro
+ * @details M - comprimento médio de cada linha
+ */
 void Manager::parseAirlines() {
     std::ifstream file("../csv/airlines.csv");
 
@@ -36,6 +41,13 @@ void Manager::parseAirlines() {
     }
 }
 
+
+/*
+ * @brief Faz parse ao ficheiro airports.csv e coloca os seus dados nas estruturas adequadas.
+ * @details Complexity: O(N*M)
+ * @details N - número de linhas no ficheiro
+ * @details M - comprimento médio de cada linha
+ */
  void Manager::parseAirport() {
      std::ifstream file("../csv/airports.csv");
 
@@ -77,6 +89,12 @@ void Manager::parseAirlines() {
      }
 }
 
+/*
+ * @brief Faz parse ao ficheiro flights.csv e coloca os seus dados nas estruturas adequadas.
+ * @details Complexity: O(N*M)
+ * @details N - número de linhas no ficheiro
+ * @details M - comprimento médio de cada linha
+ */
 void Manager::parseFlights() {
     std::ifstream file("../csv/flights.csv");
 
@@ -105,10 +123,20 @@ void Manager::parseFlights() {
     }
 }
 
+/*
+ * @brief Obtém o unordered map das companhias aéreas {código, Airline*}.
+ * @details Complexity: O(1)
+ * @return Unordered map das companhias aéreas.
+ */
 std::unordered_map<std::string, Airline *> Manager::getAirlines() {
     return airlines;
 }
 
+/*
+ * @brief Obtém o unordered map dos aeroportos {código, Airport*}.
+ * @details Complexity: O(1)
+ * @return Unordered map dos aeroportos.
+ */
 std::unordered_map<std::string, Airport *> Manager::getAirports() {
     return airports;
 }
@@ -282,10 +310,21 @@ void Manager::flightsPerAirline(const std:: string& nameAirline) {
 
 //GLOBAL STATS
 
+/*
+ * @brief Retoma o número de aeroportos no grafo.
+ * @details Complexity: O(1)
+ * @return Número total de aeroportos no grafo.
+ */
 unsigned long Manager::globalAirports() {
     return airports.size();
 }
 
+/*
+ * @brief Imprime todos os aeroportos do grafo, no modo especificado pelo utilizador.
+ * @details Complexity: O(N)
+ * @details N - número de aeroportos no grafo
+ * @param type: modo de apresentação da lista
+ */
 void Manager::printGlobalAirports(const char& type) {
     if (type == 'n') {
         for (const auto& airport: airports) {
@@ -307,10 +346,20 @@ void Manager::printGlobalAirports(const char& type) {
     }
 }
 
+/*
+ * @brief Retoma o número de companhias aéreas no grafo.
+ * @details Complexity: O(1)
+ * @return Número total de companhias aéreas no grafo.
+ */
 unsigned long Manager::globalAirlines() {
     return airlines.size();
 }
 
+/*
+ * @brief Imprime todos as companhias aéreas do grafo.
+ * @details Complexity: O(N)
+ * @details N - número de aeroportos no grafo
+ */
 void Manager::printGlobalAirlines() {
     for (const auto& airline : airlines) {
         std::cout << airline.second->getCode() << " - " << airline.second->getName() << " - " << airline.second->getCallsign() << " - " << airline.second->getCountry() << std::endl;
@@ -529,19 +578,25 @@ void Manager::allDestinations(const std::string& startAirport) {
     }
 }
 
-void Manager::destinationsWithinStops(const std::string& startAirport, int maxStops){
+void Manager::destinationsWithinStops(const std::string& startAirport, int maxStops, bool type){
     std::string startAirportCode;
 
-    for (const auto &airport: airports) {
-        if (airport.second->getName() == startAirport) {
-            startAirportCode = airport.first;
+    if (!type) {
+        for (const auto &airport: airports) {
+            if (airport.second->getName() == startAirport) {
+                startAirportCode = airport.first;
+            }
         }
+    }
+    else {
+        startAirportCode = startAirport;
     }
 
     if (startAirportCode.empty()) {
         std::cout << "Airport not found " << std::endl;
         return;
     }
+
     std::queue<std::pair<std::string ,int>> q;
     q.push({startAirportCode,0});
 
@@ -573,11 +628,11 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
             }
         }
     }
-    std::cout << "Choose an option and write down the alinea:" << std::endl;
+    std::cout << "Input the type of destination:" << std::endl;
     std::cout << std::endl;
-    std::cout << "a. Aeroport" << std::endl;
-    std::cout << "b. City" << std::endl;
-    std::cout << "c. Country" << std::endl;
+    std::cout << "a. Airports" << std::endl;
+    std::cout << "b. Cities" << std::endl;
+    std::cout << "c. Countries" << std::endl;
 
     char op1, op2;
     std::cin >> op1;
@@ -589,15 +644,15 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
     }
 
     else if( op1 =='a' || op1 =='A'){
-        std::cout << " There are " << visitedAirports.size() << " reachables airports" << std::endl;
+        std::cout << "There are " << visitedAirports.size() << " reachable airports" << std::endl;
     }
 
     else if( op1 =='b' || op1 =='B'){
-        std::cout << " There are " << visitedCities.size() << " reachables cities" << std::endl;
+        std::cout << "There are " << visitedCities.size() << " reachable cities" << std::endl;
     }
 
     else if( op1 =='c' || op1 =='C'){
-        std::cout << " There are " << visitedAirports.size() << " reachables airports" << std::endl;
+        std::cout << "There are " << visitedAirports.size() << " reachables airports" << std::endl;
     }
 
     std::cout << "Do you want to print the results?" << std::endl;
@@ -851,10 +906,23 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
     }
 }
 
+/*
+ * @brief Verifica se um código de uma companhia aérea existe.
+ * @details Complexity: O(1)
+ * @param code: código da companhia aérea
+ * @return true se o código é válido, false se não for.
+ */
 bool Manager::validAirlineCode(const std::string &code) {
     return airlines.find(code) != airlines.end() ;
 }
 
+/*
+ * @brief Obtém o código da companhia aérea através do nome.
+ * @details Complexity: O(N)
+ * @details N - número de companhias aéreas
+ * @param name: nome da companhia aérea
+ * @return Código da companhia aérea, "" se não existir.
+ */
 std::string Manager::getCodeFromName(const std::string &name) {
     for (const auto& a: airlines) {
         if (a.second->getName() == name) {
@@ -864,6 +932,13 @@ std::string Manager::getCodeFromName(const std::string &name) {
     return "";
 }
 
+/*
+ * @brief Obtém o código da companhia aérea através do callsign.
+ * @details Complexity: O(N)
+ * @details N - número de companhias aéreas
+ * @param callsign: callsign da companhia aérea
+ * @return Código da companhia aérea, "" se não existir.
+ */
 std::string Manager::getCodeFromCallsign(const std::string &callsign) {
     for (const auto& a: airlines) {
         if (a.second->getCallsign() == callsign) {
@@ -873,6 +948,13 @@ std::string Manager::getCodeFromCallsign(const std::string &callsign) {
     return "";
 }
 
+/*
+ * @brief Vetor de companhias aéreas de um país, para usar como filtro.
+ * @details Complexity: O(N)
+ * @details N - número de companhias aéreas
+ * @param country: país a filtrar
+ * @return Vetor de códigos de companhias aéreas do país especificado.
+ */
 std::vector<std::string> Manager::filterCountry(const std::string &country) {
     std::vector<std::string> res;
 
@@ -882,6 +964,30 @@ std::vector<std::string> Manager::filterCountry(const std::string &country) {
         }
     }
     return res;
+}
+
+
+/*
+ * @brief Obtém o diâmetro do grafo.
+ * @details Complexity: O(N^2 * (N + E))
+ * @details N - número de nodes
+ * @details E - número de edges
+ * @return Diâmetro do grafo.
+ */
+int Manager::graphDiameter() {
+
+    int diameter = 0;
+
+    for (const auto& ap : airports) {
+        flightGraph->bfs(ap.first);
+        for (auto ap2 : airports) {
+            if (flightGraph->nodeAtKey(ap2.first).distance > diameter) {
+                diameter = flightGraph->nodeAtKey(ap2.first).distance;
+            }
+        }
+    }
+
+    return diameter;
 }
 
 

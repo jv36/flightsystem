@@ -32,7 +32,7 @@ int Menu::mainMenu() {
     std::cout << "| 1 - Flights                   |\n";
     std::cout << "| 2 - Airports                  |\n";
     std::cout << "| 3 - Data/Statistics           |\n";
-    std::cout << "| 4 - Articulation points       |\n";
+    std::cout << "| 4 - Other functions           |\n";
     std::cout << "| 5 - Exit                      |\n";
     std::cout << "| ============================= |\n";
     std::cout << "| Please enter your choice:     |\n";
@@ -480,11 +480,29 @@ void Menu::statsMenu() {
             manager.topKAirports(op);
             break;
         case 5:
-            std::cout << "Write an Airport's name" <<std::endl;
-            std::cin >> startAirport;
-            std::cout <<"Write the maximum stops" <<std::endl;
-            std::cin >> maxStops;
-            manager.destinationsWithinStops(startAirport,maxStops);
+            std::cout << "+-------------------------------+\n";
+            std::cout << "| Select type of airport:       |\n";
+            std::cout << "| 1 - Code                      |\n";
+            std::cout << "| 2 - Name                      |\n";
+            std::cout << "+-------------------------------+\n";
+            int op2;
+            std::cin >> op2;
+            switch(op2) {
+                case 1:
+                    std::cout << "Write an Airport's IATA code" <<std::endl;
+                    std::cin >> startAirport;
+                    std::cout <<"Write the maximum stops" <<std::endl;
+                    std::cin >> maxStops;
+                    manager.destinationsWithinStops(startAirport, maxStops, true);
+                    break;
+                case 2:
+                    std::cout << "Write an Airport's name" <<std::endl;
+                    std::cin >> startAirport;
+                    std::cout <<"Write the maximum stops" <<std::endl;
+                    std::cin >> maxStops;
+                    manager.destinationsWithinStops(startAirport,maxStops, false);
+                    break;
+            }
             break;
         case 6:
             mainMenu();
@@ -573,18 +591,58 @@ void Menu::globalStatsMenu() {
 //--- MISCS ----
 
 void Menu::miscMenu() {
-    std::cout << "Want to show the list of articulation points along with the total number?" << std::endl;
-    std::cout << "If yes, input 'y', if no, input anything else." << std::endl;
+
+
+    std::cout << "+-------------------------------+\n";
+    std::cout << "| ======= Other functions ======|\n";
+    std::cout << "| 1 - Articulation points       |\n";
+    std::cout << "| 2 - Graph diameter            |\n";
+    std::cout << "| 3 - Return to main menu       |\n";
+    std::cout << "| ============================= |\n";
+    std::cout << "| Please enter your choice:     |\n";
+    std::cout << "+-------------------------------+\n";
+
+    int op;
+    std::cin >> op;
     std::cout << std::endl;
 
-    char typ;
-    std::cin >> typ;
     if (std::cin.fail()) {
-        miscMenu();
+        throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
     }
-    else {
-        manager.printArticulation(typ);
+
+    while ((op < 1 || op > 3) && !(std::cin.fail())) {
+        std::cout << "Choose a valid option." << std::endl;
+        std::cin >> op;
+        std::cout << std::endl;
     }
+
+    switch (op) {
+        case 1:
+            std::cout << "Want to show the list of articulation points along with the total number?" << std::endl;
+            std::cout << "If yes, input 'y', if no, input anything else." << std::endl;
+            std::cout << std::endl;
+
+            char typ;
+            std::cin >> typ;
+            if (std::cin.fail()) {
+                miscMenu();
+            }
+            else {
+                manager.printArticulation(typ);
+            }
+
+            break;
+        case 2:
+            std::cout << "The graph diameter is " << manager.graphDiameter() << std::endl;
+            break;
+        case 3:
+            mainMenu();
+            break;
+        default:
+            std::cout << "Invalid option. Please try again.";
+    }
+
+
 }
 
 

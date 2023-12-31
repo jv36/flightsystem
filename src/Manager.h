@@ -83,11 +83,13 @@ public:
 
     void printAirportDestinations(const std::string &code, const char &type);
 
-void destinationsWithinStops(const std::string& startAirport, int maxStops);
-void maximumTripWithStops();
+    void destinationsWithinStops(const std::string& startAirport, int maxStops, bool type);
+    void maximumTripWithStops();
 
     //void allDestinations(const std::string &startAirport);
     //void directDestinations(const std::string &startAirport);
+
+    int graphDiameter();
 };
 
 #endif //FLIGHTSYSTEM_MANAGER_H
