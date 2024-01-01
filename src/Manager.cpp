@@ -4,13 +4,7 @@
 #include <set>
 #include <algorithm>
 
-void Manager::printflightGraph() {
-    for (auto& node : flightGraph->nodes) {
-        std::cout << node.first <<std::endl;
-    }
-}
-
-/*
+/**
  * @brief Faz parse ao ficheiro airlines.csv e coloca os seus dados nas estruturas adequadas.
  * @details Complexity: O(N*M)
  * @details N - número de linhas no ficheiro
@@ -41,7 +35,7 @@ void Manager::parseAirlines() {
 }
 
 
-/*
+/**
  * @brief Faz parse ao ficheiro airports.csv e coloca os seus dados nas estruturas adequadas.
  * @details Complexity: O(N*M)
  * @details N - número de linhas no ficheiro
@@ -88,7 +82,7 @@ void Manager::parseAirlines() {
      }
 }
 
-/*
+/**
  * @brief Faz parse ao ficheiro flights.csv e coloca os seus dados nas estruturas adequadas.
  * @details Complexity: O(N*M)
  * @details N - número de linhas no ficheiro
@@ -122,7 +116,7 @@ void Manager::parseFlights() {
     }
 }
 
-/*
+/**
  * @brief Obtém o unordered map das companhias aéreas {código, Airline*}.
  * @details Complexity: O(1)
  * @return Unordered map das companhias aéreas.
@@ -131,7 +125,7 @@ std::unordered_map<std::string, Airline *> Manager::getAirlines() {
     return airlines;
 }
 
-/*
+/**
  * @brief Obtém o unordered map dos aeroportos {código, Airport*}.
  * @details Complexity: O(1)
  * @return Unordered map dos aeroportos.
@@ -141,12 +135,21 @@ std::unordered_map<std::string, Airport *> Manager::getAirports() {
 }
 
 
-// AIRPORT MENU
 
+/**
+ * @brief Retoma o número de voos de um aeroporto específico, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ * @return Número de voos do aeroporto.
+ */
 unsigned long Manager::flightsFromAirport(const std::string& code) {
     return flightGraph->nodeAtKey(code).adj.size();
 }
 
+/**
+ * @brief Retoma o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ * @return Número de companhias aéreas a operar no aeroporto.
+ */
 unsigned long Manager::airlinesFromAirport(const std::string& code) {
     std::set<std::string> airList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -155,6 +158,10 @@ unsigned long Manager::airlinesFromAirport(const std::string& code) {
     return airList.size();
 }
 
+/**
+ * @brief Imprime as companhias aéreas que operam num aeroporto específico, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ */
 void Manager::printAirlinesFromAirport(const std::string& code) {
     std::set<std::string> airList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -166,6 +173,11 @@ void Manager::printAirlinesFromAirport(const std::string& code) {
     }
 }
 
+/**
+ * @brief Retoma o número de cidades para as quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ * @return O número de cidades para as quais é possível voar diretamente.
+ */
 unsigned long Manager::cityDestinations(const std::string& code) {
     std::set<std::pair<std::string, std::string>> cityList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -175,6 +187,11 @@ unsigned long Manager::cityDestinations(const std::string& code) {
     return cityList.size();
 }
 
+/**
+ * @brief Imprime as cidades para as quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ * @param type: tipo de apresentação, definido pelo utilizador
+ */
 void Manager::printCityDestinations(const std::string& code, const char& type) {
     std::set<std::pair<std::string, std::string>> cityList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -198,6 +215,11 @@ void Manager::printCityDestinations(const std::string& code, const char& type) {
 
 }
 
+/**
+ * @brief Retoma o número de países para os quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ * @return O número de países para os quais é possível voar diretamente.
+ */
 unsigned long Manager::countryDestinations(const std::string& code) {
     std::set<std::string> countryList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -207,6 +229,10 @@ unsigned long Manager::countryDestinations(const std::string& code) {
     return countryList.size();
 }
 
+/**
+ * @brief Imprime os países para os quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ */
 void Manager::printCountryDestinations(const std::string& code) {
     std::set<std::string> countryList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -219,6 +245,11 @@ void Manager::printCountryDestinations(const std::string& code) {
     }
 }
 
+/**
+ * @brief Retoma o número de aeroportos para os quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ * @return O número de aeroportos para os quais é possível voar diretamente.
+ */
 unsigned long Manager::airportDestinations(const std::string& code) {
     std::set<Airport*> airportList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -230,6 +261,11 @@ unsigned long Manager::airportDestinations(const std::string& code) {
 
 }
 
+/**
+ * @brief Imprime os aeroportos para as quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
+ * @param code: código IATA do aeroporto
+ * @param type: tipo de apresentação, definido pelo utilizador
+ */
 void Manager::printAirportDestinations(const std::string& code, const char& type) {
     std::set<Airport*> airportList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
@@ -258,6 +294,10 @@ void Manager::printAirportDestinations(const std::string& code, const char& type
 }
 //  STATISTICS MENU
 
+/**
+ * @brief Imprime o número de voos que saem de uma determinada cidade, especificada pelo utilizador.
+ * @param nameCity: nome da cidade
+ */
 void Manager::flightsPerCity(const std:: string& nameCity) {
     std::string CityCode;
 
@@ -279,9 +319,13 @@ void Manager::flightsPerCity(const std:: string& nameCity) {
             flightsCity[edge.destination]++;
         }
     }
-    std::cout << "There are " << flightsCity[CityCode] << " flights operated by " << nameCity << std::endl;
+    std::cout << "There are " << flightsCity[CityCode] << " flights operated from " << nameCity << std::endl;
 }
 
+/**
+ * @brief Imprime o número de voos que são operados por uma determinada companhia aérea, especificada pelo utilizador.
+ * @param nameAirline: nome da companhia aérea
+ */
 void Manager::flightsPerAirline(const std:: string& nameAirline) {
     std::string AirlineCode;
 
@@ -309,7 +353,7 @@ void Manager::flightsPerAirline(const std:: string& nameAirline) {
 
 //GLOBAL STATS
 
-/*
+/**
  * @brief Retoma o número de aeroportos no grafo.
  * @details Complexity: O(1)
  * @return Número total de aeroportos no grafo.
@@ -318,7 +362,7 @@ unsigned long Manager::globalAirports() {
     return airports.size();
 }
 
-/*
+/**
  * @brief Imprime todos os aeroportos do grafo, no modo especificado pelo utilizador.
  * @details Complexity: O(N)
  * @details N - número de aeroportos no grafo
@@ -345,7 +389,7 @@ void Manager::printGlobalAirports(const char& type) {
     }
 }
 
-/*
+/**
  * @brief Retoma o número de companhias aéreas no grafo.
  * @details Complexity: O(1)
  * @return Número total de companhias aéreas no grafo.
@@ -354,7 +398,7 @@ unsigned long Manager::globalAirlines() {
     return airlines.size();
 }
 
-/*
+/**
  * @brief Imprime todos as companhias aéreas do grafo.
  * @details Complexity: O(N)
  * @details N - número de aeroportos no grafo
@@ -365,6 +409,10 @@ void Manager::printGlobalAirlines() {
     }
 }
 
+/**
+ * @brief Imprime os K aeroportos com mais voos. O número de aeroportos a apresentar é especificado pelo utilizador.
+ * @param k: número de aeroportos a mostrar
+ */
 void Manager::topKAirports(int k) {
     std::vector<std::pair<Airport*, int>> allAirports;
     for (const auto& airport : airports) {
@@ -577,6 +625,12 @@ void Manager::allDestinations(const std::string& startAirport) {
     }
 }
 
+/**
+ * @brief Apresenta o número de destinos alcançáveis dado um número máximo de escalas. O aeroporto de origem é definido pelo utilizador.
+ * @param startAirport: código IATA ou nome do aeroporto de origem
+ * @param maxStops: número máximo de escalas
+ * @param type: tipo de aeroporto de origem (nome ou IATA)
+ */
 void Manager::destinationsWithinStops(const std::string& startAirport, int maxStops, bool type){
     std::string startAirportCode;
 
@@ -720,7 +774,10 @@ void Manager::maximumTripWithStops() {
     std::cout << " (Total stops: " << maxPath.size() - 1 << ")" << std::endl;
 }
 
-
+/**
+ * @brief Imprime o número de articulation points no grafo, utilizando o algoritmo DFS específico para tal.
+ * @param type: tipo de apresentação, definido pelo utilizador: se imprime também os aeroportos que são pontos de articulação.
+ */
 void Manager::printArticulation(char type) {
     std::vector<Airport*> points;
     std::stack<Graph::Node> st;
@@ -747,6 +804,17 @@ void Manager::printArticulation(char type) {
     }
 }
 
+/**
+ * @brief Obtém as melhores opções de voos de A até B.
+ * @brief Utiliza a função Graph::createPath e imprime estes mesmos caminhos.
+ * @brief Caso não haja voos, uma mensagem é apresentada ao utilizador.
+ * @param origin: local de origem
+ * @param destination: local de destino
+ * @param oType: tipo de origem (aeroporto (nome ou IATA), cidade, país ou coordenadas geográficas)
+ * @param dType: tipo de destino (aeroporto (nome ou IATA), cidade, país ou coordenadas geográficas)
+ * @param filter: filtro de companhias aéreas
+ * @param type: tipo de pesquisa (0: sem aplicar filtro, 1: restringe pesquisa às companhias do filtro, 2: exclui da pesquisa companhias do filtro)
+ */
 void Manager::getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter, int type) {
     std::vector<std::string> airportO;
     std::vector<std::string> airportD;
@@ -905,7 +973,7 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
     }
 }
 
-/*
+/**
  * @brief Verifica se um código de uma companhia aérea existe.
  * @details Complexity: O(1)
  * @param code: código da companhia aérea
@@ -915,7 +983,7 @@ bool Manager::validAirlineCode(const std::string &code) {
     return airlines.find(code) != airlines.end() ;
 }
 
-/*
+/**
  * @brief Obtém o código da companhia aérea através do nome.
  * @details Complexity: O(N)
  * @details N - número de companhias aéreas
@@ -931,7 +999,7 @@ std::string Manager::getCodeFromName(const std::string &name) {
     return "";
 }
 
-/*
+/**
  * @brief Obtém o código da companhia aérea através do callsign.
  * @details Complexity: O(N)
  * @details N - número de companhias aéreas
@@ -947,7 +1015,7 @@ std::string Manager::getCodeFromCallsign(const std::string &callsign) {
     return "";
 }
 
-/*
+/**
  * @brief Vetor de companhias aéreas de um país, para usar como filtro.
  * @details Complexity: O(N)
  * @details N - número de companhias aéreas
@@ -966,7 +1034,7 @@ std::vector<std::string> Manager::filterCountry(const std::string &country) {
 }
 
 
-/*
+/**
  * @brief Obtém o diâmetro do grafo.
  * @details Complexity: O(N^2 * (N + E))
  * @details N - número de nodes

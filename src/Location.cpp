@@ -1,7 +1,7 @@
 #include "Location.h"
 #include <cmath>
 
-/*
+/**
  * @brief Construtor da classe Location.
  * @brief Inicializa uma localização vazia.
  * @details Complexity: O(1)
@@ -11,7 +11,7 @@ Location::Location() {
     this->longitude = 0.0;
 }
 
-/*
+/**
  * @brief Construtor da classe Location que recebe valores de latitude e longitude.
  * @brief Inicializa uma localização através destes valores.
  * @details Complexity: O(1)
@@ -23,7 +23,7 @@ Location::Location(double latitude, double longitude) {
     this->longitude = longitude;
 }
 
-/*
+/**
  * @brief Obtém o valor da latitude.
  * @details Complexity: O(1)
  * @return O valor da latitude, em double.
@@ -32,7 +32,7 @@ double Location::getLatitude() const {
     return latitude;
 }
 
-/*
+/**
  * @brief Obtém o valor da longitude.
  * @details Complexity: O(1)
  * @return O valor da longitude, em double.
@@ -41,16 +41,16 @@ double Location::getLongitude() const {
     return longitude;
 }
 
-/*
+/**
  * @brief Converte um ângulo em graus para radianos.
  * @details Complexity: O(1)
  * @return O valor do ângulo em radianos.
  */
-double Location::toRadians(double degrees) const {
+double Location::toRadians(double degrees) {
     return degrees * M_PI / 180.0;
 }
 
-/*
+/**
  * @brief Calcula a distância em quilómetros entre duas localizações.
  * @brief Adaptação da Haversine formula.
  * @details Complexity: O(1)

@@ -9,7 +9,7 @@ public:
 
     double getLatitude() const;
     double getLongitude() const;
-    double toRadians(double degrees) const;
+    static double toRadians(double degrees) ;
     double calculateDistance(const Location &other) const;
 private:
     double latitude; /*brief valor da latitude, double precision*/
