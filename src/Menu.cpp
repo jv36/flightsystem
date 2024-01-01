@@ -479,16 +479,17 @@ void Menu::statsMenu() {
             globalStatsMenu();
             break;
         case 2:
-            std::cout << "Write an City's name";
-            std::cin >> nameCity;
+            std::cout << "Write an City's name" <<std::endl;;
+            std::cin.ignore();
+            std::getline(std::cin,nameCity);
             std::cout << "\n";
 
             manager.flightsPerCity(nameCity);
             break;
         case 3:
             std::cout << "Write an Airline's name" <<std::endl;
-
-            std::cin >> nameAirline;
+            std::cin.ignore();
+            std::getline(std::cin,nameAirline);
             std::cout << "\n";
 
             manager.flightsPerAirline(nameAirline);

@@ -498,16 +498,16 @@ void Manager::directDestinations(const std::string& startAirportCode) {
  */
 void Manager::allDestinations(const std::string& startAirportCode) {
 
-    std::queue<std::pair<std::string, int>> q;
-    q.push({startAirportCode, 0});
-
     std::unordered_set<std::string> visitedAirports;
     std::unordered_set<std::string> visitedCities;
     std::unordered_set<std::string> visitedCountries;
 
-    while (!q.empty()) {
-        auto top = q.front();
-        q.pop();
+    std::stack<std::pair<std::string, int>> dfsStack;
+    dfsStack.push({startAirportCode, 0});
+
+    while (!dfsStack.empty()) {
+        auto top = dfsStack.top();
+        dfsStack.pop();
 
         std::string topAirportCode = top.first;
         int stops = top.second;
@@ -516,14 +516,14 @@ void Manager::allDestinations(const std::string& startAirportCode) {
 
         for (const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj) {
             std::string destinationAirportCode = edge.destination;
-            if (destinationAirportCode != startAirportCode) {
+            if (destinationAirportCode != startAirportCode && visitedAirports.find(destinationAirportCode) == visitedAirports.end()) {
                 Airport* destinationAirport = airports.at(destinationAirportCode);
 
                 visitedAirports.insert(destinationAirportCode);
                 visitedCities.insert(destinationAirport->getCity());
                 visitedCountries.insert(destinationAirport->getCountry());
 
-                q.push({destinationAirportCode, stops + 1});
+                dfsStack.push({destinationAirportCode, stops + 1});
             }
         }
     }
@@ -602,37 +602,40 @@ void Manager::allDestinations(const std::string& startAirportCode) {
  * @param maxStops: número máximo de escalas
  */
 void Manager::destinationsWithinStops(const std::string& startAirportCode, int maxStops){
-    std::queue<std::pair<std::string ,int>> q;
-    q.push({startAirportCode,0});
+    std::unordered_set<std::string> visitedAirports;
+    std::unordered_set<std::string> visitedCities;
+    std::unordered_set<std::string> visitedCountries;
 
-    std::unordered_set<std::string > visitedAirports;
-    std::unordered_set<std::string > visitedCities;
-    std::unordered_set<std::string > visitedCountries;
+    std::stack<std::pair<std::string, int>> dfsStack;
+    dfsStack.push({startAirportCode, 0});
 
-    while (!q.empty()){
-        auto top=q.front();
-        q.pop();
+    while (!dfsStack.empty()) {
+        auto top = dfsStack.top();
+        dfsStack.pop();
 
         std::string topAirportCode = top.first;
         int stops = top.second;
 
-        if(stops > maxStops) { continue;}
+        if (stops > maxStops) {
+            continue;
+        }
 
         visitedAirports.insert(topAirportCode);
 
-        for(const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj){
+        for (const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj) {
             std::string destinationAirportCode = edge.destination;
-            if(destinationAirportCode != startAirportCode){
+            if (destinationAirportCode != startAirportCode && visitedAirports.find(destinationAirportCode) == visitedAirports.end()) {
                 Airport* destinationAirport = airports.at(destinationAirportCode);
 
                 visitedAirports.insert(destinationAirportCode);
                 visitedCities.insert(destinationAirport->getCity());
                 visitedCountries.insert(destinationAirport->getCountry());
 
-                q.push({destinationAirportCode,stops + 1});
+                dfsStack.push({destinationAirportCode, stops + 1});
             }
         }
     }
+
     std::cout << "Input the type of destination:" << std::endl;
     std::cout << std::endl;
     std::cout << "a. Airports" << std::endl;
@@ -657,7 +660,7 @@ void Manager::destinationsWithinStops(const std::string& startAirportCode, int m
     }
 
     else if( op1 =='c' || op1 =='C'){
-        std::cout << "There are " << visitedAirports.size() << " reachables airports" << std::endl;
+        std::cout << "There are " << visitedCountries.size() << " reachables countries" << std::endl;
     }
 
     std::cout << "Do you want to print the results?" << std::endl;
@@ -704,7 +707,8 @@ void Manager::destinationsWithinStops(const std::string& startAirportCode, int m
  * @param nameCity: nome da cidade
  */
 void Manager::flightsPerCity(const std:: string& nameCity) {
-    std::string CityCode;
+    std::string CityCode, AirportCode;
+    int countFlights = 0;
 
     for (const auto &city: cities) {
         flightsCity[city.first] = 0;
@@ -719,12 +723,12 @@ void Manager::flightsPerCity(const std:: string& nameCity) {
     }
 
     for (const auto &airport: airports) {
-        const std::string &airportCode = airport.first;
-        for (const auto &edge: flightGraph->nodeAtKey(airportCode).adj) {
-            flightsCity[edge.destination]++;
+        if(nameCity ==  airport.second->getCity()){
+           AirportCode= airport.first;
+           countFlights += flightGraph->nodeAtKey(AirportCode).adj.size();
         }
     }
-    std::cout << "There are " << flightsCity[CityCode] << " flights operated from " << nameCity << std::endl;
+    std::cout << "There are " << countFlights << " flights operated from " << nameCity << std::endl;
 }
 
 /**
@@ -792,7 +796,7 @@ void Manager::maximumTripWithStops() {
     flightGraph->removeDistance();
     flightGraph->removeVisited();
 
-    for (const auto &airport: airports) {
+    for (const auto &airport : airports) {
         const std::string &currentAirportCode = airport.first;
 
         if (!flightGraph->nodeAtKey(currentAirportCode).visited) {
@@ -807,7 +811,7 @@ void Manager::maximumTripWithStops() {
             currentPath.push_back(currentNode);
 
             if (currentPath.size() > maxPath.size()) {
-                maxPath = currentPath;
+                maxPath = std::move(currentPath);
             }
         }
     }
@@ -818,6 +822,7 @@ void Manager::maximumTripWithStops() {
     }
     std::cout << " (Total stops: " << maxPath.size() - 1 << ")" << std::endl;
 }
+
 
 // Global Statístics
 

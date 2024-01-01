@@ -46,9 +46,7 @@ void Graph::addEdge(const std::string &originAirport, const std::string &destAir
 
     it->second.adj.push_back({destAirport, airline});
     if (!this->dir) it2->second.adj.push_back({originAirport, airline});
-
 }
-
 
 /**
  * @brief Faz uma pesquisa DFS no grafo.
