@@ -50,15 +50,6 @@ public:
 
     void destinationsWithinStops(const std::string& code, int maxStops);
 
-    unsigned long airportDestinations(const std::string &code);
-    void printAirportDestinations(const std::string &code, const char &type);
-
-    unsigned long cityDestinations(const std::string &code);
-    void printCityDestinations(const std::string &code, const char& type);
-
-    unsigned long countryDestinations(const std::string &code);
-    void printCountryDestinations(const std::string &code);
-
     // Statistics
     void flightsPerCity(const std:: string& nameCity);
 

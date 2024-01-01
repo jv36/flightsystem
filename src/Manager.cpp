@@ -165,125 +165,6 @@ void Manager::airlinesFromAirport(const std::string& code) {
     }
 }
 
-/**
- * @brief Retoma o número de cidades para as quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- * @return O número de cidades para as quais é possível voar diretamente.
- */
-unsigned long Manager::cityDestinations(const std::string& code) {
-    std::set<std::pair<std::string, std::string>> cityList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        Airport* airport = airports.at(edge.destination);
-        cityList.insert({airport->getCity(), airport->getCountry()});
-    }
-    return cityList.size();
-}
-
-/**
- * @brief Imprime as cidades para as quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- * @param type: tipo de apresentação, definido pelo utilizador
- */
-void Manager::printCityDestinations(const std::string& code, const char& type) {
-    std::set<std::pair<std::string, std::string>> cityList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        Airport* airport = airports.at(edge.destination);
-        cityList.insert({airport->getCity(), airport->getCountry()});
-    }
-
-    if (type == 'y') {
-        for (const auto &city: cityList) {
-            std::cout << city.first << " - " << city.second << std::endl;
-        }
-    }
-    else if (type == 'n') {
-        for (const auto& city : cityList) {
-            std::cout << city.first << std::endl;
-        }
-    }
-    else {
-        return;
-    }
-
-}
-
-/**
- * @brief Retoma o número de países para os quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- * @return O número de países para os quais é possível voar diretamente.
- */
-unsigned long Manager::countryDestinations(const std::string& code) {
-    std::set<std::string> countryList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        Airport* airport = airports.at(edge.destination);
-        countryList.insert(airport->getCountry());
-    }
-    return countryList.size();
-}
-
-/**
- * @brief Imprime os países para os quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- */
-void Manager::printCountryDestinations(const std::string& code) {
-    std::set<std::string> countryList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        Airport* airport = airports.at(edge.destination);
-        countryList.insert(airport->getCountry());
-    }
-
-    for (const auto& country : countryList) {
-        std::cout << country << std::endl;
-    }
-}
-
-/**
- * @brief Retoma o número de aeroportos para os quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- * @return O número de aeroportos para os quais é possível voar diretamente.
- */
-unsigned long Manager::airportDestinations(const std::string& code) {
-    std::set<Airport*> airportList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        Airport* airport = airports.at(edge.destination);
-        airportList.insert(airport);
-    }
-
-    return airportList.size();
-
-}
-
-/**
- * @brief Imprime os aeroportos para as quais é possível voar diretamente de um determinado aeroporto, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- * @param type: tipo de apresentação, definido pelo utilizador
- */
-void Manager::printAirportDestinations(const std::string& code, const char& type) {
-    std::set<Airport*> airportList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        Airport* airport = airports.at(edge.destination);
-        airportList.insert(airport);
-    }
-
-    if (type == 'a') {
-        for (const auto& air : airportList) {
-            std::cout << air->getCode() << " - " << air->getName() << " - " << air->getCity() << ", " << air->getCountry() << " - " << "(" << air->getLocation().getLatitude() << "," << air->getLocation().getLongitude() << ")" << std::endl;
-        }
-    }
-    else if (type == 'b') {
-        for (const auto& air : airportList) {
-            std::cout << air->getCode() << " - " << air->getName() << " - " << air->getCity() << ", " << air->getCountry() << std::endl;
-        }
-    }
-    else if (type == 'c') {
-        for (const auto& air : airportList) {
-            std::cout << air->getCode() << " - " << air->getName() << std::endl;
-        }
-    }
-    else {
-        return;
-    }
-}
 //  STATISTICS MENU
 
 /**
@@ -420,19 +301,7 @@ void Manager::topKAirports(int k) {
     }
 }
 
-void Manager::directDestinations(const std::string& startAirport) {
-    std::string startAirportCode;
-
-    for (const auto& airport : airports) {
-        if (airport.second->getName() == startAirport) {
-            startAirportCode = airport.first;
-        }
-    }
-
-    if (startAirportCode.empty()) {
-        std::cout << "Airport not found " << std::endl;
-        return;
-    }
+void Manager::directDestinations(const std::string& startAirportCode) {
 
     std::unordered_set<std::string> directAirports;
     std::unordered_set<std::string> directCities;
@@ -510,19 +379,7 @@ void Manager::directDestinations(const std::string& startAirport) {
     }
 }
 
-void Manager::allDestinations(const std::string& startAirport) {
-    std::string startAirportCode;
-
-    for (const auto& airport : airports) {
-        if (airport.second->getName() == startAirport) {
-            startAirportCode = airport.first;
-        }
-    }
-
-    if (startAirportCode.empty()) {
-        std::cout << "Airport not found " << std::endl;
-        return;
-    }
+void Manager::allDestinations(const std::string& startAirportCode) {
 
     std::queue<std::pair<std::string, int>> q;
     q.push({startAirportCode, 0});
@@ -542,7 +399,7 @@ void Manager::allDestinations(const std::string& startAirport) {
 
         for (const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj) {
             std::string destinationAirportCode = edge.destination;
-            if (destinationAirportCode != startAirport) {
+            if (destinationAirportCode != startAirportCode) {
                 Airport* destinationAirport = airports.at(destinationAirportCode);
 
                 visitedAirports.insert(destinationAirportCode);
@@ -624,11 +481,6 @@ void Manager::allDestinations(const std::string& startAirport) {
  * @param type: tipo de aeroporto de origem (nome ou IATA)
  */
 void Manager::destinationsWithinStops(const std::string& startAirportCode, int maxStops){
-    if (startAirportCode.empty()) {
-        std::cout << "Airport not found " << std::endl;
-        return;
-    }
-
     std::queue<std::pair<std::string ,int>> q;
     q.push({startAirportCode,0});
 
