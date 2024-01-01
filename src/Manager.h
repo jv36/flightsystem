@@ -21,16 +21,14 @@ private:
     std::unordered_map<std::string, unsigned long> flightsAirline;
     Graph* flightGraph = new Graph(1, false);
 public:
-    void parseFlights();
     void parseAirlines();
     void parseAirport();
+    void parseFlights();
 
     std::unordered_map<std::string, Airport*> getAirports();
 
-    // FLIGHTS
+    // Flights
     void getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter, int type);
-
-
 
     // Filters
 
@@ -70,12 +68,6 @@ public:
     unsigned long globalAirlines();
 
     void printGlobalAirlines();
-
-    //Não existem mas tão no menu
-
-    //unsigned long globalFlights();
-
-    //void printGlobalFlights();
 
     //Other functions
 

@@ -1,5 +1,4 @@
 #include "Manager.h"
-#include <memory>
 #include <unordered_set>
 #include <set>
 #include <algorithm>
@@ -116,7 +115,6 @@ void Manager::parseFlights() {
     }
 }
 
-
 /**
  * @brief Obtém o unordered map dos aeroportos {código, Airport*}.
  * @details Complexity: O(1)
@@ -126,514 +124,7 @@ std::unordered_map<std::string, Airport *> Manager::getAirports() {
     return airports;
 }
 
-
-
-/**
- * @brief Retoma o número de voos de um aeroporto específico, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- * @return Número de voos do aeroporto.
- */
-unsigned long Manager::flightsFromAirport(const std::string& code) {
-    return flightGraph->nodeAtKey(code).adj.size();
-}
-
-/**
- * @brief Retoma o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador. Imprime o número de companhias aéreas com opção de imprimir todas as companhias.
- * @param code: código IATA do aeroporto Número de companhias aéreas a operar no aeroporto, com opção de retornar todas as
- */
-void Manager::airlinesFromAirport(const std::string& code) {
-    std::set<std::string> airList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        airList.insert(edge.airline);
-    }
-    std::cout << "There is a total of " << airList.size() << " airlines operating in " << code << std::endl;
-    std::cout << "Want to see the full list of airlines operating in " << code << "?" << std::endl;
-    std::cout << "If so, input 'y' to see the full list." << std::endl;
-
-    char op;
-    std::cin >> op;
-    std::cout << std::endl;
-
-    if (std::cin.fail() || (op != 'y')) {
-        return;
-    }
-    else {
-        for (const auto& airline : airList) {
-            std::cout << airline << std::endl;
-        }
-        return;
-    }
-}
-
-//  STATISTICS MENU
-
-/**
- * @brief Imprime o número de voos que saem de uma determinada cidade, especificada pelo utilizador.
- * @param nameCity: nome da cidade
- */
-void Manager::flightsPerCity(const std:: string& nameCity) {
-    std::string CityCode;
-
-    for (const auto &city: cities) {
-        flightsCity[city.first] = 0;
-        if (city.second.first == nameCity) {
-            CityCode = city.first;
-        }
-    }
-
-    if (CityCode.empty()) {
-        std::cout << "City not found " << std::endl;
-        return;
-    }
-
-    for (const auto &airport: airports) {
-        const std::string &airportCode = airport.first;
-        for (const auto &edge: flightGraph->nodeAtKey(airportCode).adj) {
-            flightsCity[edge.destination]++;
-        }
-    }
-    std::cout << "There are " << flightsCity[CityCode] << " flights operated from " << nameCity << std::endl;
-}
-
-/**
- * @brief Imprime o número de voos que são operados por uma determinada companhia aérea, especificada pelo utilizador.
- * @param nameAirline: nome da companhia aérea
- */
-void Manager::flightsPerAirline(const std:: string& nameAirline) {
-    std::string AirlineCode;
-
-    for (const auto &airline: airlines) {
-        flightsAirline[airline.first] = 0;
-        if (airline.second->getName() == nameAirline) {
-            AirlineCode = airline.first;
-        }
-    }
-
-    if (AirlineCode.empty()) {
-        std::cout << "Airline not found " << std::endl;
-        return;
-    }
-
-    for (const auto &airport: airports) {
-        const std::string &airportCode = airport.first;
-        for (const auto &edge: flightGraph->nodeAtKey(airportCode).adj) {
-            flightsAirline[edge.airline]++;
-        }
-    }
-
-    std::cout << "There are " << flightsAirline[AirlineCode] << " flights operated by " << nameAirline << std::endl;
-}
-
-//GLOBAL STATS
-
-/**
- * @brief Retoma o número de aeroportos no grafo.
- * @details Complexity: O(1)
- * @return Número total de aeroportos no grafo.
- */
-unsigned long Manager::globalAirports() {
-    return airports.size();
-}
-
-/**
- * @brief Imprime todos os aeroportos do grafo, no modo especificado pelo utilizador.
- * @details Complexity: O(N)
- * @details N - número de aeroportos no grafo
- * @param type: modo de apresentação da lista
- */
-void Manager::printGlobalAirports(const char& type) {
-    if (type == 'n') {
-        for (const auto& airport: airports) {
-            std::cout << airport.second->getName() << std::endl;
-        }
-    }
-    else if (type == 'c') {
-        for (const auto& airport : airports) {
-            std::cout << airport.second->getCode() << std::endl;
-        }
-    }
-    else if (type == 'a') {
-        for (const auto& airport : airports) {
-            std::cout << airport.second->getCode() << " - " << airport.second->getName() << std::endl;
-        }
-    }
-    else {
-        return;
-    }
-}
-
-/**
- * @brief Retoma o número de companhias aéreas no grafo.
- * @details Complexity: O(1)
- * @return Número total de companhias aéreas no grafo.
- */
-unsigned long Manager::globalAirlines() {
-    return airlines.size();
-}
-
-/**
- * @brief Imprime todos as companhias aéreas do grafo.
- * @details Complexity: O(N)
- * @details N - número de aeroportos no grafo
- */
-void Manager::printGlobalAirlines() {
-    for (const auto& airline : airlines) {
-        std::cout << airline.second->getCode() << " - " << airline.second->getName() << " - " << airline.second->getCallsign() << " - " << airline.second->getCountry() << std::endl;
-    }
-}
-
-/**
- * @brief Imprime os K aeroportos com mais voos. O número de aeroportos a apresentar é especificado pelo utilizador.
- * @param k: número de aeroportos a mostrar
- */
-void Manager::topKAirports(int k) {
-    std::vector<std::pair<Airport*, int>> allAirports;
-    for (const auto& airport : airports) {
-        allAirports.push_back({airport.second, flightGraph->nodeAtKey(airport.first).adj.size()});
-    }
-
-    std::sort(allAirports.begin(), allAirports.end(), [](const auto& p1, const auto& p2) {
-        return p1.second > p2.second;
-    });
-
-    for (int i = 0; i < k; i++) {
-        std::cout << allAirports[i].first->getCode() << " - " << allAirports[i].first->getName() << " with " << allAirports[i].second << " flights;" << std::endl;
-    }
-}
-
-void Manager::directDestinations(const std::string& startAirportCode) {
-
-    std::unordered_set<std::string> directAirports;
-    std::unordered_set<std::string> directCities;
-    std::unordered_set<std::string> directCountries;
-
-    for (const auto& edge : flightGraph->nodeAtKey(startAirportCode).adj) {
-        std::string destinationAirportCode = edge.destination;
-        Airport* destinationAirport = airports.at(destinationAirportCode);
-
-        directAirports.insert(destinationAirportCode);
-        directCities.insert(destinationAirport->getCity());
-        directCountries.insert(destinationAirport->getCountry());
-    }
-
-    std::cout << "Choose an option and write down the alinea:" << std::endl;
-    std::cout << std::endl;
-    std::cout << "a. Aeroport" << std::endl;
-    std::cout << "b. City" << std::endl;
-    std::cout << "c. Country" << std::endl;
-
-    char op1, op2;
-    std::cin >> op1;
-    std::cout << std::endl;
-
-    if (std::cin.fail() || (op1 != 'a' && op1 != 'b' && op1 != 'c' && op1 != 'A' && op1 != 'B' && op1 != 'C')) {
-        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
-        return;
-    }
-
-    else if (op1 == 'a' || op1 == 'A') {
-        std::cout << " There are " << directAirports.size() << " direct airports" << std::endl;
-    }
-
-    else if (op1 == 'b' || op1 == 'B') {
-        std::cout << " There are " << directCities.size() << " direct cities" << std::endl;
-    }
-
-    else if (op1 == 'c' || op1 == 'C') {
-        std::cout << " There are " << directCountries.size() << " direct countries" << std::endl;
-    }
-
-    std::cout << "Do you want to print the results?" << std::endl;
-    std::cout << std::endl;
-    std::cout << "Write y or n." << std::endl;
-    std::cin >> op2;
-    std::cout << std::endl;
-
-    if (std::cin.fail() || (op2 != 'y' && op2 != 'Y' && op2 != 'n' && op2 != 'N')) {
-        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
-        return;
-    }
-
-    else if ((op1 == 'a' || op1 == 'A') && (op2 == 'y' || op2 == 'Y')) {
-        for (const auto& destinationAirportCode : directAirports) {
-            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " is a direct destination." << std::endl;
-        }
-        return;
-    }
-
-    else if ((op1 == 'b' || op1 == 'B') && (op2 == 'y' || op2 == 'Y')) {
-        for (const auto& city : directCities) {
-            std::cout << city << " is a direct destination." << std::endl;
-        }
-        return;
-    }
-
-    else if ((op1 == 'c' || op1 == 'C') && (op2 == 'y' || op2 == 'Y')) {
-        for (const auto& country : directCountries) {
-            std::cout << country << " is a direct destination." << std::endl;
-        }
-        return;
-    }
-    else if (op2 == 'n' || op2 == 'N') {
-        return;
-    }
-}
-
-void Manager::allDestinations(const std::string& startAirportCode) {
-
-    std::queue<std::pair<std::string, int>> q;
-    q.push({startAirportCode, 0});
-
-    std::unordered_set<std::string> visitedAirports;
-    std::unordered_set<std::string> visitedCities;
-    std::unordered_set<std::string> visitedCountries;
-
-    while (!q.empty()) {
-        auto top = q.front();
-        q.pop();
-
-        std::string topAirportCode = top.first;
-        int stops = top.second;
-
-        visitedAirports.insert(topAirportCode);
-
-        for (const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj) {
-            std::string destinationAirportCode = edge.destination;
-            if (destinationAirportCode != startAirportCode) {
-                Airport* destinationAirport = airports.at(destinationAirportCode);
-
-                visitedAirports.insert(destinationAirportCode);
-                visitedCities.insert(destinationAirport->getCity());
-                visitedCountries.insert(destinationAirport->getCountry());
-
-                q.push({destinationAirportCode, stops + 1});
-            }
-        }
-    }
-
-    std::cout << "Choose an option and write down the alinea:" << std::endl;
-    std::cout << std::endl;
-    std::cout << "a. Aeroport" << std::endl;
-    std::cout << "b. City" << std::endl;
-    std::cout << "c. Country" << std::endl;
-
-    char op1, op2;
-    std::cin >> op1;
-    std::cout << std::endl;
-
-    if (std::cin.fail() || (op1 != 'a' && op1 != 'b' && op1 != 'c' && op1 != 'A' && op1 != 'B' && op1 != 'C')) {
-        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
-        return;
-    }
-
-    else if (op1 == 'a' || op1 == 'A') {
-        std::cout << " There are " << visitedAirports.size() << " reachable airports" << std::endl;
-    }
-
-    else if (op1 == 'b' || op1 == 'B') {
-        std::cout << " There are " << visitedCities.size() << " reachable cities" << std::endl;
-    }
-
-    else if (op1 == 'c' || op1 == 'C') {
-        std::cout << " There are " << visitedCountries.size() << " reachable countries" << std::endl;
-    }
-
-    std::cout << "Do you want to print the results?" << std::endl;
-    std::cout << std::endl;
-    std::cout << "Write y or n." << std::endl;
-    std::cin >> op2;
-    std::cout << std::endl;
-
-    if (std::cin.fail() || (op2 != 'y' && op2 != 'Y' && op2 != 'n' && op2 != 'N')) {
-        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
-        return;
-    }
-
-    else if ((op1 == 'a' || op1 == 'A') && (op2 == 'y' || op2 == 'Y')) {
-        for (const auto& destinationAirportCode : visitedAirports) {
-            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " was visited." << std::endl;
-        }
-        return;
-    }
-
-    else if ((op1 == 'b' || op1 == 'B') && (op2 == 'y' || op2 == 'Y')) {
-        for (const auto& city : visitedCities) {
-            std::cout << city << " was visited." << std::endl;
-        }
-        return;
-    }
-
-    else if ((op1 == 'c' || op1 == 'C') && (op2 == 'y' || op2 == 'Y')) {
-        for (const auto& country : visitedCountries) {
-            std::cout << country << " was visited." << std::endl;
-        }
-        return;
-    }
-    else if (op2 == 'n' || op2 == 'N') {
-        return;
-    }
-}
-
-/**
- * @brief Apresenta o número de destinos alcançáveis dado um número máximo de escalas. O aeroporto de origem é definido pelo utilizador.
- * @param startAirport: código IATA ou nome do aeroporto de origem
- * @param maxStops: número máximo de escalas
- * @param type: tipo de aeroporto de origem (nome ou IATA)
- */
-void Manager::destinationsWithinStops(const std::string& startAirportCode, int maxStops){
-    std::queue<std::pair<std::string ,int>> q;
-    q.push({startAirportCode,0});
-
-    std::unordered_set<std::string > visitedAirports;
-    std::unordered_set<std::string > visitedCities;
-    std::unordered_set<std::string > visitedCountries;
-
-    while (!q.empty()){
-        auto top=q.front();
-        q.pop();
-
-        std::string topAirportCode = top.first;
-        int stops = top.second;
-
-        if(stops > maxStops) { continue;}
-
-        visitedAirports.insert(topAirportCode);
-
-        for(const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj){
-            std::string destinationAirportCode = edge.destination;
-            if(destinationAirportCode != startAirportCode){
-                Airport* destinationAirport = airports.at(destinationAirportCode);
-
-                visitedAirports.insert(destinationAirportCode);
-                visitedCities.insert(destinationAirport->getCity());
-                visitedCountries.insert(destinationAirport->getCountry());
-
-                q.push({destinationAirportCode,stops + 1});
-            }
-        }
-    }
-    std::cout << "Input the type of destination:" << std::endl;
-    std::cout << std::endl;
-    std::cout << "a. Airports" << std::endl;
-    std::cout << "b. Cities" << std::endl;
-    std::cout << "c. Countries" << std::endl;
-
-    char op1, op2;
-    std::cin >> op1;
-    std::cout << std::endl;
-
-    if (std::cin.fail() || (op1 !='a' &&  op1 !='b' &&  op1 !='c' &&  op1 !='A' &&  op1 !='B' && op1 !='C' )) {
-        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
-        return;
-    }
-
-    else if( op1 =='a' || op1 =='A'){
-        std::cout << "There are " << visitedAirports.size() << " reachable airports" << std::endl;
-    }
-
-    else if( op1 =='b' || op1 =='B'){
-        std::cout << "There are " << visitedCities.size() << " reachable cities" << std::endl;
-    }
-
-    else if( op1 =='c' || op1 =='C'){
-        std::cout << "There are " << visitedAirports.size() << " reachables airports" << std::endl;
-    }
-
-    std::cout << "Do you want to print the results?" << std::endl;
-    std::cout << std::endl;
-    std::cout << "Write y or n." << std::endl;
-    std::cin >> op2;
-    std::cout << std::endl;
-
-    if (std::cin.fail() || (op2 !='y' && op2 !='Y' && op2 !='n' && op2 !='N')) {
-        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
-        return;
-    }
-
-    else if(( op1 =='a' || op1 =='A') && ( op2 =='y' || op2 =='Y') ){
-        for(const auto& destinationAirportCode : visitedAirports){
-            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " was visited." << std::endl;
-        }
-        return;
-    }
-
-    else if(( op1 =='b' || op1 =='B') && ( op2 =='y' || op2 =='Y') ){
-        for(const auto& city : visitedCities){
-            std::cout << city <<  " was visited." << std::endl;
-        }
-        return;
-    }
-
-    else if(( op1 =='c' || op1 =='C') && ( op2 =='y' || op2 =='Y') ){
-        for(const auto& country : visitedCountries){
-            std::cout << country <<  " was visited." << std::endl;
-        }
-        return;
-    }
-    else if( op2 =='n' || op2 =='N'){ return;}
-}
-
-void Manager::maximumTripWithStops() {
-    std::vector<std::string> maxPath;
-    flightGraph->removeDistance();
-    flightGraph->removeVisited();
-
-    for (const auto &airport: airports) {
-        const std::string &currentAirportCode = airport.first;
-
-        if (!flightGraph->nodeAtKey(currentAirportCode).visited) {
-            std::vector<std::string> currentPath;
-            flightGraph->dfs(currentAirportCode);
-
-            std::string currentNode = currentAirportCode;
-            while (!flightGraph->nodeAtKey(currentNode).parent.empty()) {
-                currentPath.push_back(currentNode);
-                currentNode = flightGraph->nodeAtKey(currentNode).parent;
-            }
-            currentPath.push_back(currentNode);
-
-            if (currentPath.size() > maxPath.size()) {
-                maxPath = currentPath;
-            }
-        }
-    }
-
-    std::cout << "Maximum trip with the greatest number of stops: ";
-    for (auto it = maxPath.rbegin(); it != maxPath.rend(); ++it) {
-        std::cout << *it << " -> ";
-    }
-    std::cout << " (Total stops: " << maxPath.size() - 1 << ")" << std::endl;
-}
-
-/**
- * @brief Imprime o número de articulation points no grafo, utilizando o algoritmo DFS específico para tal.
- * @param type: tipo de apresentação, definido pelo utilizador: se imprime também os aeroportos que são pontos de articulação.
- */
-void Manager::printArticulation(char type) {
-    std::vector<Airport*> points;
-    std::stack<Graph::Node> st;
-    int index = 1;
-
-    for (auto& node : flightGraph->nodes) {
-        node.second.low = 0;
-        node.second.num = 0;
-        node.second.inStack = false;
-        node.second.visited = false;
-    }
-
-    for (auto n : flightGraph->nodes) {
-        if (!n.second.visited) {
-            flightGraph->articulationDFS(n.second, points, st, index);
-        }
-    }
-
-    std::cout << "In the graph, there are " << points.size() << " articulation points." << std::endl;
-    if (type == 'y') {
-        for (auto point: points) {
-            std::cout << point->getCode() << " - " << point->getName() << std::endl;
-        }
-    }
-}
+//Flights
 
 /**
  * @brief Obtém as melhores opções de voos de A até B.
@@ -804,6 +295,8 @@ void Manager::getFlightPath(std::string origin, std::string destination, int oTy
     }
 }
 
+//Filters
+
 /**
  * @brief Verifica se um código de uma companhia aérea existe.
  * @details Complexity: O(1)
@@ -864,6 +357,559 @@ std::vector<std::string> Manager::filterCountry(const std::string &country) {
     return res;
 }
 
+//Airport Menu
+
+/**
+ * @brief Retoma o número de voos de um aeroporto específico, definido pelo utilizador.
+ * @details Complexity: O(1)
+ * @param code: código IATA do aeroporto
+ * @return Número de voos do aeroporto.
+ */
+unsigned long Manager::flightsFromAirport(const std::string& code) {
+    return flightGraph->nodeAtKey(code).adj.size();
+}
+
+/**
+ * @brief Obtém o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador.
+ * @details O número de companhias aéreas com opção de imprimir o código IATA de cada uma.
+ * @details Complexity O(O(E * log(V)))
+ * @details E - número de edges --> flights
+ * @details V - número de vertices --> aeroports
+ * @param code: código IATA do aeroporto
+ */
+void Manager::airlinesFromAirport(const std::string& code) {
+    std::set<std::string> airList;
+    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
+        airList.insert(edge.airline);
+    }
+    std::cout << "There is a total of " << airList.size() << " airlines operating in " << code << std::endl;
+    std::cout << "Want to see the full list of airlines operating in " << code << "?" << std::endl;
+    std::cout << "If so, input 'y' to see the full list." << std::endl;
+
+    char op;
+    std::cin >> op;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op != 'y')) {
+        return;
+    }
+    else {
+        for (const auto& airline : airList) {
+            std::cout << airline << std::endl;
+        }
+        return;
+    }
+}
+
+/**
+ * @brief Obtém o número de destino diretos / sem escalas a partir de um aeroporto.
+ * @details Complexity: O(E)
+ * @details E- número de edges --> flights
+ * @details Tem como opção referenciar os destinos por aeroporto, cidade ou país.
+ * @details Além disso, dá como opção adicional imprimir os destinos um a um.
+ * @param startAirportCode : código IATA do aeroporto
+ */
+void Manager::directDestinations(const std::string& startAirportCode) {
+
+    std::unordered_set<std::string> directAirports;
+    std::unordered_set<std::string> directCities;
+    std::unordered_set<std::string> directCountries;
+
+    for (const auto& edge : flightGraph->nodeAtKey(startAirportCode).adj) {
+        std::string destinationAirportCode = edge.destination;
+        Airport* destinationAirport = airports.at(destinationAirportCode);
+
+        directAirports.insert(destinationAirportCode);
+        directCities.insert(destinationAirport->getCity());
+        directCountries.insert(destinationAirport->getCountry());
+    }
+
+    std::cout << "Choose an option and write down the alinea:" << std::endl;
+    std::cout << std::endl;
+    std::cout << "a. Aeroport" << std::endl;
+    std::cout << "b. City" << std::endl;
+    std::cout << "c. Country" << std::endl;
+
+    char op1, op2;
+    std::cin >> op1;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op1 != 'a' && op1 != 'b' && op1 != 'c' && op1 != 'A' && op1 != 'B' && op1 != 'C')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if (op1 == 'a' || op1 == 'A') {
+        std::cout << " There are " << directAirports.size() << " direct airports" << std::endl;
+    }
+
+    else if (op1 == 'b' || op1 == 'B') {
+        std::cout << " There are " << directCities.size() << " direct cities" << std::endl;
+    }
+
+    else if (op1 == 'c' || op1 == 'C') {
+        std::cout << " There are " << directCountries.size() << " direct countries" << std::endl;
+    }
+
+    std::cout << "Do you want to print the results?" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Write y or n." << std::endl;
+    std::cin >> op2;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op2 != 'y' && op2 != 'Y' && op2 != 'n' && op2 != 'N')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if ((op1 == 'a' || op1 == 'A') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& destinationAirportCode : directAirports) {
+            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " is a direct destination." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'b' || op1 == 'B') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& city : directCities) {
+            std::cout << city << " is a direct destination." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'c' || op1 == 'C') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& country : directCountries) {
+            std::cout << country << " is a direct destination." << std::endl;
+        }
+        return;
+    }
+    else if (op2 == 'n' || op2 == 'N') {
+        return;
+    }
+}
+
+/**
+ * @brief Obtém o número de destino possíveis com número infinito de escalas a partir de um aeroporto.
+ * @details Complexity: O(V+E)
+ * @details E- número de edges --> flights
+ * @details V- número de vertices --> aeroports
+ * @details Tem como opção referenciar os destinos por aeroporto, cidade ou país.
+ * @details Além disso, dá como opção adicional imprimir os destinos um a um.
+ * @param startAirportCode : código IATA do aeroporto
+ */
+void Manager::allDestinations(const std::string& startAirportCode) {
+
+    std::queue<std::pair<std::string, int>> q;
+    q.push({startAirportCode, 0});
+
+    std::unordered_set<std::string> visitedAirports;
+    std::unordered_set<std::string> visitedCities;
+    std::unordered_set<std::string> visitedCountries;
+
+    while (!q.empty()) {
+        auto top = q.front();
+        q.pop();
+
+        std::string topAirportCode = top.first;
+        int stops = top.second;
+
+        visitedAirports.insert(topAirportCode);
+
+        for (const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj) {
+            std::string destinationAirportCode = edge.destination;
+            if (destinationAirportCode != startAirportCode) {
+                Airport* destinationAirport = airports.at(destinationAirportCode);
+
+                visitedAirports.insert(destinationAirportCode);
+                visitedCities.insert(destinationAirport->getCity());
+                visitedCountries.insert(destinationAirport->getCountry());
+
+                q.push({destinationAirportCode, stops + 1});
+            }
+        }
+    }
+
+    std::cout << "Choose an option and write down the alinea:" << std::endl;
+    std::cout << std::endl;
+    std::cout << "a. Aeroport" << std::endl;
+    std::cout << "b. City" << std::endl;
+    std::cout << "c. Country" << std::endl;
+
+    char op1, op2;
+    std::cin >> op1;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op1 != 'a' && op1 != 'b' && op1 != 'c' && op1 != 'A' && op1 != 'B' && op1 != 'C')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if (op1 == 'a' || op1 == 'A') {
+        std::cout << " There are " << visitedAirports.size() << " reachable airports" << std::endl;
+    }
+
+    else if (op1 == 'b' || op1 == 'B') {
+        std::cout << " There are " << visitedCities.size() << " reachable cities" << std::endl;
+    }
+
+    else if (op1 == 'c' || op1 == 'C') {
+        std::cout << " There are " << visitedCountries.size() << " reachable countries" << std::endl;
+    }
+
+    std::cout << "Do you want to print the results?" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Write y or n." << std::endl;
+    std::cin >> op2;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op2 != 'y' && op2 != 'Y' && op2 != 'n' && op2 != 'N')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if ((op1 == 'a' || op1 == 'A') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& destinationAirportCode : visitedAirports) {
+            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'b' || op1 == 'B') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& city : visitedCities) {
+            std::cout << city << " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if ((op1 == 'c' || op1 == 'C') && (op2 == 'y' || op2 == 'Y')) {
+        for (const auto& country : visitedCountries) {
+            std::cout << country << " was visited." << std::endl;
+        }
+        return;
+    }
+    else if (op2 == 'n' || op2 == 'N') {
+        return;
+    }
+}
+
+/**
+ * @brief Apresenta o número de destinos alcançáveis dado um número máximo de escalas. O aeroporto de origem é definido pelo utilizador.
+ * @details Complexity: O(V+E)
+ * @details E- número de  edges --> flights
+ * @details V- número de vertices --> aeroports
+ * @details Tem como opção referenciar os destinos por aeroporto, cidade ou país.
+ * @details Além disso, dá como opção adicional imprimir os destinos um a um.
+ * @param startAirport: código IATA ou nome do aeroporto de origem
+ * @param maxStops: número máximo de escalas
+ */
+void Manager::destinationsWithinStops(const std::string& startAirportCode, int maxStops){
+    std::queue<std::pair<std::string ,int>> q;
+    q.push({startAirportCode,0});
+
+    std::unordered_set<std::string > visitedAirports;
+    std::unordered_set<std::string > visitedCities;
+    std::unordered_set<std::string > visitedCountries;
+
+    while (!q.empty()){
+        auto top=q.front();
+        q.pop();
+
+        std::string topAirportCode = top.first;
+        int stops = top.second;
+
+        if(stops > maxStops) { continue;}
+
+        visitedAirports.insert(topAirportCode);
+
+        for(const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj){
+            std::string destinationAirportCode = edge.destination;
+            if(destinationAirportCode != startAirportCode){
+                Airport* destinationAirport = airports.at(destinationAirportCode);
+
+                visitedAirports.insert(destinationAirportCode);
+                visitedCities.insert(destinationAirport->getCity());
+                visitedCountries.insert(destinationAirport->getCountry());
+
+                q.push({destinationAirportCode,stops + 1});
+            }
+        }
+    }
+    std::cout << "Input the type of destination:" << std::endl;
+    std::cout << std::endl;
+    std::cout << "a. Airports" << std::endl;
+    std::cout << "b. Cities" << std::endl;
+    std::cout << "c. Countries" << std::endl;
+
+    char op1, op2;
+    std::cin >> op1;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op1 !='a' &&  op1 !='b' &&  op1 !='c' &&  op1 !='A' &&  op1 !='B' && op1 !='C' )) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if( op1 =='a' || op1 =='A'){
+        std::cout << "There are " << visitedAirports.size() << " reachable airports" << std::endl;
+    }
+
+    else if( op1 =='b' || op1 =='B'){
+        std::cout << "There are " << visitedCities.size() << " reachable cities" << std::endl;
+    }
+
+    else if( op1 =='c' || op1 =='C'){
+        std::cout << "There are " << visitedAirports.size() << " reachables airports" << std::endl;
+    }
+
+    std::cout << "Do you want to print the results?" << std::endl;
+    std::cout << std::endl;
+    std::cout << "Write y or n." << std::endl;
+    std::cin >> op2;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op2 !='y' && op2 !='Y' && op2 !='n' && op2 !='N')) {
+        throw std::invalid_argument("Error 001: Your input was not an option. Please restart the program and try again.");
+        return;
+    }
+
+    else if(( op1 =='a' || op1 =='A') && ( op2 =='y' || op2 =='Y') ){
+        for(const auto& destinationAirportCode : visitedAirports){
+            std::cout << airports.at(destinationAirportCode)->getName() << " with code " << destinationAirportCode << " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if(( op1 =='b' || op1 =='B') && ( op2 =='y' || op2 =='Y') ){
+        for(const auto& city : visitedCities){
+            std::cout << city <<  " was visited." << std::endl;
+        }
+        return;
+    }
+
+    else if(( op1 =='c' || op1 =='C') && ( op2 =='y' || op2 =='Y') ){
+        for(const auto& country : visitedCountries){
+            std::cout << country <<  " was visited." << std::endl;
+        }
+        return;
+    }
+    else if( op2 =='n' || op2 =='N'){ return;}
+}
+
+//  STATISTICS MENU
+
+/**
+ * @brief Imprime o número de voos que saem de uma determinada cidade, especificada pelo utilizador.
+ * @details Complexity: O(V+E)
+ * @details E- número de  edges --> flights
+ * @details V- número de vertices --> aeroports
+ * @param nameCity: nome da cidade
+ */
+void Manager::flightsPerCity(const std:: string& nameCity) {
+    std::string CityCode;
+
+    for (const auto &city: cities) {
+        flightsCity[city.first] = 0;
+        if (city.second.first == nameCity) {
+            CityCode = city.first;
+        }
+    }
+
+    if (CityCode.empty()) {
+        std::cout << "City not found " << std::endl;
+        return;
+    }
+
+    for (const auto &airport: airports) {
+        const std::string &airportCode = airport.first;
+        for (const auto &edge: flightGraph->nodeAtKey(airportCode).adj) {
+            flightsCity[edge.destination]++;
+        }
+    }
+    std::cout << "There are " << flightsCity[CityCode] << " flights operated from " << nameCity << std::endl;
+}
+
+/**
+ * @brief Imprime o número de voos que são operados por uma determinada companhia aérea, especificada pelo utilizador.
+ * @details Complexity: O(V+E)
+ * @details E- número de  edges --> flights
+ * @details V- número de vertices --> aeroports
+ * @param nameAirline: nome da companhia aérea
+ */
+void Manager::flightsPerAirline(const std:: string& nameAirline) {
+    std::string AirlineCode;
+
+    for (const auto &airline: airlines) {
+        flightsAirline[airline.first] = 0;
+        if (airline.second->getName() == nameAirline) {
+            AirlineCode = airline.first;
+        }
+    }
+
+    if (AirlineCode.empty()) {
+        std::cout << "Airline not found " << std::endl;
+        return;
+    }
+
+    for (const auto &airport: airports) {
+        const std::string &airportCode = airport.first;
+        for (const auto &edge: flightGraph->nodeAtKey(airportCode).adj) {
+            flightsAirline[edge.airline]++;
+        }
+    }
+
+    std::cout << "There are " << flightsAirline[AirlineCode] << " flights operated by " << nameAirline << std::endl;
+}
+
+/**
+ * @brief Imprime os K aeroportos com mais voos. O número de aeroportos a apresentar é especificado pelo utilizador.
+ * @details Complexity: O(V*log(V))
+ * @details V- número de vertices --> aeroports
+ * @param k: número de aeroportos a mostrar
+ */
+void Manager::topKAirports(int k) {
+    std::vector<std::pair<Airport*, int>> allAirports;
+    for (const auto& airport : airports) {
+        allAirports.push_back({airport.second, flightGraph->nodeAtKey(airport.first).adj.size()});
+    }
+
+    std::sort(allAirports.begin(), allAirports.end(), [](const auto& p1, const auto& p2) {
+        return p1.second > p2.second;
+    });
+
+    for (int i = 0; i < k; i++) {
+        std::cout << allAirports[i].first->getCode() << " - " << allAirports[i].first->getName() << " with " << allAirports[i].second << " flights;" << std::endl;
+    }
+}
+/**
+ * @brief Encontra o maior caminho com o maior número de escalas entre aeroportos no grafo.
+ * @details Complexity: O(V+E)
+ * @details E- número de  edges --> flights
+ * @details V- número de vertices --> aeroports
+ * @details utiliza DFS na sua busca
+ */
+
+void Manager::maximumTripWithStops() {
+    std::vector<std::string> maxPath;
+    flightGraph->removeDistance();
+    flightGraph->removeVisited();
+
+    for (const auto &airport: airports) {
+        const std::string &currentAirportCode = airport.first;
+
+        if (!flightGraph->nodeAtKey(currentAirportCode).visited) {
+            std::vector<std::string> currentPath;
+            flightGraph->dfs(currentAirportCode);
+
+            std::string currentNode = currentAirportCode;
+            while (!flightGraph->nodeAtKey(currentNode).parent.empty()) {
+                currentPath.push_back(currentNode);
+                currentNode = flightGraph->nodeAtKey(currentNode).parent;
+            }
+            currentPath.push_back(currentNode);
+
+            if (currentPath.size() > maxPath.size()) {
+                maxPath = currentPath;
+            }
+        }
+    }
+
+    std::cout << "Maximum trip with the greatest number of stops: ";
+    for (auto it = maxPath.rbegin(); it != maxPath.rend(); ++it) {
+        std::cout << *it << " -> ";
+    }
+    std::cout << " (Total stops: " << maxPath.size() - 1 << ")" << std::endl;
+}
+
+// Global Statístics
+
+/**
+ * @brief Retoma o número de aeroportos no grafo.
+ * @details Complexity: O(1)
+ * @return Número total de aeroportos no grafo.
+ */
+unsigned long Manager::globalAirports() {
+    return airports.size();
+}
+
+/**
+ * @brief Imprime todos os aeroportos do grafo, no modo especificado pelo utilizador.
+ * @details Complexity: O(N)
+ * @details N - número de aeroportos no grafo
+ * @param type: modo de apresentação da lista
+ */
+void Manager::printGlobalAirports(const char& type) {
+    if (type == 'n') {
+        for (const auto& airport: airports) {
+            std::cout << airport.second->getName() << std::endl;
+        }
+    }
+    else if (type == 'c') {
+        for (const auto& airport : airports) {
+            std::cout << airport.second->getCode() << std::endl;
+        }
+    }
+    else if (type == 'a') {
+        for (const auto& airport : airports) {
+            std::cout << airport.second->getCode() << " - " << airport.second->getName() << std::endl;
+        }
+    }
+    else {
+        return;
+    }
+}
+
+/**
+ * @brief Retoma o número de companhias aéreas no grafo.
+ * @details Complexity: O(1)
+ * @return Número total de companhias aéreas no grafo.
+ */
+unsigned long Manager::globalAirlines() {
+    return airlines.size();
+}
+
+/**
+ * @brief Imprime todos as companhias aéreas do grafo.
+ * @details Complexity: O(N)
+ * @details N - número de aeroportos no grafo
+ */
+void Manager::printGlobalAirlines() {
+    for (const auto& airline : airlines) {
+        std::cout << airline.second->getCode() << " - " << airline.second->getName() << " - " << airline.second->getCallsign() << " - " << airline.second->getCountry() << std::endl;
+    }
+}
+
+
+/**
+ * @brief Imprime o número de articulation points no grafo, utilizando o algoritmo DFS específico para tal.
+ * @details Complexity: O(V+E)
+ * @details E- número de  edges --> flights
+ * @details V- número de vertices --> aeroports
+ * @param type: tipo de apresentação, definido pelo utilizador: se imprime também os aeroportos que são pontos de articulação.
+ */
+void Manager::printArticulation(char type) {
+    std::vector<Airport*> points;
+    std::stack<Graph::Node> st;
+    int index = 1;
+
+    for (auto& node : flightGraph->nodes) {
+        node.second.low = 0;
+        node.second.num = 0;
+        node.second.inStack = false;
+        node.second.visited = false;
+    }
+
+    for (auto n : flightGraph->nodes) {
+        if (!n.second.visited) {
+            flightGraph->articulationDFS(n.second, points, st, index);
+        }
+    }
+
+    std::cout << "In the graph, there are " << points.size() << " articulation points." << std::endl;
+    if (type == 'y') {
+        for (auto point: points) {
+            std::cout << point->getCode() << " - " << point->getName() << std::endl;
+        }
+    }
+}
 
 /**
  * @brief Obtém o diâmetro do grafo.
