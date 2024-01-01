@@ -229,39 +229,6 @@ void Graph::clearGraph() {
     this->nodes.clear();
 }
 
-
-
-
-// Não sei o que é isto?
-int Graph::distance(const std::string& in, const std::string& out) {
-    if (in == out) {
-        return 0;
-    }
-    bfs(in);
-    int dist = nodes[out].distance;
-    return dist;
-}
-
-Airport* Graph::findClosestAirport(Graph graph,Location source, Location dest) {
-    Airport* closestAirport;
-    double minDistance = 0.0;
-
-    for (const auto& nodePair: graph.nodes) {
-        const Node& node = nodePair.second;
-        double distance = abs(Flight::getDistance(source, dest));   //assim da sempre postiivo
-
-        if (distance < minDistance) {
-            minDistance = distance;
-            closestAirport = node.airport;
-        }
-    }
-
-    return closestAirport;
-}
-
-
-
-
 /*
  * @brief Faz uma pesquisa DFS para obter os pontos de articulação do grafo.
  * @brief Adaptação do Tarjan's Algorithm, baseado num dos recursos teóricos da cadeira.
