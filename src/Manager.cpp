@@ -116,14 +116,6 @@ void Manager::parseFlights() {
     }
 }
 
-/**
- * @brief Obtém o unordered map das companhias aéreas {código, Airline*}.
- * @details Complexity: O(1)
- * @return Unordered map das companhias aéreas.
- */
-std::unordered_map<std::string, Airline *> Manager::getAirlines() {
-    return airlines;
-}
 
 /**
  * @brief Obtém o unordered map dos aeroportos {código, Airport*}.
@@ -631,20 +623,7 @@ void Manager::allDestinations(const std::string& startAirport) {
  * @param maxStops: número máximo de escalas
  * @param type: tipo de aeroporto de origem (nome ou IATA)
  */
-void Manager::destinationsWithinStops(const std::string& startAirport, int maxStops, bool type){
-    std::string startAirportCode;
-
-    if (!type) {
-        for (const auto &airport: airports) {
-            if (airport.second->getName() == startAirport) {
-                startAirportCode = airport.first;
-            }
-        }
-    }
-    else {
-        startAirportCode = startAirport;
-    }
-
+void Manager::destinationsWithinStops(const std::string& startAirportCode, int maxStops){
     if (startAirportCode.empty()) {
         std::cout << "Airport not found " << std::endl;
         return;
@@ -670,7 +649,7 @@ void Manager::destinationsWithinStops(const std::string& startAirport, int maxSt
 
         for(const auto& edge : flightGraph->nodeAtKey(topAirportCode).adj){
             std::string destinationAirportCode = edge.destination;
-            if(destinationAirportCode != startAirport){
+            if(destinationAirportCode != startAirportCode){
                 Airport* destinationAirport = airports.at(destinationAirportCode);
 
                 visitedAirports.insert(destinationAirportCode);

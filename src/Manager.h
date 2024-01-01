@@ -24,12 +24,8 @@ public:
     void parseFlights();
     void parseAirlines();
     void parseAirport();
-    void printflightGraph();
 
-    std::unordered_map<std::string, Airline*> getAirlines();
     std::unordered_map<std::string, Airport*> getAirports();
-
-    void printArticulation(char type);
 
     // FLIGHTS
     void getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector<std::string>& filter, int type);
@@ -48,9 +44,14 @@ public:
     unsigned long flightsFromAirport(const std::string& code);
     void airlinesFromAirport(const std::string &code);
 
-    void directDestinations(const std::string& startAirport);
+    void directDestinations(const std::string& code);
 
-    void allDestinations(const std::string& startAirport);
+    void allDestinations(const std::string& code);
+
+    void destinationsWithinStops(const std::string& code, int maxStops);
+
+    unsigned long airportDestinations(const std::string &code);
+    void printAirportDestinations(const std::string &code, const char &type);
 
     unsigned long cityDestinations(const std::string &code);
     void printCityDestinations(const std::string &code, const char& type);
@@ -64,12 +65,6 @@ public:
     void flightsPerAirline(const std:: string& nameAirline);
 
     void topKAirports(int k);
-
-    unsigned long airportDestinations(const std::string &code);
-
-    void printAirportDestinations(const std::string &code, const char &type);
-
-    void destinationsWithinStops(const std::string& startAirport, int maxStops, bool type);
 
     void maximumTripWithStops();
 
@@ -91,6 +86,9 @@ public:
 
     //void printGlobalFlights();
 
+    //Other functions
+
+    void printArticulation(char type);
 
     int graphDiameter();
 };

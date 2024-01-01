@@ -338,8 +338,7 @@ void Menu::airportsMenu() {
     std::cout << "| 3 - Direct destinations       |\n";
     std::cout << "| 4 - All destinations          |\n";
     std::cout << "| 5 - Destinations within stops |\n";
-    std::cout << "| 6 - Maximum trip with stops   |\n";
-    std::cout << "| 7 - Return to main menu       |\n";
+    std::cout << "| 6 - Return to main menu       |\n";
     std::cout << "| ============================= |\n";
     std::cout << "| Please enter your choice:     |\n";
     std::cout << "+-------------------------------+\n";
@@ -352,11 +351,13 @@ void Menu::airportsMenu() {
         throw std::invalid_argument("Error 001: Your input was not an integer. Please restart the program and try again.");
     }
 
-    while ((n < 1 || n > 7 ) && !(std::cin.fail())) {
+    while ((n < 1 || n > 6 ) && !(std::cin.fail())) {
         std::cout << "Choose a valid option." << std::endl;
         std::cin >> n;
         std::cout << std::endl;
     }
+
+    int maxStops;
 
     switch(n) {
         case 1:
@@ -364,8 +365,11 @@ void Menu::airportsMenu() {
             break;
         case 2:
             manager.airlinesFromAirport(code);
+            break;
         case 3:
-            std::cout << "There is a total of " << manager.cityDestinations(code) << " cities, " << manager.countryDestinations(code) << " countries and " << manager.airportDestinations(code) << " airports you can fly to from " << code << std::endl;
+            manager.directDestinations(code);
+            break;
+            /*std::cout << "There is a total of " << manager.cityDestinations(code) << " cities, " << manager.countryDestinations(code) << " countries and " << manager.airportDestinations(code) << " airports you can fly to from " << code << std::endl;
 
             std::cout << "Want to see the full list of cities or countries you can fly to from " << code << "?" << std::endl;
             std::cout << std::endl;
@@ -416,8 +420,22 @@ void Menu::airportsMenu() {
             else {
                 manager.printCityDestinations(code, op2);
                 break;
-            }
+            }*/
+        case 4:
+            manager.allDestinations(code);
+            break;
+        case 5:
+            std::cout <<"Write the maximum stops" <<std::endl;
+            std::cin >> maxStops;
+            manager.destinationsWithinStops(code,maxStops);
+            break;
+        case 6:
+            mainMenu();
+            break;
+        default:
+            std::cout << "Invalid option. Please try again.";
     }
+
 }
 
 // ---- DATA/STATISTICS ----
@@ -434,7 +452,7 @@ void Menu::statsMenu() {
     std::cout << "| 2 - Flights per city                    |\n";
     std::cout << "| 3 - Flights per airline                 |\n";
     std::cout << "| 4 - Airports with topK number of flights|\n";
-    std::cout << "| 5 - Destinations Within Stops           |\n";
+    std::cout << "| 5 - Maximum trip with stops             |\n";
     std::cout << "| 6 - Return to main menu                 |\n";
     std::cout << "| ========================================|\n";
     std::cout << "| Please enter your choice:               |\n";
@@ -455,8 +473,6 @@ void Menu::statsMenu() {
     }
     std::string nameCity;
     std::string nameAirline;
-    std::string startAirport;
-    int maxStops;
 
     switch(n) {
         case 1:
@@ -486,29 +502,7 @@ void Menu::statsMenu() {
             manager.topKAirports(op);
             break;
         case 5:
-            std::cout << "+-------------------------------+\n";
-            std::cout << "| Select type of airport:       |\n";
-            std::cout << "| 1 - Code                      |\n";
-            std::cout << "| 2 - Name                      |\n";
-            std::cout << "+-------------------------------+\n";
-            int op2;
-            std::cin >> op2;
-            switch(op2) {
-                case 1:
-                    std::cout << "Write an Airport's IATA code" <<std::endl;
-                    std::cin >> startAirport;
-                    std::cout <<"Write the maximum stops" <<std::endl;
-                    std::cin >> maxStops;
-                    manager.destinationsWithinStops(startAirport, maxStops, true);
-                    break;
-                case 2:
-                    std::cout << "Write an Airport's name" <<std::endl;
-                    std::cin >> startAirport;
-                    std::cout <<"Write the maximum stops" <<std::endl;
-                    std::cin >> maxStops;
-                    manager.destinationsWithinStops(startAirport,maxStops, false);
-                    break;
-            }
+            manager.maximumTripWithStops();
             break;
         case 6:
             mainMenu();
