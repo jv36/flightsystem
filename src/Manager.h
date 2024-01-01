@@ -46,8 +46,11 @@ public:
 
     // Airport menu
     unsigned long flightsFromAirport(const std::string& code);
-    unsigned long airlinesFromAirport(const std::string &code);
-    void printAirlinesFromAirport(const std::string &code);
+    void airlinesFromAirport(const std::string &code);
+
+    void directDestinations(const std::string& startAirport);
+
+    void allDestinations(const std::string& startAirport);
 
     unsigned long cityDestinations(const std::string &code);
     void printCityDestinations(const std::string &code, const char& type);
@@ -62,12 +65,15 @@ public:
 
     void topKAirports(int k);
 
+    unsigned long airportDestinations(const std::string &code);
+
+    void printAirportDestinations(const std::string &code, const char &type);
+
+    void destinationsWithinStops(const std::string& startAirport, int maxStops, bool type);
+
+    void maximumTripWithStops();
 
     // Global Statistics
-
-    void directDestinations(const std::string& startAirport);
-
-    void allDestinations(const std::string& startAirport);
 
     unsigned long globalAirports();
 
@@ -79,15 +85,12 @@ public:
 
     void printGlobalAirlines();
 
-    unsigned long airportDestinations(const std::string &code);
+    //Não existem mas tão no menu
 
-    void printAirportDestinations(const std::string &code, const char &type);
+    //unsigned long globalFlights();
 
-    void destinationsWithinStops(const std::string& startAirport, int maxStops, bool type);
-    void maximumTripWithStops();
+    //void printGlobalFlights();
 
-    //void allDestinations(const std::string &startAirport);
-    //void directDestinations(const std::string &startAirport);
 
     int graphDiameter();
 };

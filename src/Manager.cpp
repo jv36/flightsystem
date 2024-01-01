@@ -146,30 +146,30 @@ unsigned long Manager::flightsFromAirport(const std::string& code) {
 }
 
 /**
- * @brief Retoma o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- * @return Número de companhias aéreas a operar no aeroporto.
+ * @brief Retoma o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador. Imprime o número de companhias aéreas com opção de imprimir todas as companhias.
+ * @param code: código IATA do aeroporto Número de companhias aéreas a operar no aeroporto, com opção de retornar todas as
  */
-unsigned long Manager::airlinesFromAirport(const std::string& code) {
+void Manager::airlinesFromAirport(const std::string& code) {
     std::set<std::string> airList;
     for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
         airList.insert(edge.airline);
     }
-    return airList.size();
-}
+    std::cout << "There is a total of " << airList.size() << " airlines operating in " << code << std::endl;
+    std::cout << "Want to see the full list of airlines operating in " << code << "?" << std::endl;
+    std::cout << "If so, input 'y' to see the full list." << std::endl;
 
-/**
- * @brief Imprime as companhias aéreas que operam num aeroporto específico, definido pelo utilizador.
- * @param code: código IATA do aeroporto
- */
-void Manager::printAirlinesFromAirport(const std::string& code) {
-    std::set<std::string> airList;
-    for (const auto& edge : flightGraph->nodeAtKey(code).adj) {
-        airList.insert(edge.airline);
+    char op;
+    std::cin >> op;
+    std::cout << std::endl;
+
+    if (std::cin.fail() || (op != 'y')) {
+        return;
     }
-
-    for (const auto& airline : airList) {
-        std::cout << airline << std::endl;
+    else {
+        for (const auto& airline : airList) {
+            std::cout << airline << std::endl;
+        }
+        return;
     }
 }
 
