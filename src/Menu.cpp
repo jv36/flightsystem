@@ -13,7 +13,7 @@ int Menu::main() {
 }
 /**
  * @brief Apresenta o menu principal do sistema de voos.
- * @details Manipula a entrada do usuário e redireciona para funções correspondentes.
+ * @details Manipula o input do utilizador e redireciona para as funções correspondentes.
  * @details Complexity: O(1)
  */
 int Menu::mainMenu() {
@@ -77,9 +77,9 @@ int Menu::mainMenu() {
 
 //---- FLIGHTS ---- //
 /**
- * @brief Apresenta o menu de voos, permitindo que os usuários busquem opções de voos.
- * @details Manipula a entrada do usuário para filtrar companhias aéreas e redireciona para a função FlightManager.
- * @details Complexity: O(1) (considerando operações de entrada/saída como constantes).
+ * @brief Apresenta o menu de voos, permitindo que os utilizadores pesquisem as melhores opções de voos.
+ * @brief Manipula os inputs do utilizador para diversas operações, que são aplicados nas funções da classe Manager.
+ * @details Complexity: O(1)
  */
 void Menu::flightsMenu() {
     std::cout << "Welcome to flights menu!" << std::endl;
@@ -319,7 +319,9 @@ void Menu::flightsMenu() {
 //---- AIRPORTS ---- //
 
 /**
- * @brief Apresenta o menu de aeroportos, permitindo que os usuários visualizem estatísticas e detalhes para um aeroporto específico.
+ * @brief Apresenta o menu de aeroportos, permitindo que os utilizadores visualizem estatísticas e detalhes para um aeroporto específico.
+ * @brief Para avançar no menu, é necessária a introdução de um código IATA de um aeroporto.
+ * @details Complexity: O(1)
  */
 void Menu::airportsMenu() {
     std::string code;
@@ -433,8 +435,9 @@ void Menu::airportsMenu() {
 // ---- DATA/STATISTICS ----
 /**
  * @brief Apresenta o menu de dados/estatísticas, fornecendo várias opções estatísticas.
- * @details Exibe opções estatísticas e redireciona para a função FlightManager.
- * @details Complexity: O(1) (considerando operações de entrada/saída como constantes).
+ * @brief Exibe opções estatísticas. Redireciona para as funções da classe Manager.
+ * @brief Manipula inputs do utilizador que são usados como argumentos nessas funções.
+ * @details Complexity: O(1)
  */
 void Menu::statsMenu() {
     std::cout << "+-----------------------------------------+\n";
@@ -529,8 +532,8 @@ void Menu::statsMenu() {
 
 /**
  * @brief Apresenta o menu de estatísticas globais, oferecendo insights globais no sistema de voos.
- * @details Exibe opções estatísticas globais e redireciona para a função FlightManager.
- * @details Complexity: O(1) (considerando operações de entrada/saída como constantes)
+ * @brief Exibe opções estatísticas globais, através das funções da classe Manager.
+ * @details Complexity: O(1)
  */
 void Menu::globalStatsMenu() {
     std::cout << "+-------------------------------+\n";
@@ -611,8 +614,8 @@ void Menu::globalStatsMenu() {
 //--- MISCS ----
 /**
  * @brief Apresenta o menu de funções diversas, oferecendo recursos adicionais.
- * @details Exibe opções diversas e redireciona para a função FlightManager.
- * @details Complexity: O(1) (considerando operações de entrada/saída como constantes).
+ * @details Exibe opções diversas, através das funções da classe Manager.
+ * @details Complexity: O(1).
  */
 void Menu::miscMenu() {
 
