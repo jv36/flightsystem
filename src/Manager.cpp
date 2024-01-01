@@ -491,7 +491,7 @@ void Manager::directDestinations(const std::string& startAirportCode) {
  * @brief Obtém o número de destino possíveis com número infinito de escalas a partir de um aeroporto.
  * @details Complexity: O(V+E)
  * @details E- número de edges --> flights
- * @details V- número de vertices --> aeroports
+ * @details V- número de vertices --> aeroportos
  * @details Tem como opção referenciar os destinos por aeroporto, cidade ou país.
  * @details Além disso, dá como opção adicional imprimir os destinos um a um.
  * @param startAirportCode : código IATA do aeroporto
@@ -595,7 +595,7 @@ void Manager::allDestinations(const std::string& startAirportCode) {
  * @brief Apresenta o número de destinos alcançáveis dado um número máximo de escalas. O aeroporto de origem é definido pelo utilizador.
  * @details Complexity: O(V+E)
  * @details E- número de  edges --> flights
- * @details V- número de vertices --> aeroports
+ * @details V- número de vertices --> aeroportos
  * @details Tem como opção referenciar os destinos por aeroporto, cidade ou país.
  * @details Além disso, dá como opção adicional imprimir os destinos um a um.
  * @param startAirport: código IATA ou nome do aeroporto de origem
@@ -703,7 +703,7 @@ void Manager::destinationsWithinStops(const std::string& startAirportCode, int m
  * @brief Imprime o número de voos que saem de uma determinada cidade, especificada pelo utilizador.
  * @details Complexity: O(V+E)
  * @details E- número de  edges --> flights
- * @details V- número de vertices --> aeroports
+ * @details V- número de vertices --> aeroportos
  * @param nameCity: nome da cidade
  */
 void Manager::flightsPerCity(const std:: string& nameCity) {
@@ -735,7 +735,7 @@ void Manager::flightsPerCity(const std:: string& nameCity) {
  * @brief Imprime o número de voos que são operados por uma determinada companhia aérea, especificada pelo utilizador.
  * @details Complexity: O(V+E)
  * @details E- número de  edges --> flights
- * @details V- número de vertices --> aeroports
+ * @details V- número de vertices --> aeroportos
  * @param nameAirline: nome da companhia aérea
  */
 void Manager::flightsPerAirline(const std:: string& nameAirline) {
@@ -766,28 +766,40 @@ void Manager::flightsPerAirline(const std:: string& nameAirline) {
 /**
  * @brief Imprime os K aeroportos com mais voos. O número de aeroportos a apresentar é especificado pelo utilizador.
  * @details Complexity: O(V*log(V))
- * @details V- número de vertices --> aeroports
+ * @details V- número de vertices --> aeroportos
  * @param k: número de aeroportos a mostrar
  */
 void Manager::topKAirports(int k) {
     std::vector<std::pair<Airport*, int>> allAirports;
+
     for (const auto& airport : airports) {
-        allAirports.push_back({airport.second, flightGraph->nodeAtKey(airport.first).adj.size()});
+        int numFlights = 0;
+
+        for (const auto& node : flightGraph->nodes) {
+            for (const auto& edge : node.second.adj) {
+                if (edge.destination == airport.first || node.first == airport.first) {
+                    numFlights++;
+                }
+            }
+        }
+
+        allAirports.push_back({airport.second, numFlights});
     }
 
     std::sort(allAirports.begin(), allAirports.end(), [](const auto& p1, const auto& p2) {
         return p1.second > p2.second;
     });
 
-    for (int i = 0; i < k; i++) {
-        std::cout << allAirports[i].first->getCode() << " - " << allAirports[i].first->getName() << " with " << allAirports[i].second << " flights;" << std::endl;
+    for (int i = 0; i < k && i < allAirports.size(); i++) {
+        std::cout << allAirports[i].first->getCode() << " - " << allAirports[i].first->getName()
+                  << " with " << allAirports[i].second << " total flights;" << std::endl;
     }
 }
 /**
  * @brief Encontra o maior caminho com o maior número de escalas entre aeroportos no grafo.
  * @details Complexity: O(V+E)
  * @details E- número de  edges --> flights
- * @details V- número de vertices --> aeroports
+ * @details V- número de vertices --> aeroportos
  * @details utiliza DFS na sua busca
  */
 
