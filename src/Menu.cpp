@@ -11,7 +11,11 @@ int Menu::main() {
     mainMenu();
     return 0;
 }
-
+/**
+ * @brief Apresenta o menu principal do sistema de voos.
+ * @details Manipula a entrada do usuário e redireciona para funções correspondentes.
+ * @details Complexity: O(1)
+ */
 int Menu::mainMenu() {
     std::cout << "███████╗██╗░░░░░██╗░██████╗░██╗░░██╗████████╗  ░██████╗██╗░░░██╗░██████╗████████╗███████╗███╗░░░███╗" << std::endl;
     std::cout << "██╔════╝██║░░░░░██║██╔════╝░██║░░██║╚══██╔══╝  ██╔════╝╚██╗░██╔╝██╔════╝╚══██╔══╝██╔════╝████╗░████║" << std::endl;
@@ -19,7 +23,6 @@ int Menu::mainMenu() {
     std::cout << "██╔══╝░░██║░░░░░██║██║░░╚██╗██╔══██║░░░██║░░░  ░╚═══██╗░░╚██╔╝░░░╚═══██╗░░░██║░░░██╔══╝░░██║╚██╔╝██║" << std::endl;
     std::cout << "██║░░░░░███████╗██║╚██████╔╝██║░░██║░░░██║░░░  ██████╔╝░░░██║░░░██████╔╝░░░██║░░░███████╗██║░╚═╝░██║" << std::endl;
     std::cout << "╚═╝░░░░░╚══════╝╚═╝░╚═════╝░╚═╝░░╚═╝░░░╚═╝░░░  ╚═════╝░░░░╚═╝░░░╚═════╝░░░░╚═╝░░░╚══════╝╚═╝░░░░░╚═╝" << std::endl;
-
     std::cout << "+-------------------------------+\n";
     std::cout << "| Welcome to the Flight System  |\n";
     std::cout << "|                               |\n";
@@ -73,6 +76,11 @@ int Menu::mainMenu() {
 }
 
 //---- FLIGHTS ---- //
+/**
+ * @brief Apresenta o menu de voos, permitindo que os usuários busquem opções de voos.
+ * @details Manipula a entrada do usuário para filtrar companhias aéreas e redireciona para a função FlightManager.
+ * @details Complexity: O(1) (considerando operações de entrada/saída como constantes).
+ */
 void Menu::flightsMenu() {
     std::cout << "Welcome to flights menu!" << std::endl;
     std::cout << "Here you'll be able to search for the best flight option from A to B!" << std::endl;
@@ -310,6 +318,9 @@ void Menu::flightsMenu() {
 
 //---- AIRPORTS ---- //
 
+/**
+ * @brief Apresenta o menu de aeroportos, permitindo que os usuários visualizem estatísticas e detalhes para um aeroporto específico.
+ */
 void Menu::airportsMenu() {
     std::string code;
     std::cout << "Insert an airport IATA code to proceed." << std::endl;
@@ -420,7 +431,11 @@ void Menu::airportsMenu() {
 }
 
 // ---- DATA/STATISTICS ----
-
+/**
+ * @brief Apresenta o menu de dados/estatísticas, fornecendo várias opções estatísticas.
+ * @details Exibe opções estatísticas e redireciona para a função FlightManager.
+ * @details Complexity: O(1) (considerando operações de entrada/saída como constantes).
+ */
 void Menu::statsMenu() {
     std::cout << "+-----------------------------------------+\n";
     std::cout << "| ============  Stats Menu   =============|\n";
@@ -512,6 +527,11 @@ void Menu::statsMenu() {
     }
 }
 
+/**
+ * @brief Apresenta o menu de estatísticas globais, oferecendo insights globais no sistema de voos.
+ * @details Exibe opções estatísticas globais e redireciona para a função FlightManager.
+ * @details Complexity: O(1) (considerando operações de entrada/saída como constantes)
+ */
 void Menu::globalStatsMenu() {
     std::cout << "+-------------------------------+\n";
     std::cout << "| ========= Global Stats =======|\n";
@@ -589,7 +609,11 @@ void Menu::globalStatsMenu() {
 }
 
 //--- MISCS ----
-
+/**
+ * @brief Apresenta o menu de funções diversas, oferecendo recursos adicionais.
+ * @details Exibe opções diversas e redireciona para a função FlightManager.
+ * @details Complexity: O(1) (considerando operações de entrada/saída como constantes).
+ */
 void Menu::miscMenu() {
 
 
@@ -641,8 +665,6 @@ void Menu::miscMenu() {
         default:
             std::cout << "Invalid option. Please try again.";
     }
-
-
 }
 
 

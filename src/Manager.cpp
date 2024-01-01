@@ -24,7 +24,6 @@ void Manager::parseAirlines() {
         return;
     }
     std::string line;
-    //Code,Name,Callsign,Country
     getline(file, line);
 
     while (getline(file, line)) {
