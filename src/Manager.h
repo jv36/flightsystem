@@ -17,7 +17,6 @@ private:
     std::unordered_map<std::string, Airport*> airports;
     std::unordered_map<std::string, std::pair<std::string, std::string>> cities;
     std::vector<std::pair<std::string, Location>> airportLocations;
-    std::unordered_map<std::string, unsigned long> flightsCity;
     std::unordered_map<std::string, unsigned long> flightsAirline;
     Graph* flightGraph = new Graph(1, false);
 public:

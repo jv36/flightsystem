@@ -711,7 +711,6 @@ void Manager::flightsPerCity(const std:: string& nameCity) {
     int countFlights = 0;
 
     for (const auto &city: cities) {
-        flightsCity[city.first] = 0;
         if (city.second.first == nameCity) {
             CityCode = city.first;
         }
