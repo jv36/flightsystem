@@ -55,10 +55,8 @@ void Graph::addEdge(const std::string &originAirport, const std::string &destAir
  * @details E - número de edges
  * @param airportCode: código IATA do aeroporto
  */
-void Graph::dfs(const std::string &airportCode) {
-    this->removeDistance();
-    this->removeVisited();
 
+void Graph::dfs(const std::string &airportCode, std::vector<std::string>& currentPath, std::pair<std::string, std::string>& maxStopsPair) {
     std::stack<std::string> stack;
     stack.push(airportCode);
     nodes[airportCode].visited = true;
@@ -74,6 +72,13 @@ void Graph::dfs(const std::string &airportCode) {
                 nodes[e.airline].visited = true;
                 nodes[e.airline].parent = top;
                 nodes[e.airline].distance = nodes[top].distance + 1;
+
+                currentPath.push_back(e.airline);
+
+                if (nodes[e.airline].distance > nodes[maxStopsPair.second].distance) {
+                    maxStopsPair.first = airportCode;
+                    maxStopsPair.second = e.airline;
+                }
             }
         }
     }

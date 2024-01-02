@@ -801,39 +801,23 @@ void Manager::topKAirports(int k) {
  * @details V- número de vertices --> aeroportos
  * @details utiliza DFS na sua busca
  */
-
 void Manager::maximumTripWithStops() {
-    std::vector<std::string> maxPath;
-    flightGraph->removeDistance();
-    flightGraph->removeVisited();
+    std::pair<std::string, std::string> maxStopsPair;
 
-    for (const auto &airport : airports) {
+    for (const auto &airport: airports) {
         const std::string &currentAirportCode = airport.first;
+        auto &currentNode = flightGraph->nodeAtKey(currentAirportCode);
 
-        if (!flightGraph->nodeAtKey(currentAirportCode).visited) {
+        if (!currentNode.visited) {
             std::vector<std::string> currentPath;
-            flightGraph->dfs(currentAirportCode);
-
-            std::string currentNode = currentAirportCode;
-            while (!flightGraph->nodeAtKey(currentNode).parent.empty()) {
-                currentPath.push_back(currentNode);
-                currentNode = flightGraph->nodeAtKey(currentNode).parent;
-            }
-            currentPath.push_back(currentNode);
-
-            if (currentPath.size() > maxPath.size()) {
-                maxPath = std::move(currentPath);
-            }
+            flightGraph->dfs(currentAirportCode, currentPath, maxStopsPair);
         }
     }
 
-    std::cout << "Maximum trip with the greatest number of stops: ";
-    for (auto it = maxPath.rbegin(); it != maxPath.rend(); ++it) {
-        std::cout << *it << " -> ";
-    }
-    std::cout << " (Total stops: " << maxPath.size() - 1 << ")" << std::endl;
+    std::cout << "Maximum trip with the greatest number of stops: "
+              << maxStopsPair.first << " -> " << maxStopsPair.second
+              << " (Total stops: " << flightGraph->nodeAtKey(maxStopsPair.second).distance << ")" << std::endl;
 }
-
 
 // Global Statístics
 

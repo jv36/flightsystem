@@ -34,7 +34,7 @@ public:
     void bfs(const std::string& airportCode);
     void bfsFilteredRestrict(const std::string &airportCode, std::vector<std::string> &filter);
     void bfsFilteredExclude(const std::string &airportCode, std::vector<std::string> &filter);
-    void dfs(const std::string& airportCode);
+    void dfs(const std::string &airportCode, std::vector<std::string>& currentPath, std::pair<std::string, std::string>& maxStopsPair);
     Node& nodeAtKey(const std::string& key);
     void removeVisited();
     void removeDistance();
