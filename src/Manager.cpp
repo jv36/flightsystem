@@ -426,7 +426,7 @@ void Manager::directDestinations(const std::string& startAirportCode) {
 
     std::cout << "Choose an option and write down the alinea:" << std::endl;
     std::cout << std::endl;
-    std::cout << "a. Aeroport" << std::endl;
+    std::cout << "a. Airport" << std::endl;
     std::cout << "b. City" << std::endl;
     std::cout << "c. Country" << std::endl;
 
@@ -530,7 +530,7 @@ void Manager::allDestinations(const std::string& startAirportCode) {
 
     std::cout << "Choose an option and write down the alinea:" << std::endl;
     std::cout << std::endl;
-    std::cout << "a. Aeroport" << std::endl;
+    std::cout << "a. Airport" << std::endl;
     std::cout << "b. City" << std::endl;
     std::cout << "c. Country" << std::endl;
 
@@ -806,7 +806,7 @@ void Manager::maximumTripWithStops() {
 
     for (const auto &airport: airports) {
         const std::string &currentAirportCode = airport.first;
-        auto &currentNode = flightGraph->nodes[currentAirportCode];
+        auto &currentNode = flightGraph->nodeAtKey(currentAirportCode);
 
         if (!currentNode.visited) {
             std::vector<std::string> currentPath;
@@ -816,8 +816,11 @@ void Manager::maximumTripWithStops() {
 
     std::cout << "Maximum trip with the greatest number of stops: "
               << maxStopsPair.first << " -> " << maxStopsPair.second
-              << " (Total stops: " << flightGraph->nodes[maxStopsPair.second].distance << ")" << std::endl;
+              << " (Total stops: " << flightGraph->nodeAtKey(maxStopsPair.second).distance << ")" << std::endl;
 }
+
+
+
 
 
 // Global Statístics
