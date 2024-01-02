@@ -1,0 +1,6 @@
+<map id="Manager::allDestinations" name="Manager::allDestinations">
+<area shape="rect" id="node1" title="Obtém o número de destino possíveis com número infinito de escalas a partir de um aeroporto." alt="" coords="5,56,191,83"/>
+<area shape="rect" id="node2" href="$classAirport.html#a4f8fbb5b1c5250bf0aaa77dfc25897dc" title="Obtém a cidade do aeroporto." alt="" coords="251,5,373,32"/>
+<area shape="rect" id="node3" href="$classAirport.html#aefabe22c551403c9ca291404eba2323b" title="Obtém o país do aeroporto." alt="" coords="239,56,385,83"/>
+<area shape="rect" id="node4" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="243,107,381,133"/>
+</map>

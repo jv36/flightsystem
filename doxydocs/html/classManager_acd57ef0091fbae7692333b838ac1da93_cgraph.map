@@ -1,0 +1,4 @@
+<map id="Manager::airlinesFromAirport" name="Manager::airlinesFromAirport">
+<area shape="rect" id="node1" title="Obtém o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador." alt="" coords="5,5,217,32"/>
+<area shape="rect" id="node2" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="265,5,404,32"/>
+</map>

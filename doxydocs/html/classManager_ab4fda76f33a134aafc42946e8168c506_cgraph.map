@@ -1,0 +1,4 @@
+<map id="Manager::flightsPerAirline" name="Manager::flightsPerAirline">
+<area shape="rect" id="node1" title="Imprime o número de voos que são operados por uma determinada companhia aérea, especificada pelo util..." alt="" coords="5,5,196,32"/>
+<area shape="rect" id="node2" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="244,5,383,32"/>
+</map>

@@ -1,0 +1,7 @@
+<map id="Manager::graphDiameter" name="Manager::graphDiameter">
+<area shape="rect" id="node1" title="Obtém o diâmetro do grafo." alt="" coords="5,56,191,83"/>
+<area shape="rect" id="node2" href="$classGraph.html#a818b2f0ba5bc987302c1c4678d99a5f2" title="Faz uma pesquisa BFS no grafo." alt="" coords="263,31,353,57"/>
+<area shape="rect" id="node5" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="239,81,377,108"/>
+<area shape="rect" id="node3" href="$classGraph.html#a14c25949846aaa41a5f3b73fa706d081" title="Coloca todos os nodes com a distância a &#45;1." alt="" coords="425,5,601,32"/>
+<area shape="rect" id="node4" href="$classGraph.html#a286a309296c8ba03a4edfa0f2310c5a9" title="Coloca todos os nodes como não visitados." alt="" coords="431,56,595,83"/>
+</map>

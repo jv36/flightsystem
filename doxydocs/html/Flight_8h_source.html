@@ -1,0 +1,134 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>flightsystem: Código-Fonte de src/Flight.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">flightsystem
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Flight_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Flight.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Flight_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FLIGHTSYSTEM_FLIGHT_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FLIGHTSYSTEM_FLIGHT_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Location_8h.html">Location.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="classFlight.html">   10</a></span>&#160;<span class="keyword">class </span><a class="code" href="classFlight.html">Flight</a> {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="classFlight.html#acbf1e8c321e01e04db2fe651a08b30af">Flight</a>();</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="classFlight.html#acbf1e8c321e01e04db2fe651a08b30af">Flight</a>(std::string <a class="code" href="classFlight.html#a641d593ee84d73b1ba460de8e7dda399">source</a>, std::string <a class="code" href="classFlight.html#a0a05cf3306598fb7428e2a48d60e6136">target</a>, std::string <a class="code" href="classFlight.html#a2fb45d853800bd926694d4c32c96f5c1">airline</a>);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    std::string <a class="code" href="classFlight.html#a3cf707b8b051ae62a8ad4a19104d8e69">getSource</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    std::string <a class="code" href="classFlight.html#a23f0af1af19cc042e77e17877c5c4231">getTarget</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::string <a class="code" href="classFlight.html#aa20fd31a69d37fd738a43293dc17051f">getAirline</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classFlight.html#a641d593ee84d73b1ba460de8e7dda399">   20</a></span>&#160;    std::string <a class="code" href="classFlight.html#a641d593ee84d73b1ba460de8e7dda399">source</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classFlight.html#a0a05cf3306598fb7428e2a48d60e6136">   21</a></span>&#160;    std::string <a class="code" href="classFlight.html#a0a05cf3306598fb7428e2a48d60e6136">target</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="classFlight.html#a2fb45d853800bd926694d4c32c96f5c1">   22</a></span>&#160;    std::string <a class="code" href="classFlight.html#a2fb45d853800bd926694d4c32c96f5c1">airline</a>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classFlight.html#ac4530f4ce2c4e571b1b544ed32b9919a">   23</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="classFlight.html#ac4530f4ce2c4e571b1b544ed32b9919a">distance</a>;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FLIGHTSYSTEM_FLIGHT_H</span></div>
+<div class="ttc" id="aLocation_8h_html"><div class="ttname"><a href="Location_8h.html">Location.h</a></div></div>
+<div class="ttc" id="aclassFlight_html"><div class="ttname"><a href="classFlight.html">Flight</a></div><div class="ttdef"><b>Definition:</b> <a href="Flight_8h_source.html#l00010">Flight.h:10</a></div></div>
+<div class="ttc" id="aclassFlight_html_a0a05cf3306598fb7428e2a48d60e6136"><div class="ttname"><a href="classFlight.html#a0a05cf3306598fb7428e2a48d60e6136">Flight::target</a></div><div class="ttdeci">std::string target</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8h_source.html#l00021">Flight.h:21</a></div></div>
+<div class="ttc" id="aclassFlight_html_a23f0af1af19cc042e77e17877c5c4231"><div class="ttname"><a href="classFlight.html#a23f0af1af19cc042e77e17877c5c4231">Flight::getTarget</a></div><div class="ttdeci">std::string getTarget() const</div><div class="ttdoc">Obtém o código do aeroporto do local de destino.</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8cpp_source.html#l00046">Flight.cpp:46</a></div></div>
+<div class="ttc" id="aclassFlight_html_a2fb45d853800bd926694d4c32c96f5c1"><div class="ttname"><a href="classFlight.html#a2fb45d853800bd926694d4c32c96f5c1">Flight::airline</a></div><div class="ttdeci">std::string airline</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8h_source.html#l00022">Flight.h:22</a></div></div>
+<div class="ttc" id="aclassFlight_html_a3cf707b8b051ae62a8ad4a19104d8e69"><div class="ttname"><a href="classFlight.html#a3cf707b8b051ae62a8ad4a19104d8e69">Flight::getSource</a></div><div class="ttdeci">std::string getSource() const</div><div class="ttdoc">Obtém o código do aeroporto do local de origem.</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8cpp_source.html#l00037">Flight.cpp:37</a></div></div>
+<div class="ttc" id="aclassFlight_html_a641d593ee84d73b1ba460de8e7dda399"><div class="ttname"><a href="classFlight.html#a641d593ee84d73b1ba460de8e7dda399">Flight::source</a></div><div class="ttdeci">std::string source</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8h_source.html#l00020">Flight.h:20</a></div></div>
+<div class="ttc" id="aclassFlight_html_aa20fd31a69d37fd738a43293dc17051f"><div class="ttname"><a href="classFlight.html#aa20fd31a69d37fd738a43293dc17051f">Flight::getAirline</a></div><div class="ttdeci">std::string getAirline() const</div><div class="ttdoc">Obtém o código da companhia aérea responsável pelo voo.</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8cpp_source.html#l00055">Flight.cpp:55</a></div></div>
+<div class="ttc" id="aclassFlight_html_ac4530f4ce2c4e571b1b544ed32b9919a"><div class="ttname"><a href="classFlight.html#ac4530f4ce2c4e571b1b544ed32b9919a">Flight::distance</a></div><div class="ttdeci">float distance</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8h_source.html#l00023">Flight.h:23</a></div></div>
+<div class="ttc" id="aclassFlight_html_acbf1e8c321e01e04db2fe651a08b30af"><div class="ttname"><a href="classFlight.html#acbf1e8c321e01e04db2fe651a08b30af">Flight::Flight</a></div><div class="ttdeci">Flight()</div><div class="ttdoc">Construtor da classe Flight.</div><div class="ttdef"><b>Definition:</b> <a href="Flight_8cpp_source.html#l00013">Flight.cpp:13</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="Flight_8h.html">Flight.h</a></li>
+    <li class="footer">Gerado em Terça, 2 de Janeiro de 2024 12:58:22 para flightsystem por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

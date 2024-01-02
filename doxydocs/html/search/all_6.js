@@ -1,0 +1,27 @@
+var searchData=
+[
+  ['g_5fsize_46',['g_size',['../classGraph.html#ae6b0598b5889d920ced639901bc76dcf',1,'Graph']]],
+  ['getairline_47',['getAirline',['../classFlight.html#aa20fd31a69d37fd738a43293dc17051f',1,'Flight']]],
+  ['getairports_48',['getAirports',['../classManager.html#acdb242b9bdbe293ab1c7acc4de9dc1d3',1,'Manager']]],
+  ['getcallsign_49',['getCallsign',['../classAirline.html#aa0219926dd0151332c9e309036e345d3',1,'Airline']]],
+  ['getcity_50',['getCity',['../classAirport.html#a4f8fbb5b1c5250bf0aaa77dfc25897dc',1,'Airport']]],
+  ['getcode_51',['getCode',['../classAirline.html#ae3a78341e134ede353f32e060033c4ee',1,'Airline::getCode()'],['../classAirport.html#a715d0628f3540a1a65917d55b0311757',1,'Airport::getCode()']]],
+  ['getcodefromcallsign_52',['getCodeFromCallsign',['../classManager.html#a5fb3f3bd840fe8e3ce158cbc47f3e9b1',1,'Manager']]],
+  ['getcodefromname_53',['getCodeFromName',['../classManager.html#a154c7f939d7c44a00544fefc085a2ee5',1,'Manager']]],
+  ['getcountry_54',['getCountry',['../classAirline.html#a73e2c48e0d98eda7417b4a256881e6f1',1,'Airline::getCountry()'],['../classAirport.html#aefabe22c551403c9ca291404eba2323b',1,'Airport::getCountry()']]],
+  ['getflightpath_55',['getFlightPath',['../classManager.html#a34f9b456a8a5346ea58f4b2079d66d35',1,'Manager']]],
+  ['getlatitude_56',['getLatitude',['../classLocation.html#ae84e2a75e0a29c625f38dd2ac9fe8117',1,'Location']]],
+  ['getlocation_57',['getLocation',['../classAirport.html#a00e1a169bffbcf506cd423d8b3cbabd8',1,'Airport']]],
+  ['getlongitude_58',['getLongitude',['../classLocation.html#a4f6d4ef756b78d33b322fd83f3ed18fa',1,'Location']]],
+  ['getname_59',['getName',['../classAirline.html#aaaabbcbd34ed54234915325e91af0148',1,'Airline::getName()'],['../classAirport.html#a5f6d1d66d9d1b5af15b67c500e444f9f',1,'Airport::getName()']]],
+  ['getsource_60',['getSource',['../classFlight.html#a3cf707b8b051ae62a8ad4a19104d8e69',1,'Flight']]],
+  ['gettarget_61',['getTarget',['../classFlight.html#a23f0af1af19cc042e77e17877c5c4231',1,'Flight']]],
+  ['globalairlines_62',['globalAirlines',['../classManager.html#aca798571c25f4fb48b8d5565465dc6d9',1,'Manager']]],
+  ['globalairports_63',['globalAirports',['../classManager.html#a5e3216094fafab26acbc250198e7920b',1,'Manager']]],
+  ['globalflights_64',['globalFlights',['../classManager.html#af824de6a5ecb0f338cca2a79d9696b39',1,'Manager']]],
+  ['globalstatsmenu_65',['globalStatsMenu',['../classMenu.html#a52e329067ab9cd92954e014e16029cee',1,'Menu']]],
+  ['graph_66',['Graph',['../classGraph.html#a04105f182b0aef040033ea13416b1d55',1,'Graph::Graph()'],['../classGraph.html',1,'Graph']]],
+  ['graph_2ecpp_67',['Graph.cpp',['../Graph_8cpp.html',1,'']]],
+  ['graph_2eh_68',['Graph.h',['../Graph_8h.html',1,'']]],
+  ['graphdiameter_69',['graphDiameter',['../classManager.html#a4e5bc9407984ee805f417c7f56edd237',1,'Manager']]]
+];

@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.9.1"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>flightsystem: Código-Fonte de src/Manager.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td id="projectalign" style="padding-left: 0.5em;">
+   <div id="projectname">flightsystem
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Gerado por Doxygen 1.9.1 -->
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+var searchBox = new SearchBox("searchBox", "search",false,'Localizar','.html');
+/* @license-end */
+</script>
+<script type="text/javascript" src="menudata.js"></script>
+<script type="text/javascript" src="menu.js"></script>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(function() {
+  initMenu('',true,false,'search.php','Localizar');
+  $(document).ready(function() { init_search(); });
+});
+/* @license-end */</script>
+<div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
+$(document).ready(function(){initNavTree('Manager_8h_source.html',''); initResizable(); });
+/* @license-end */
+</script>
+<div id="doc-content">
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div class="header">
+  <div class="headertitle">
+<div class="title">Manager.h</div>  </div>
+</div><!--header-->
+<div class="contents">
+<a href="Manager_8h.html">Ir para a documentação deste ficheiro.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef FLIGHTSYSTEM_MANAGER_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define FLIGHTSYSTEM_MANAGER_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;fstream&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;sstream&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;memory&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;unordered_set&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Graph_8h.html">Graph.h</a>&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classManager.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classManager.html">Manager</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classManager.html#a7f4605b6ca03bd05a29d0b62d1a2c440">   15</a></span>&#160;    std::unordered_map&lt;std::string, std::vector&lt;std::unique_ptr&lt;Flight&gt;&gt;&gt; <a class="code" href="classManager.html#a7f4605b6ca03bd05a29d0b62d1a2c440">flightMap</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="classManager.html#ad36aa8f784740ec3ccf9ac33939fd26a">   16</a></span>&#160;    std::unordered_map&lt;std::string, Airline*&gt; <a class="code" href="classManager.html#ad36aa8f784740ec3ccf9ac33939fd26a">airlines</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classManager.html#a11e9a55ef3636c9673e35f54840ffe44">   17</a></span>&#160;    std::unordered_map&lt;std::string, Airport*&gt; <a class="code" href="classManager.html#a11e9a55ef3636c9673e35f54840ffe44">airports</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classManager.html#a0f4b52dee50632d5c3005128d433b607">   18</a></span>&#160;    std::unordered_map&lt;std::string, std::pair&lt;std::string, std::string&gt;&gt; <a class="code" href="classManager.html#a0f4b52dee50632d5c3005128d433b607">cities</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="classManager.html#a7e529f9f307eb752d1993cb69229078f">   19</a></span>&#160;    std::vector&lt;std::pair&lt;std::string, Location&gt;&gt; <a class="code" href="classManager.html#a7e529f9f307eb752d1993cb69229078f">airportLocations</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="classManager.html#ac59a8ab6c2216e0d2ee0e119ec624bad">   20</a></span>&#160;    std::unordered_map&lt;std::string, unsigned long&gt; <a class="code" href="classManager.html#ac59a8ab6c2216e0d2ee0e119ec624bad">flightsAirline</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="classManager.html#a1837a3ea3e1428532374a26b6aca7443">   21</a></span>&#160;    <a class="code" href="classGraph.html">Graph</a>* <a class="code" href="classManager.html#a1837a3ea3e1428532374a26b6aca7443">flightGraph</a> = <span class="keyword">new</span> <a class="code" href="classGraph.html">Graph</a>(1, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#ab504a04a30d9dc4eea4e4a7faa923726">parseAirlines</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a4020c3d4184420cd0b38da9b0fbbaee7">parseAirport</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a04e8bee527c74ad67f4bba846830eb1d">parseFlights</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    std::unordered_map&lt;std::string, Airport*&gt; <a class="code" href="classManager.html#acdb242b9bdbe293ab1c7acc4de9dc1d3">getAirports</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="comment">// Flights</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a34f9b456a8a5346ea58f4b2079d66d35">getFlightPath</a>(std::string origin, std::string destination, <span class="keywordtype">int</span> oType, <span class="keywordtype">int</span> dType, std::vector&lt;std::string&gt;&amp; filter, <span class="keywordtype">int</span> type);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// Filters</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="classManager.html#a765e227afe449ac9f65e929b91359bda">validAirlineCode</a>(<span class="keyword">const</span> std::string&amp; code);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    std::string <a class="code" href="classManager.html#a154c7f939d7c44a00544fefc085a2ee5">getCodeFromName</a>(<span class="keyword">const</span> std::string&amp; name);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    std::string <a class="code" href="classManager.html#a5fb3f3bd840fe8e3ce158cbc47f3e9b1">getCodeFromCallsign</a>(<span class="keyword">const</span> std::string&amp; callsign);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    std::vector&lt;std::string&gt; <a class="code" href="classManager.html#a024e0315edd139cb9e5848874002a2e7">filterCountry</a>(<span class="keyword">const</span> std::string&amp; country);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="comment">// Airport menu</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="classManager.html#abf32f6dd45a5065ddccd736fd1b7f491">flightsFromAirport</a>(<span class="keyword">const</span> std::string&amp; code);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#acd57ef0091fbae7692333b838ac1da93">airlinesFromAirport</a>(<span class="keyword">const</span> std::string &amp;code);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#adb3a6c83b979b01d795555a832b5fb97">directDestinations</a>(<span class="keyword">const</span> std::string&amp; code);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#ad685f227180cf825dc6216766639b695">allDestinations</a>(<span class="keyword">const</span> std::string&amp; code);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a3df76deb170403821879a81952326508">destinationsWithinStops</a>(<span class="keyword">const</span> std::string&amp; code, <span class="keywordtype">int</span> maxStops);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// Statistics</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a0819e3336ead1c7f1bd1337beca9fc76">flightsPerCity</a>(<span class="keyword">const</span> std:: string&amp; nameCity);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#ab4fda76f33a134aafc42946e8168c506">flightsPerAirline</a>(<span class="keyword">const</span> std:: string&amp; nameAirline);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a8a969f2be6eff52df19e16579ee6c43b">topKAirports</a>(<span class="keywordtype">int</span> k);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#ac89547027e1857e586cc0adba6de0e3c">maximumTripWithStops</a>();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="comment">// Global Statistics</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="classManager.html#a5e3216094fafab26acbc250198e7920b">globalAirports</a>();</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a244c596daae494d544b5c1d14482a829">printGlobalAirports</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>&amp; type);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="classManager.html#af824de6a5ecb0f338cca2a79d9696b39">   65</a></span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classManager.html#af824de6a5ecb0f338cca2a79d9696b39">globalFlights</a> = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">long</span> <a class="code" href="classManager.html#aca798571c25f4fb48b8d5565465dc6d9">globalAirlines</a>();</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#ab3033a2fc658ae9626d46095086aca00">printGlobalAirlines</a>();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="comment">//Other functions</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="classManager.html#a42ef1561ab16c79263d4b746716d70bf">printArticulation</a>(<span class="keywordtype">char</span> type);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">int</span> <a class="code" href="classManager.html#a4e5bc9407984ee805f417c7f56edd237">graphDiameter</a>();</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;};</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//FLIGHTSYSTEM_MANAGER_H</span></div>
+<div class="ttc" id="aGraph_8h_html"><div class="ttname"><a href="Graph_8h.html">Graph.h</a></div></div>
+<div class="ttc" id="aclassGraph_html"><div class="ttname"><a href="classGraph.html">Graph</a></div><div class="ttdef"><b>Definition:</b> <a href="Graph_8h_source.html#l00008">Graph.h:8</a></div></div>
+<div class="ttc" id="aclassManager_html"><div class="ttname"><a href="classManager.html">Manager</a></div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00013">Manager.h:13</a></div></div>
+<div class="ttc" id="aclassManager_html_a024e0315edd139cb9e5848874002a2e7"><div class="ttname"><a href="classManager.html#a024e0315edd139cb9e5848874002a2e7">Manager::filterCountry</a></div><div class="ttdeci">std::vector&lt; std::string &gt; filterCountry(const std::string &amp;country)</div><div class="ttdoc">Vetor de companhias aéreas de um país, para usar como filtro.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00349">Manager.cpp:349</a></div></div>
+<div class="ttc" id="aclassManager_html_a04e8bee527c74ad67f4bba846830eb1d"><div class="ttname"><a href="classManager.html#a04e8bee527c74ad67f4bba846830eb1d">Manager::parseFlights</a></div><div class="ttdeci">void parseFlights()</div><div class="ttdoc">Faz parse ao ficheiro flights.csv e coloca os seus dados nas estruturas adequadas.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00090">Manager.cpp:90</a></div></div>
+<div class="ttc" id="aclassManager_html_a0819e3336ead1c7f1bd1337beca9fc76"><div class="ttname"><a href="classManager.html#a0819e3336ead1c7f1bd1337beca9fc76">Manager::flightsPerCity</a></div><div class="ttdeci">void flightsPerCity(const std::string &amp;nameCity)</div><div class="ttdoc">Imprime o número de voos que saem de uma determinada cidade, especificada pelo utilizador.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00709">Manager.cpp:709</a></div></div>
+<div class="ttc" id="aclassManager_html_a0f4b52dee50632d5c3005128d433b607"><div class="ttname"><a href="classManager.html#a0f4b52dee50632d5c3005128d433b607">Manager::cities</a></div><div class="ttdeci">std::unordered_map&lt; std::string, std::pair&lt; std::string, std::string &gt; &gt; cities</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00018">Manager.h:18</a></div></div>
+<div class="ttc" id="aclassManager_html_a11e9a55ef3636c9673e35f54840ffe44"><div class="ttname"><a href="classManager.html#a11e9a55ef3636c9673e35f54840ffe44">Manager::airports</a></div><div class="ttdeci">std::unordered_map&lt; std::string, Airport * &gt; airports</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00017">Manager.h:17</a></div></div>
+<div class="ttc" id="aclassManager_html_a154c7f939d7c44a00544fefc085a2ee5"><div class="ttname"><a href="classManager.html#a154c7f939d7c44a00544fefc085a2ee5">Manager::getCodeFromName</a></div><div class="ttdeci">std::string getCodeFromName(const std::string &amp;name)</div><div class="ttdoc">Obtém o código da companhia aérea através do nome.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00317">Manager.cpp:317</a></div></div>
+<div class="ttc" id="aclassManager_html_a1837a3ea3e1428532374a26b6aca7443"><div class="ttname"><a href="classManager.html#a1837a3ea3e1428532374a26b6aca7443">Manager::flightGraph</a></div><div class="ttdeci">Graph * flightGraph</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00021">Manager.h:21</a></div></div>
+<div class="ttc" id="aclassManager_html_a244c596daae494d544b5c1d14482a829"><div class="ttname"><a href="classManager.html#a244c596daae494d544b5c1d14482a829">Manager::printGlobalAirports</a></div><div class="ttdeci">void printGlobalAirports(const char &amp;type)</div><div class="ttdoc">Imprime todos os aeroportos do grafo, no modo especificado pelo utilizador.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00843">Manager.cpp:843</a></div></div>
+<div class="ttc" id="aclassManager_html_a34f9b456a8a5346ea58f4b2079d66d35"><div class="ttname"><a href="classManager.html#a34f9b456a8a5346ea58f4b2079d66d35">Manager::getFlightPath</a></div><div class="ttdeci">void getFlightPath(std::string origin, std::string destination, int oType, int dType, std::vector&lt; std::string &gt; &amp;filter, int type)</div><div class="ttdoc">Obtém as melhores opções de voos de A até B.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00140">Manager.cpp:140</a></div></div>
+<div class="ttc" id="aclassManager_html_a3df76deb170403821879a81952326508"><div class="ttname"><a href="classManager.html#a3df76deb170403821879a81952326508">Manager::destinationsWithinStops</a></div><div class="ttdeci">void destinationsWithinStops(const std::string &amp;code, int maxStops)</div><div class="ttdoc">Apresenta o número de destinos alcançáveis dado um número máximo de escalas. O aeroporto de origem é ...</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00604">Manager.cpp:604</a></div></div>
+<div class="ttc" id="aclassManager_html_a4020c3d4184420cd0b38da9b0fbbaee7"><div class="ttname"><a href="classManager.html#a4020c3d4184420cd0b38da9b0fbbaee7">Manager::parseAirport</a></div><div class="ttdeci">void parseAirport()</div><div class="ttdoc">Faz parse ao ficheiro airports.csv e coloca os seus dados nas estruturas adequadas.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00043">Manager.cpp:43</a></div></div>
+<div class="ttc" id="aclassManager_html_a42ef1561ab16c79263d4b746716d70bf"><div class="ttname"><a href="classManager.html#a42ef1561ab16c79263d4b746716d70bf">Manager::printArticulation</a></div><div class="ttdeci">void printArticulation(char type)</div><div class="ttdoc">Imprime o número de articulation points no grafo, utilizando o algoritmo DFS específico para tal.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00892">Manager.cpp:892</a></div></div>
+<div class="ttc" id="aclassManager_html_a4e5bc9407984ee805f417c7f56edd237"><div class="ttname"><a href="classManager.html#a4e5bc9407984ee805f417c7f56edd237">Manager::graphDiameter</a></div><div class="ttdeci">int graphDiameter()</div><div class="ttdoc">Obtém o diâmetro do grafo.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00925">Manager.cpp:925</a></div></div>
+<div class="ttc" id="aclassManager_html_a5e3216094fafab26acbc250198e7920b"><div class="ttname"><a href="classManager.html#a5e3216094fafab26acbc250198e7920b">Manager::globalAirports</a></div><div class="ttdeci">unsigned long globalAirports()</div><div class="ttdoc">Retoma o número de aeroportos no grafo.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00833">Manager.cpp:833</a></div></div>
+<div class="ttc" id="aclassManager_html_a5fb3f3bd840fe8e3ce158cbc47f3e9b1"><div class="ttname"><a href="classManager.html#a5fb3f3bd840fe8e3ce158cbc47f3e9b1">Manager::getCodeFromCallsign</a></div><div class="ttdeci">std::string getCodeFromCallsign(const std::string &amp;callsign)</div><div class="ttdoc">Obtém o código da companhia aérea através do callsign.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00333">Manager.cpp:333</a></div></div>
+<div class="ttc" id="aclassManager_html_a765e227afe449ac9f65e929b91359bda"><div class="ttname"><a href="classManager.html#a765e227afe449ac9f65e929b91359bda">Manager::validAirlineCode</a></div><div class="ttdeci">bool validAirlineCode(const std::string &amp;code)</div><div class="ttdoc">Verifica se um código de uma companhia aérea existe.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00306">Manager.cpp:306</a></div></div>
+<div class="ttc" id="aclassManager_html_a7e529f9f307eb752d1993cb69229078f"><div class="ttname"><a href="classManager.html#a7e529f9f307eb752d1993cb69229078f">Manager::airportLocations</a></div><div class="ttdeci">std::vector&lt; std::pair&lt; std::string, Location &gt; &gt; airportLocations</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00019">Manager.h:19</a></div></div>
+<div class="ttc" id="aclassManager_html_a7f4605b6ca03bd05a29d0b62d1a2c440"><div class="ttname"><a href="classManager.html#a7f4605b6ca03bd05a29d0b62d1a2c440">Manager::flightMap</a></div><div class="ttdeci">std::unordered_map&lt; std::string, std::vector&lt; std::unique_ptr&lt; Flight &gt; &gt; &gt; flightMap</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00015">Manager.h:15</a></div></div>
+<div class="ttc" id="aclassManager_html_a8a969f2be6eff52df19e16579ee6c43b"><div class="ttname"><a href="classManager.html#a8a969f2be6eff52df19e16579ee6c43b">Manager::topKAirports</a></div><div class="ttdeci">void topKAirports(int k)</div><div class="ttdoc">Imprime os K aeroportos com mais voos. O número de aeroportos a apresentar é especificado pelo utiliz...</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00771">Manager.cpp:771</a></div></div>
+<div class="ttc" id="aclassManager_html_ab3033a2fc658ae9626d46095086aca00"><div class="ttname"><a href="classManager.html#ab3033a2fc658ae9626d46095086aca00">Manager::printGlobalAirlines</a></div><div class="ttdeci">void printGlobalAirlines()</div><div class="ttdoc">Imprime todos as companhias aéreas do grafo.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00878">Manager.cpp:878</a></div></div>
+<div class="ttc" id="aclassManager_html_ab4fda76f33a134aafc42946e8168c506"><div class="ttname"><a href="classManager.html#ab4fda76f33a134aafc42946e8168c506">Manager::flightsPerAirline</a></div><div class="ttdeci">void flightsPerAirline(const std::string &amp;nameAirline)</div><div class="ttdoc">Imprime o número de voos que são operados por uma determinada companhia aérea, especificada pelo util...</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00740">Manager.cpp:740</a></div></div>
+<div class="ttc" id="aclassManager_html_ab504a04a30d9dc4eea4e4a7faa923726"><div class="ttname"><a href="classManager.html#ab504a04a30d9dc4eea4e4a7faa923726">Manager::parseAirlines</a></div><div class="ttdeci">void parseAirlines()</div><div class="ttdoc">Faz parse ao ficheiro airlines.csv e coloca os seus dados nas estruturas adequadas.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00012">Manager.cpp:12</a></div></div>
+<div class="ttc" id="aclassManager_html_abf32f6dd45a5065ddccd736fd1b7f491"><div class="ttname"><a href="classManager.html#abf32f6dd45a5065ddccd736fd1b7f491">Manager::flightsFromAirport</a></div><div class="ttdeci">unsigned long flightsFromAirport(const std::string &amp;code)</div><div class="ttdoc">Retoma o número de voos de um aeroporto específico, definido pelo utilizador.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00368">Manager.cpp:368</a></div></div>
+<div class="ttc" id="aclassManager_html_ac59a8ab6c2216e0d2ee0e119ec624bad"><div class="ttname"><a href="classManager.html#ac59a8ab6c2216e0d2ee0e119ec624bad">Manager::flightsAirline</a></div><div class="ttdeci">std::unordered_map&lt; std::string, unsigned long &gt; flightsAirline</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00020">Manager.h:20</a></div></div>
+<div class="ttc" id="aclassManager_html_ac89547027e1857e586cc0adba6de0e3c"><div class="ttname"><a href="classManager.html#ac89547027e1857e586cc0adba6de0e3c">Manager::maximumTripWithStops</a></div><div class="ttdeci">void maximumTripWithStops()</div><div class="ttdoc">Encontra o maior caminho com o maior número de escalas entre aeroportos no grafo.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00804">Manager.cpp:804</a></div></div>
+<div class="ttc" id="aclassManager_html_aca798571c25f4fb48b8d5565465dc6d9"><div class="ttname"><a href="classManager.html#aca798571c25f4fb48b8d5565465dc6d9">Manager::globalAirlines</a></div><div class="ttdeci">unsigned long globalAirlines()</div><div class="ttdoc">Retoma o número de companhias aéreas no grafo.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00869">Manager.cpp:869</a></div></div>
+<div class="ttc" id="aclassManager_html_acd57ef0091fbae7692333b838ac1da93"><div class="ttname"><a href="classManager.html#acd57ef0091fbae7692333b838ac1da93">Manager::airlinesFromAirport</a></div><div class="ttdeci">void airlinesFromAirport(const std::string &amp;code)</div><div class="ttdoc">Obtém o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00380">Manager.cpp:380</a></div></div>
+<div class="ttc" id="aclassManager_html_acdb242b9bdbe293ab1c7acc4de9dc1d3"><div class="ttname"><a href="classManager.html#acdb242b9bdbe293ab1c7acc4de9dc1d3">Manager::getAirports</a></div><div class="ttdeci">std::unordered_map&lt; std::string, Airport * &gt; getAirports()</div><div class="ttdoc">Obtém o unordered map dos aeroportos {código, Airport*}.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00123">Manager.cpp:123</a></div></div>
+<div class="ttc" id="aclassManager_html_ad36aa8f784740ec3ccf9ac33939fd26a"><div class="ttname"><a href="classManager.html#ad36aa8f784740ec3ccf9ac33939fd26a">Manager::airlines</a></div><div class="ttdeci">std::unordered_map&lt; std::string, Airline * &gt; airlines</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00016">Manager.h:16</a></div></div>
+<div class="ttc" id="aclassManager_html_ad685f227180cf825dc6216766639b695"><div class="ttname"><a href="classManager.html#ad685f227180cf825dc6216766639b695">Manager::allDestinations</a></div><div class="ttdeci">void allDestinations(const std::string &amp;code)</div><div class="ttdoc">Obtém o número de destino possíveis com número infinito de escalas a partir de um aeroporto.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00499">Manager.cpp:499</a></div></div>
+<div class="ttc" id="aclassManager_html_adb3a6c83b979b01d795555a832b5fb97"><div class="ttname"><a href="classManager.html#adb3a6c83b979b01d795555a832b5fb97">Manager::directDestinations</a></div><div class="ttdeci">void directDestinations(const std::string &amp;code)</div><div class="ttdoc">Obtém o número de destino diretos / sem escalas a partir de um aeroporto.</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8cpp_source.html#l00412">Manager.cpp:412</a></div></div>
+<div class="ttc" id="aclassManager_html_af824de6a5ecb0f338cca2a79d9696b39"><div class="ttname"><a href="classManager.html#af824de6a5ecb0f338cca2a79d9696b39">Manager::globalFlights</a></div><div class="ttdeci">int globalFlights</div><div class="ttdef"><b>Definition:</b> <a href="Manager_8h_source.html#l00065">Manager.h:65</a></div></div>
+</div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
+<!-- start footer part -->
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="Manager_8h.html">Manager.h</a></li>
+    <li class="footer">Gerado em Terça, 2 de Janeiro de 2024 12:58:22 para flightsystem por <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.1 </li>
+  </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,5 @@
+<map id="Manager::parseFlights" name="Manager::parseFlights">
+<area shape="rect" id="node1" title="Faz parse ao ficheiro flights.csv e coloca os seus dados nas estruturas adequadas." alt="" coords="5,31,172,57"/>
+<area shape="rect" id="node2" href="$classGraph.html#a2af9e7022db663eb0984a5935948e27f" title="Adiciona um edge ao grafo." alt="" coords="221,5,346,32"/>
+<area shape="rect" id="node3" href="$classGraph.html#a8504199bfe3d7abd405cf5e9f446b995" title="Adiciona um node ao grafo." alt="" coords="220,56,347,83"/>
+</map>

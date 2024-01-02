@@ -1,0 +1,6 @@
+<map id="Manager::destinationsWithinStops" name="Manager::destinationsWithinStops">
+<area shape="rect" id="node1" title="Apresenta o número de destinos alcançáveis dado um número máximo de escalas. O aeroporto de origem é ..." alt="" coords="5,49,215,90"/>
+<area shape="rect" id="node2" href="$classAirport.html#a4f8fbb5b1c5250bf0aaa77dfc25897dc" title="Obtém a cidade do aeroporto." alt="" coords="275,5,397,32"/>
+<area shape="rect" id="node3" href="$classAirport.html#aefabe22c551403c9ca291404eba2323b" title="Obtém o país do aeroporto." alt="" coords="263,56,409,83"/>
+<area shape="rect" id="node4" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="267,107,405,133"/>
+</map>

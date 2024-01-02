@@ -1,0 +1,4 @@
+<map id="Manager::flightsPerCity" name="Manager::flightsPerCity">
+<area shape="rect" id="node1" title="Imprime o número de voos que saem de uma determinada cidade, especificada pelo utilizador." alt="" coords="5,5,180,32"/>
+<area shape="rect" id="node2" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="228,5,367,32"/>
+</map>

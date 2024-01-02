@@ -1,0 +1,4 @@
+<map id="Location::getLatitude" name="Location::getLatitude">
+<area shape="rect" id="node1" title="Obtém o valor da latitude." alt="" coords="255,5,413,32"/>
+<area shape="rect" id="node2" href="$classLocation.html#a311c40410c05981656fd3f7449ede703" title="Calcula a distância em quilómetros entre duas localizações." alt="" coords="5,5,207,32"/>
+</map>

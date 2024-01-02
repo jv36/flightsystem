@@ -1,0 +1,11 @@
+<map id="Graph::dfs" name="Graph::dfs">
+<area shape="rect" id="node1" title="Faz uma pesquisa DFS no grafo." alt="" coords="848,107,937,133"/>
+<area shape="rect" id="node2" href="$classManager.html#ac89547027e1857e586cc0adba6de0e3c" title="Encontra o maior caminho com o maior número de escalas entre aeroportos no grafo." alt="" coords="593,99,800,141"/>
+<area shape="rect" id="node3" href="$classMenu.html#adead915d7669a76ede0a3d1956b2578b" title="Apresenta o menu de dados/estatísticas, fornecendo várias opções estatísticas." alt="" coords="411,107,545,133"/>
+<area shape="rect" id="node4" href="$classMenu.html#af2479c56ab20abe25b90ad64fc092426" title="Apresenta o menu principal do sistema de voos." alt="" coords="228,107,363,133"/>
+<area shape="rect" id="node5" href="$classMenu.html#a9b6535e27cf244bddae4a4effabf30da" title="Apresenta o menu de aeroportos, permitindo que os utilizadores visualizem estatísticas e detalhes par..." alt="" coords="17,5,169,32"/>
+<area shape="rect" id="node6" href="$classMenu.html#ace2f68eeffee67e52f2ddd28424f4a22" title="Apresenta o menu de voos, permitindo que os utilizadores pesquisem as melhores opções de voos." alt="" coords="21,56,164,83"/>
+<area shape="rect" id="node7" href="$classMenu.html#a52e329067ab9cd92954e014e16029cee" title="Apresenta o menu de estatísticas globais, oferecendo insights globais no sistema de voos." alt="" coords="5,208,180,235"/>
+<area shape="rect" id="node8" href="$classMenu.html#a117fbfc3ae88c68edda0b4d401c4d67d" title=" " alt="" coords="43,107,142,133"/>
+<area shape="rect" id="node9" href="$classMenu.html#ab26408b5b547e6238d19c244264815f5" title="Apresenta o menu de funções diversas, oferecendo recursos adicionais." alt="" coords="26,157,159,184"/>
+</map>

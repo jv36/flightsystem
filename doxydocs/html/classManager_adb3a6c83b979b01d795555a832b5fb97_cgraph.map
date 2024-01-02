@@ -1,0 +1,6 @@
+<map id="Manager::directDestinations" name="Manager::directDestinations">
+<area shape="rect" id="node1" title="Obtém o número de destino diretos / sem escalas a partir de um aeroporto." alt="" coords="5,56,212,83"/>
+<area shape="rect" id="node2" href="$classAirport.html#a4f8fbb5b1c5250bf0aaa77dfc25897dc" title="Obtém a cidade do aeroporto." alt="" coords="273,5,394,32"/>
+<area shape="rect" id="node3" href="$classAirport.html#aefabe22c551403c9ca291404eba2323b" title="Obtém o país do aeroporto." alt="" coords="260,56,407,83"/>
+<area shape="rect" id="node4" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="264,107,403,133"/>
+</map>

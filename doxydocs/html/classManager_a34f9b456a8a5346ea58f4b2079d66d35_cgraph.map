@@ -1,0 +1,10 @@
+<map id="Manager::getFlightPath" name="Manager::getFlightPath">
+<area shape="rect" id="node1" title="Obtém as melhores opções de voos de A até B." alt="" coords="5,81,179,108"/>
+<area shape="rect" id="node2" href="$classGraph.html#a0a6b6ec317f3d7c0b617f354b0797242" title="Cria um caminho entre aeroportos, utilizando as funções de pesquisa BFS." alt="" coords="227,56,365,83"/>
+<area shape="rect" id="node8" href="$classGraph.html#a8da335a2bb0b0f544fd570ccc2a40c4f" title="Imprime um caminho entre aeroportos." alt="" coords="233,107,359,133"/>
+<area shape="rect" id="node3" href="$classGraph.html#a818b2f0ba5bc987302c1c4678d99a5f2" title="Faz uma pesquisa BFS no grafo." alt="" coords="463,5,553,32"/>
+<area shape="rect" id="node6" href="$classGraph.html#a9e9bfdcade4a1511174f0483da0659b6" title="Faz uma pesquisa BFS no grafo, utilizando um filtro de companhias aéreas a excluir da pesquisa." alt="" coords="413,56,603,83"/>
+<area shape="rect" id="node7" href="$classGraph.html#ab4de349526f2a1b18f5864d846a7c721" title="Faz uma pesquisa BFS no grafo, utilizando um filtro de companhias aéreas a restringir." alt="" coords="414,107,602,133"/>
+<area shape="rect" id="node4" href="$classGraph.html#a14c25949846aaa41a5f3b73fa706d081" title="Coloca todos os nodes com a distância a &#45;1." alt="" coords="651,31,827,57"/>
+<area shape="rect" id="node5" href="$classGraph.html#a286a309296c8ba03a4edfa0f2310c5a9" title="Coloca todos os nodes como não visitados." alt="" coords="657,81,821,108"/>
+</map>

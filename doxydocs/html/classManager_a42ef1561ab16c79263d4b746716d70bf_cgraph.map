@@ -1,0 +1,5 @@
+<map id="Manager::printArticulation" name="Manager::printArticulation">
+<area shape="rect" id="node1" title="Imprime o número de articulation points no grafo, utilizando o algoritmo DFS específico para tal." alt="" coords="5,5,197,32"/>
+<area shape="rect" id="node2" href="$classGraph.html#a2bf5ab41a1c030f3f06183cff01ccf5c" title="Faz uma pesquisa DFS para obter os pontos de articulação do grafo." alt="" coords="245,5,413,32"/>
+<area shape="rect" id="node3" href="$classAirport.html#a5f6d1d66d9d1b5af15b67c500e444f9f" title="Obtém o nome do aeroporto." alt="" coords="461,5,596,32"/>
+</map>

@@ -1,0 +1,42 @@
+<map id="Menu::miscMenu" name="Menu::miscMenu">
+<area shape="rect" id="node1" title="Apresenta o menu de funções diversas, oferecendo recursos adicionais." alt="" coords="5,480,139,506"/>
+<area shape="rect" id="node2" href="$classManager.html#a4e5bc9407984ee805f417c7f56edd237" title="Obtém o diâmetro do grafo." alt="" coords="663,58,849,85"/>
+<area shape="rect" id="node7" href="$classMenu.html#af2479c56ab20abe25b90ad64fc092426" title="Apresenta o menu principal do sistema de voos." alt="" coords="215,480,350,506"/>
+<area shape="rect" id="node38" href="$classManager.html#a42ef1561ab16c79263d4b746716d70bf" title="Imprime o número de articulation points no grafo, utilizando o algoritmo DFS específico para tal." alt="" coords="187,665,379,692"/>
+<area shape="rect" id="node3" href="$classGraph.html#a818b2f0ba5bc987302c1c4678d99a5f2" title="Faz uma pesquisa BFS no grafo." alt="" coords="1226,724,1315,750"/>
+<area shape="rect" id="node6" href="$classGraph.html#acc052be95a43c5a05596e1fc32148d01" title="Retoma o node pertencente à chave introduzida como parâmetro." alt="" coords="953,378,1092,405"/>
+<area shape="rect" id="node4" href="$classGraph.html#a14c25949846aaa41a5f3b73fa706d081" title="Coloca todos os nodes com a distância a &#45;1." alt="" coords="1413,749,1589,776"/>
+<area shape="rect" id="node5" href="$classGraph.html#a286a309296c8ba03a4edfa0f2310c5a9" title="Coloca todos os nodes como não visitados." alt="" coords="1419,800,1583,826"/>
+<area shape="rect" id="node8" href="$classMenu.html#a9b6535e27cf244bddae4a4effabf30da" title="Apresenta o menu de aeroportos, permitindo que os utilizadores visualizem estatísticas e detalhes par..." alt="" coords="435,480,587,506"/>
+<area shape="rect" id="node17" href="$classMenu.html#ace2f68eeffee67e52f2ddd28424f4a22" title="Apresenta o menu de voos, permitindo que os utilizadores pesquisem as melhores opções de voos." alt="" coords="439,749,582,776"/>
+<area shape="rect" id="node27" href="$classMenu.html#adead915d7669a76ede0a3d1956b2578b" title="Apresenta o menu de dados/estatísticas, fornecendo várias opções estatísticas." alt="" coords="443,277,578,304"/>
+<area shape="rect" id="node9" href="$classManager.html#acd57ef0091fbae7692333b838ac1da93" title="Obtém o número de companhias aéreas que operam num aeroporto específico, definido pelo utilizador." alt="" coords="650,378,862,405"/>
+<area shape="rect" id="node10" href="$classManager.html#ad685f227180cf825dc6216766639b695" title="Obtém o número de destino possíveis com número infinito de escalas a partir de um aeroporto." alt="" coords="663,581,849,608"/>
+<area shape="rect" id="node13" href="$classManager.html#a3df76deb170403821879a81952326508" title="Apresenta o número de destinos alcançáveis dado um número máximo de escalas. O aeroporto de origem é ..." alt="" coords="651,632,861,674"/>
+<area shape="rect" id="node14" href="$classManager.html#adb3a6c83b979b01d795555a832b5fb97" title="Obtém o número de destino diretos / sem escalas a partir de um aeroporto." alt="" coords="653,480,859,506"/>
+<area shape="rect" id="node15" href="$classManager.html#abf32f6dd45a5065ddccd736fd1b7f491" title="Retoma o número de voos de um aeroporto específico, definido pelo utilizador." alt="" coords="654,429,858,456"/>
+<area shape="rect" id="node16" href="$classManager.html#acdb242b9bdbe293ab1c7acc4de9dc1d3" title="Obtém o unordered map dos aeroportos {código, Airport*}." alt="" coords="677,530,835,557"/>
+<area shape="rect" id="node11" href="$classAirport.html#a4f8fbb5b1c5250bf0aaa77dfc25897dc" title="Obtém a cidade do aeroporto." alt="" coords="962,606,1083,633"/>
+<area shape="rect" id="node12" href="$classAirport.html#aefabe22c551403c9ca291404eba2323b" title="Obtém o país do aeroporto." alt="" coords="949,556,1096,582"/>
+<area shape="rect" id="node18" href="$classManager.html#a024e0315edd139cb9e5848874002a2e7" title="Vetor de companhias aéreas de um país, para usar como filtro." alt="" coords="672,901,840,928"/>
+<area shape="rect" id="node19" href="$classManager.html#a5fb3f3bd840fe8e3ce158cbc47f3e9b1" title="Obtém o código da companhia aérea através do callsign." alt="" coords="643,698,869,725"/>
+<area shape="rect" id="node20" href="$classManager.html#a154c7f939d7c44a00544fefc085a2ee5" title="Obtém o código da companhia aérea através do nome." alt="" coords="649,749,863,776"/>
+<area shape="rect" id="node21" href="$classManager.html#a34f9b456a8a5346ea58f4b2079d66d35" title="Obtém as melhores opções de voos de A até B." alt="" coords="669,800,843,826"/>
+<area shape="rect" id="node26" href="$classManager.html#a765e227afe449ac9f65e929b91359bda" title="Verifica se um código de uma companhia aérea existe." alt="" coords="659,850,853,877"/>
+<area shape="rect" id="node22" href="$classGraph.html#a0a6b6ec317f3d7c0b617f354b0797242" title="Cria um caminho entre aeroportos, utilizando as funções de pesquisa BFS." alt="" coords="953,800,1092,826"/>
+<area shape="rect" id="node25" href="$classGraph.html#a8da335a2bb0b0f544fd570ccc2a40c4f" title="Imprime um caminho entre aeroportos." alt="" coords="959,749,1086,776"/>
+<area shape="rect" id="node23" href="$classGraph.html#a9e9bfdcade4a1511174f0483da0659b6" title="Faz uma pesquisa BFS no grafo, utilizando um filtro de companhias aéreas a excluir da pesquisa." alt="" coords="1176,825,1365,852"/>
+<area shape="rect" id="node24" href="$classGraph.html#ab4de349526f2a1b18f5864d846a7c721" title="Faz uma pesquisa BFS no grafo, utilizando um filtro de companhias aéreas a restringir." alt="" coords="1177,774,1365,801"/>
+<area shape="rect" id="node28" href="$classManager.html#ab4fda76f33a134aafc42946e8168c506" title="Imprime o número de voos que são operados por uma determinada companhia aérea, especificada pelo util..." alt="" coords="661,328,851,354"/>
+<area shape="rect" id="node29" href="$classManager.html#a0819e3336ead1c7f1bd1337beca9fc76" title="Imprime o número de voos que saem de uma determinada cidade, especificada pelo utilizador." alt="" coords="669,277,843,304"/>
+<area shape="rect" id="node30" href="$classMenu.html#a52e329067ab9cd92954e014e16029cee" title="Apresenta o menu de estatísticas globais, oferecendo insights globais no sistema de voos." alt="" coords="669,109,843,136"/>
+<area shape="rect" id="node35" href="$classManager.html#ac89547027e1857e586cc0adba6de0e3c" title="Encontra o maior caminho com o maior número de escalas entre aeroportos no grafo." alt="" coords="653,211,859,252"/>
+<area shape="rect" id="node37" href="$classManager.html#a8a969f2be6eff52df19e16579ee6c43b" title="Imprime os K aeroportos com mais voos. O número de aeroportos a apresentar é especificado pelo utiliz..." alt="" coords="672,160,840,186"/>
+<area shape="rect" id="node31" href="$classManager.html#aca798571c25f4fb48b8d5565465dc6d9" title="Retoma o número de companhias aéreas no grafo." alt="" coords="935,58,1111,85"/>
+<area shape="rect" id="node32" href="$classManager.html#a5e3216094fafab26acbc250198e7920b" title="Retoma o número de aeroportos no grafo." alt="" coords="933,109,1112,136"/>
+<area shape="rect" id="node33" href="$classManager.html#ab3033a2fc658ae9626d46095086aca00" title="Imprime todos as companhias aéreas do grafo." alt="" coords="919,160,1127,186"/>
+<area shape="rect" id="node34" href="$classManager.html#a244c596daae494d544b5c1d14482a829" title="Imprime todos os aeroportos do grafo, no modo especificado pelo utilizador." alt="" coords="917,210,1128,237"/>
+<area shape="rect" id="node36" href="$classGraph.html#aecc39fd6f60c4d412c221fdeb81a9de8" title="Faz uma pesquisa DFS no grafo." alt="" coords="978,261,1067,288"/>
+<area shape="rect" id="node39" href="$classGraph.html#a2bf5ab41a1c030f3f06183cff01ccf5c" title="Faz uma pesquisa DFS para obter os pontos de articulação do grafo." alt="" coords="427,876,595,902"/>
+<area shape="rect" id="node40" href="$classAirport.html#a5f6d1d66d9d1b5af15b67c500e444f9f" title="Obtém o nome do aeroporto." alt="" coords="689,952,823,978"/>
+</map>

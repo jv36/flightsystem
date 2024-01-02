@@ -1,0 +1,6 @@
+<map id="Location::calculateDistance" name="Location::calculateDistance">
+<area shape="rect" id="node1" title="Calcula a distância em quilómetros entre duas localizações." alt="" coords="5,56,207,83"/>
+<area shape="rect" id="node2" href="$classLocation.html#ae84e2a75e0a29c625f38dd2ac9fe8117" title="Obtém o valor da latitude." alt="" coords="261,5,419,32"/>
+<area shape="rect" id="node3" href="$classLocation.html#a4f6d4ef756b78d33b322fd83f3ed18fa" title="Obtém o valor da longitude." alt="" coords="255,56,425,83"/>
+<area shape="rect" id="node4" href="$classLocation.html#a9ce6a0dba4185a30c29779d544f4a254" title="Converte um ângulo em graus para radianos." alt="" coords="265,107,415,133"/>
+</map>

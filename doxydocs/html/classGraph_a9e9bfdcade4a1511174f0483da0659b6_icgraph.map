@@ -1,0 +1,12 @@
+<map id="Graph::bfsFilteredExclude" name="Graph::bfsFilteredExclude">
+<area shape="rect" id="node1" title="Faz uma pesquisa BFS no grafo, utilizando um filtro de companhias aéreas a excluir da pesquisa." alt="" coords="1192,119,1381,145"/>
+<area shape="rect" id="node2" href="$classGraph.html#a0a6b6ec317f3d7c0b617f354b0797242" title="Cria um caminho entre aeroportos, utilizando as funções de pesquisa BFS." alt="" coords="1005,119,1144,145"/>
+<area shape="rect" id="node3" href="$classManager.html#a34f9b456a8a5346ea58f4b2079d66d35" title="Obtém as melhores opções de voos de A até B." alt="" coords="784,119,957,145"/>
+<area shape="rect" id="node4" href="$classMenu.html#ace2f68eeffee67e52f2ddd28424f4a22" title="Apresenta o menu de voos, permitindo que os utilizadores pesquisem as melhores opções de voos." alt="" coords="593,119,736,145"/>
+<area shape="rect" id="node5" href="$classMenu.html#af2479c56ab20abe25b90ad64fc092426" title="Apresenta o menu principal do sistema de voos." alt="" coords="411,119,545,145"/>
+<area shape="rect" id="node6" href="$classMenu.html#a9b6535e27cf244bddae4a4effabf30da" title="Apresenta o menu de aeroportos, permitindo que os utilizadores visualizem estatísticas e detalhes par..." alt="" coords="199,5,351,32"/>
+<area shape="rect" id="node7" href="$classMenu.html#a52e329067ab9cd92954e014e16029cee" title="Apresenta o menu de estatísticas globais, oferecendo insights globais no sistema de voos." alt="" coords="188,56,363,83"/>
+<area shape="rect" id="node8" href="$classMenu.html#adead915d7669a76ede0a3d1956b2578b" title="Apresenta o menu de dados/estatísticas, fornecendo várias opções estatísticas." alt="" coords="5,119,140,145"/>
+<area shape="rect" id="node9" href="$classMenu.html#a117fbfc3ae88c68edda0b4d401c4d67d" title=" " alt="" coords="226,181,325,208"/>
+<area shape="rect" id="node10" href="$classMenu.html#ab26408b5b547e6238d19c244264815f5" title="Apresenta o menu de funções diversas, oferecendo recursos adicionais." alt="" coords="209,232,342,259"/>
+</map>

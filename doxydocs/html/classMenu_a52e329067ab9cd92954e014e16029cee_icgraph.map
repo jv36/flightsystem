@@ -1,0 +1,9 @@
+<map id="Menu::globalStatsMenu" name="Menu::globalStatsMenu">
+<area shape="rect" id="node1" title="Apresenta o menu de estatísticas globais, oferecendo insights globais no sistema de voos." alt="" coords="571,81,745,108"/>
+<area shape="rect" id="node2" href="$classMenu.html#adead915d7669a76ede0a3d1956b2578b" title="Apresenta o menu de dados/estatísticas, fornecendo várias opções estatísticas." alt="" coords="388,56,523,83"/>
+<area shape="rect" id="node3" href="$classMenu.html#af2479c56ab20abe25b90ad64fc092426" title="Apresenta o menu principal do sistema de voos." alt="" coords="205,56,340,83"/>
+<area shape="rect" id="node4" href="$classMenu.html#a9b6535e27cf244bddae4a4effabf30da" title="Apresenta o menu de aeroportos, permitindo que os utilizadores visualizem estatísticas e detalhes par..." alt="" coords="5,5,157,32"/>
+<area shape="rect" id="node5" href="$classMenu.html#ace2f68eeffee67e52f2ddd28424f4a22" title="Apresenta o menu de voos, permitindo que os utilizadores pesquisem as melhores opções de voos." alt="" coords="10,56,153,83"/>
+<area shape="rect" id="node6" href="$classMenu.html#a117fbfc3ae88c68edda0b4d401c4d67d" title=" " alt="" coords="32,107,131,133"/>
+<area shape="rect" id="node7" href="$classMenu.html#ab26408b5b547e6238d19c244264815f5" title="Apresenta o menu de funções diversas, oferecendo recursos adicionais." alt="" coords="15,157,148,184"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="Graph::bfs" name="Graph::bfs">
+<area shape="rect" id="node1" title="Faz uma pesquisa BFS no grafo." alt="" coords="5,31,95,57"/>
+<area shape="rect" id="node2" href="$classGraph.html#a14c25949846aaa41a5f3b73fa706d081" title="Coloca todos os nodes com a distância a &#45;1." alt="" coords="143,5,319,32"/>
+<area shape="rect" id="node3" href="$classGraph.html#a286a309296c8ba03a4edfa0f2310c5a9" title="Coloca todos os nodes como não visitados." alt="" coords="149,56,313,83"/>
+</map>
