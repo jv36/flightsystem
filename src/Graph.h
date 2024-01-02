@@ -38,11 +38,6 @@ public:
     Node& nodeAtKey(const std::string& key);
     void removeVisited();
     void removeDistance();
-    void clearGraph();
-    int distance(const std::string& in, const std::string& out);
-    static Graph createAirTravelGraph(const std::unordered_map<std::string, Airport*>& airports, const std::vector<Flight>& flights);
-
-    static Airport* findClosestAirport(Graph graph, Location source, Location dest);
 
     void articulationDFS(Node& node, std::vector<Airport*> &points, std::stack<Node>& st, int index);
 

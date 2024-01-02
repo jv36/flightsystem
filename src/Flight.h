@@ -10,14 +10,11 @@
 class Flight {
 public:
     Flight();
-    Flight(std::string source, std::string target, std::string airline); //distance?
+    Flight(std::string source, std::string target, std::string airline);
 
     std::string getSource() const;
     std::string getTarget() const;
     std::string getAirline() const;
-    static float getDistance(Location source, Location dest);
-    static void parseFlights();
-
 
 private:
     std::string source;
