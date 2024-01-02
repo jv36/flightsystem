@@ -56,6 +56,7 @@ void Graph::addEdge(const std::string &originAirport, const std::string &destAir
  * @param airportCode: código IATA do aeroporto
  */
 
+
 void Graph::dfs(const std::string &airportCode, std::vector<std::string>& currentPath, std::pair<std::string, std::string>& maxStopsPair) {
     std::stack<std::string> stack;
     stack.push(airportCode);
@@ -67,22 +68,26 @@ void Graph::dfs(const std::string &airportCode, std::vector<std::string>& curren
         stack.pop();
 
         for (const Edge& e : nodes.at(top).adj) {
-            if (!nodes[e.airline].visited) {
-                stack.push(e.airline);
-                nodes[e.airline].visited = true;
-                nodes[e.airline].parent = top;
-                nodes[e.airline].distance = nodes[top].distance + 1;
+            if (!nodes[e.destination].visited) {
+                stack.push(e.destination);
+                nodes[e.destination].visited = true;
+                nodes[e.destination].parent = top;
+                nodes[e.destination].distance = nodes[top].distance + 1;
 
-                currentPath.push_back(e.airline);
+                currentPath.push_back(e.destination);
 
-                if (nodes[e.airline].distance > nodes[maxStopsPair.second].distance) {
+                if (nodes[e.destination].distance > nodes[maxStopsPair.second].distance) {
                     maxStopsPair.first = airportCode;
-                    maxStopsPair.second = e.airline;
+                    maxStopsPair.second = e.destination;
                 }
             }
         }
     }
 }
+
+
+
+
 
 /**
  * @brief Faz uma pesquisa BFS no grafo.

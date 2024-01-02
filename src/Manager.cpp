@@ -806,7 +806,7 @@ void Manager::maximumTripWithStops() {
 
     for (const auto &airport: airports) {
         const std::string &currentAirportCode = airport.first;
-        auto &currentNode = flightGraph->nodeAtKey(currentAirportCode);
+        auto &currentNode = flightGraph->nodes[currentAirportCode];
 
         if (!currentNode.visited) {
             std::vector<std::string> currentPath;
@@ -816,8 +816,9 @@ void Manager::maximumTripWithStops() {
 
     std::cout << "Maximum trip with the greatest number of stops: "
               << maxStopsPair.first << " -> " << maxStopsPair.second
-              << " (Total stops: " << flightGraph->nodeAtKey(maxStopsPair.second).distance << ")" << std::endl;
+              << " (Total stops: " << flightGraph->nodes[maxStopsPair.second].distance << ")" << std::endl;
 }
+
 
 // Global Statístics
 
